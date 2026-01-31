@@ -1,9 +1,13 @@
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('STUDENT', 'TUTOR', 'ADMIN');
+
 -- CreateTable
 CREATE TABLE "user" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "emailVerified" BOOLEAN NOT NULL DEFAULT false,
+    "role" "Role" NOT NULL DEFAULT 'STUDENT',
     "image" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
