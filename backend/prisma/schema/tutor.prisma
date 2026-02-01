@@ -1,0 +1,16 @@
+model Tutor {
+  tutor_id         String       @id @default(uuid())
+  bio              String?
+  avilability_slot Availability @default(FULLDAY)
+  rating           Int          @default(0)
+  total_reviews    Int          @default(0)
+  is_verified      Boolean      @default(false)
+  experience       Int          @default(0)
+  education        String
+  user             User         @relation(fields: [userId], references: [id])
+  userId           String       @unique
+
+  bookings Booking[]
+
+  @@map("tutors")
+}

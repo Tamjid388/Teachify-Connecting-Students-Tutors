@@ -1,7 +1,9 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
-import { Role } from "../../generated/prisma/enums";
+import { Role } from "../../prisma/generated/prisma/enums";
+
+
 
 
 

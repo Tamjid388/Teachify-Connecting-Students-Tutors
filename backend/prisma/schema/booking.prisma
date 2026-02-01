@@ -1,0 +1,39 @@
+enum BookingStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+  CANCELLED
+}
+
+enum TuitionMode {
+  ONLINE
+  OFFLINE
+  BOTH
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+}
+
+model Booking {
+  booking_id    String        @id @default(uuid())
+  bookingStatus BookingStatus @default(PENDING)
+
+  scheduledAt   DateTime
+  duration      Int           @default(60)
+  tutionMode    TuitionMode   @default(ONLINE)
+  paymentStatus PaymentStatus @default(UNPAID)
+
+  // relations
+  student   User   @relation(fields: [studentId], references: [id])
+  studentId String
+  tutor     Tutor  @relation(fields: [tutor_id], references: [tutor_id])
+  tutor_id  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("bookings")
+}
