@@ -4,6 +4,8 @@ import cors from "cors"
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth";
 import { tutorRouter } from "./modules/tutors/tutor.routes";
+import { adminRouter } from "./modules/admin/admin.router";
+import { bookingsRouter } from "./modules/bookings/booking.routes";
 const app:Application=express();
 
 app.use(express.json())
@@ -15,7 +17,8 @@ app.use(cors({
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
 app.use("/api/tutors",tutorRouter)
-
+app.use("/api/bookings",bookingsRouter)
+app.use("/api/admin",adminRouter)
 app.get("/",(req,res)=>{
     res.send("Hello World!")
 })

@@ -13,3 +13,9 @@ enum Availability {
   FULLDAY
   NOT_AVAILABLE
 }
+
+enum UserStatus {
+  ACTIVE
+  DEACTIVE
+  BAN
+}

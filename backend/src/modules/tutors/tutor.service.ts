@@ -1,4 +1,4 @@
-import { error } from "node:console";
+
 import { Availability } from "../../../prisma/generated/prisma/enums";
 import { TutorUpdateInput } from "../../../prisma/generated/prisma/models";
 import { prisma } from "../../lib/prisma";

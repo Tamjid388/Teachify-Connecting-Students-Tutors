@@ -47,6 +47,15 @@ export const Availability = {
 export type Availability = (typeof Availability)[keyof typeof Availability]
 
 
+export const UserStatus = {
+  ACTIVE: 'ACTIVE',
+  DEACTIVE: 'DEACTIVE',
+  BAN: 'BAN'
+} as const
+
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+
+
 export const Role = {
   STUDENT: 'STUDENT',
   TUTOR: 'TUTOR',
