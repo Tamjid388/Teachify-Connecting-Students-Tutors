@@ -38,7 +38,7 @@ export default function WhyChoose() {
            Everything you need to succeed
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We've built the tools and community to make learning effective, engaging, and enjoyable.
+            We have built the tools and community to make learning effective, engaging, and enjoyable.
           </p>
         </div>
 
