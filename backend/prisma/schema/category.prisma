@@ -1,0 +1,10 @@
+model Category{
+    id String @id @default(uuid())
+    subject String @unique
+
+
+    tutorCategory TutorCategory[]
+
+
+     @@map("categories")
+}

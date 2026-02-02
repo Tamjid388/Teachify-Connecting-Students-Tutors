@@ -18,6 +18,7 @@ model User {
   accounts      Account[]
   tutor         Tutor?
   bookings      Booking[]
+  reviews Review[]
 
   @@unique([email])
   @@map("user")

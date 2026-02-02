@@ -31,7 +31,7 @@ model Booking {
   studentId String
   tutor     Tutor  @relation(fields: [tutor_id], references: [tutor_id])
   tutor_id  String
-
+review  Review?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

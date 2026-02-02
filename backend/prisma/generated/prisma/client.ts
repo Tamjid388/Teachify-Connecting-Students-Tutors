@@ -45,10 +45,25 @@ export { Prisma }
  */
 export type Booking = Prisma.BookingModel
 /**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel
+/**
  * Model Tutor
  * 
  */
 export type Tutor = Prisma.TutorModel
+/**
+ * Model TutorCategory
+ * 
+ */
+export type TutorCategory = Prisma.TutorCategoryModel
 /**
  * Model User
  * 

@@ -52,7 +52,10 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Booking: 'Booking',
+  Category: 'Category',
+  Review: 'Review',
   Tutor: 'Tutor',
+  TutorCategory: 'TutorCategory',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -91,6 +94,28 @@ export const BookingScalarFieldEnum = {
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
 
 
+export const CategoryScalarFieldEnum = {
+  id: 'id',
+  subject: 'subject'
+} as const
+
+export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  comment: 'comment',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  tutorId: 'tutorId',
+  bookingId: 'bookingId'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
 export const TutorScalarFieldEnum = {
   tutor_id: 'tutor_id',
   bio: 'bio',
@@ -104,6 +129,14 @@ export const TutorScalarFieldEnum = {
 } as const
 
 export type TutorScalarFieldEnum = (typeof TutorScalarFieldEnum)[keyof typeof TutorScalarFieldEnum]
+
+
+export const TutorCategoryScalarFieldEnum = {
+  tutorId: 'tutorId',
+  categoryId: 'categoryId'
+} as const
+
+export type TutorCategoryScalarFieldEnum = (typeof TutorCategoryScalarFieldEnum)[keyof typeof TutorCategoryScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

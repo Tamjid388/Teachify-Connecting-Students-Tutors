@@ -1,0 +1,8 @@
+model TutorCategory{
+    tutorId String
+    categoryId String
+    category Category @relation(fields: [categoryId], references: [id])
+    tutor    Tutor    @relation(fields: [tutorId], references: [tutor_id])
+     @@id([tutorId, categoryId]) 
+      @@map("tutor_categories")
+}

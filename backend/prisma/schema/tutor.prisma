@@ -11,6 +11,7 @@ model Tutor {
   userId           String       @unique
 
   bookings Booking[]
-
+  reviews Review[]
+  categories TutorCategory[]
   @@map("tutors")
 }
