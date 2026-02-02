@@ -474,10 +474,6 @@ export type ReviewUncheckedUpdateOneWithoutBookingNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ReviewUpdateToOneWithWhereWithoutBookingInput, Prisma.ReviewUpdateWithoutBookingInput>, Prisma.ReviewUncheckedUpdateWithoutBookingInput>
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type ReviewCreateNestedManyWithoutTutorInput = {
   create?: Prisma.XOR<Prisma.ReviewCreateWithoutTutorInput, Prisma.ReviewUncheckedCreateWithoutTutorInput> | Prisma.ReviewCreateWithoutTutorInput[] | Prisma.ReviewUncheckedCreateWithoutTutorInput[]
   connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutTutorInput | Prisma.ReviewCreateOrConnectWithoutTutorInput[]

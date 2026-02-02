@@ -1,10 +1,11 @@
-model Category{
-    id String @id @default(uuid())
-    subject String @unique
-
+model Category {
+    id          String  @id @default(uuid())
+    subject     String  @unique
+    description String?
+    thumbnail   String? 
+    slug        String? @unique
 
     tutorCategory TutorCategory[]
 
-
-     @@map("categories")
+    @@map("categories")
 }
