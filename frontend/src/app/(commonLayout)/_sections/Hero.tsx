@@ -7,7 +7,8 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div className=" flex min-h-screen items-center justify-center bg-orange-50">
+    <div className=" flex min-h-screen items-center justify-center
+     ">
       <div className=" mx-auto grid w-full
        max-w-(--breakpoint-xl) gap-12 px-6  lg:grid-cols-2">
         <div className="flex flex-col justify-center">
