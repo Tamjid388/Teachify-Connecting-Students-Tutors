@@ -13,5 +13,6 @@ model Tutor {
   bookings Booking[]
   reviews Review[]
   categories TutorCategory[]
+  availability   AvailabilitySlot[]
   @@map("tutors")
 }

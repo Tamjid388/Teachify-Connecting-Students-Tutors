@@ -25,17 +25,48 @@ model Booking {
   duration      Int           @default(60)
   tutionMode    TuitionMode   @default(ONLINE)
   paymentStatus PaymentStatus @default(UNPAID)
-  studentId String
-  tutor_id  String
-
+  studentId     String
+  tutor_id      String
+  slotId        String?
   // relations
-  student   User   @relation(fields: [studentId], references: [id])
-  
-  tutor     Tutor  @relation(fields: [tutor_id], references: [tutor_id])
-  
-  review  Review?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  student       User          @relation(fields: [studentId], references: [id])
+
+  tutor Tutor @relation(fields: [tutor_id], references: [tutor_id])
+
+  review            Review?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  availabilitySlots AvailabilitySlot?
 
   @@map("bookings")
+}
+
+model AvailabilitySlot {
+  id        String    @id @default(uuid())
+  tutorId   String
+  day       DayOfWeek
+  startTime DateTime
+  endTime   DateTime
+  isBooked  Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+
+  tutor     Tutor    @relation(fields: [tutorId], references: [tutor_id])
+  booking   Booking? @relation(fields: [bookingId], references: [booking_id])
+  bookingId String? @unique
+
+  @@unique([tutorId, day, startTime, endTime])
+  @@map("availability_slots")
+}
+
+enum DayOfWeek {
+  SUN
+  MON
+  TUE
+  WED
+  THU
+  FRI
+  SAT
 }

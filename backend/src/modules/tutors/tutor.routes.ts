@@ -22,4 +22,14 @@ router.put(
   tutorController.updateAvailability,
 );
 
+//add slots
+router.post("/slots",authMiddleware("TUTOR","ADMIN"),tutorController.addAvailabilitySlots)
+
 export const tutorRouter = router;
+
+
+
+// /tutor/slots
+// /tutor/slots/:slotId
+
+// /tutors/:tutorId/slots

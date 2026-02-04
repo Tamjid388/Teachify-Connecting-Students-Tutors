@@ -45,6 +45,11 @@ export { Prisma }
  */
 export type Booking = Prisma.BookingModel
 /**
+ * Model AvailabilitySlot
+ * 
+ */
+export type AvailabilitySlot = Prisma.AvailabilitySlotModel
+/**
  * Model Category
  * 
  */

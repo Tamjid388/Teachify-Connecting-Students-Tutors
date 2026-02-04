@@ -109,8 +109,23 @@ const updateAvailability = async (req: Request, res: Response) =>{
   }
 }
 
+
+export const addAvailabilitySlots = async (req: Request, res: Response) =>{
+try {
+  const userId=req.user?.id
+  const slots=req.body.slots
+  if (!userId) return res.status(401).json({ message: "User ID required" });
+
+  if(!slots || !Array.isArray(slots) || slots.length===0){
+    return res.status(400).json({ message: "Slots are required" });
+  }
+  const createSlots=await  tutorServices.createSlots(slots,userId)
+} catch (err: any) {
+  res.status(400).json({ success: false, message: err.message });
+}
+}
 export const tutorController = {
   createTutorProfile,
   getAllTutors,
-  updateTutor,updateAvailability
+  updateTutor,updateAvailability,addAvailabilitySlots
 };

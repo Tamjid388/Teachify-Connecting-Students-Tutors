@@ -22,7 +22,7 @@ const formSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
-const Login = () => {
+const SignUp = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
@@ -41,9 +41,9 @@ const Login = () => {
     
 
         <div className="relative isolate flex flex-col items-center">
-         
+      
           <p className="mt-4 font-semibold text-xl tracking-tight">
-            Log in to Teachify
+            Sign up for Teachify
           </p>
 
           <Button className="mt-8 w-full gap-3">
@@ -59,7 +59,7 @@ const Login = () => {
 
           <Form {...form}>
             <form
-              className="w-full space-y-6"
+              className="w-full space-y-4"
               onSubmit={form.handleSubmit(onSubmit)}
             >
               <FormField
@@ -98,26 +98,18 @@ const Login = () => {
                   </FormItem>
                 )}
               />
-              <Button className="w-full" type="submit">
+              <Button className="mt-4 w-full" type="submit">
                 Continue with Email
               </Button>
             </form>
           </Form>
 
-          <div className="mt-5 space-y-5">
-            <Link
-              className="block text-center text-muted-foreground text-sm underline"
-              href="#"
-            >
-              Forgot your password?
+          <p className="mt-5 text-center text-sm">
+            Already have an account?
+            <Link className="ml-1 text-muted-foreground underline" href="/login">
+              Log in
             </Link>
-            <p className="text-center text-sm">
-              Don&apos;t have an account?
-              <Link className="ml-1 text-muted-foreground underline" href="#">
-                Create account
-              </Link>
-            </p>
-          </div>
+          </p>
         </div>
       </div>
     </div>
@@ -160,4 +152,4 @@ const GoogleLogo = () => (
   </svg>
 );
 
-export default Login;
+export default SignUp;
