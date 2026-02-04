@@ -119,7 +119,12 @@ try {
   if(!slots || !Array.isArray(slots) || slots.length===0){
     return res.status(400).json({ message: "Slots are required" });
   }
-  const createSlots=await  tutorServices.createSlots(slots,userId)
+  const createSlots=await  tutorServices.createSlots(slots,userId);
+    return res.status(201).json({
+      success: true,
+      message: "Slots created successfully",
+      data: createSlots,
+    });
 } catch (err: any) {
   res.status(400).json({ success: false, message: err.message });
 }

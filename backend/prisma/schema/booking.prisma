@@ -21,7 +21,8 @@ model Booking {
   booking_id    String        @id @default(uuid())
   bookingStatus BookingStatus @default(PENDING)
 
-  scheduledAt   DateTime
+  startTime DateTime
+  endTime   DateTime
   duration      Int           @default(60)
   tutionMode    TuitionMode   @default(ONLINE)
   paymentStatus PaymentStatus @default(UNPAID)
