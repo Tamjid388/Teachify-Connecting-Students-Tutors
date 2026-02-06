@@ -15,7 +15,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Logo } from "@/components/logo";
+import { signIn } from "@/lib/auth-client";
+
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -26,13 +27,28 @@ const Login = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
-      password: "",
+      password:"",
     },
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
+  const onSubmit = async(data: z.infer<typeof formSchema>) => {
     console.log(data);
+      const cleanData = {
+    ...data,
+    email: data.email.trim(),
+    password: data.password.trim(),
+  };
+
+  console.log(cleanData);
+      try {
+          console.log(data);
+      const {data:result,error}=await signIn.email(data)
+      console.log(result);
+    
+      } catch (error) {
+        console.error(error)
+      }
   };
 
   return (
@@ -46,7 +62,7 @@ const Login = () => {
             Log in to Teachify
           </p>
 
-          <Button className="mt-8 w-full gap-3">
+          <Button variant={"custom"} className="mt-8 w-full gap-3">
             <GoogleLogo />
             Continue with Google
           </Button>
@@ -55,7 +71,7 @@ const Login = () => {
             <Separator />
             <span className="px-2 text-sm">OR</span>
             <Separator />
-          </div>
+          </div> 
 
           <Form {...form}>
             <form
@@ -98,9 +114,10 @@ const Login = () => {
                   </FormItem>
                 )}
               />
-              <Button className="w-full" type="submit">
+              <Button className="w-full bg-custom-primary hover:bg-custom-secondary" type="submit">
                 Continue with Email
               </Button>
+           
             </form>
           </Form>
 
@@ -113,7 +130,8 @@ const Login = () => {
             </Link>
             <p className="text-center text-sm">
               Don&apos;t have an account?
-              <Link className="ml-1 text-muted-foreground underline" href="#">
+              <Link className="ml-1 text-muted-foreground underline" href="/register
+              ">
                 Create account
               </Link>
             </p>

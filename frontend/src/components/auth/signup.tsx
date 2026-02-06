@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,54 +15,109 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { Logo } from "@/components/logo";
+
+import { signUp } from "@/lib/auth-client";
 
 const formSchema = z.object({
-  email: z.string().email(),
+  role: z.enum(["STUDENT", "TUTOR"]),
+  name:z.string(),
+  email: z.string().email("Enter a valid email"),
   password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
-const SignUp = () => {
+const SignUp =  () => {
   const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
+      role: "STUDENT", 
+      name:"",
       email: "",
       password: "",
     },
-    resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const onSubmit = async(data: z.infer<typeof formSchema>) => {
+  try {
+      console.log(data);
+  const {data:result,error}=await signUp.email(data)
+  console.log(result);
+
+  } catch (error) {
+    console.error(error)
+  }
+
+
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="relative w-full max-w-sm overflow-hidden rounded-xl border bg-gradient-to-b from-muted/50 to-card px-8 py-8 shadow-lg/5 dark:from-transparent dark:shadow-xl">
-    
+      <div className="w-full max-w-sm rounded-xl border bg-card px-8 py-8 shadow">
+        <div className="flex flex-col items-center">
+          <p className="mb-6 text-xl font-semibold">Sign up for Teachify</p>
 
-        <div className="relative isolate flex flex-col items-center">
-      
-          <p className="mt-4 font-semibold text-xl tracking-tight">
-            Sign up for Teachify
-          </p>
-
-          <Button className="mt-8 w-full gap-3">
+          <Button variant={"custom"} className="mb-6 w-full gap-3">
             <GoogleLogo />
             Continue with Google
           </Button>
 
-          <div className="my-7 flex w-full items-center justify-center overflow-hidden">
-            <Separator />
-            <span className="px-2 text-sm">OR</span>
-            <Separator />
-          </div>
+        
 
           <Form {...form}>
             <form
               className="w-full space-y-4"
               onSubmit={form.handleSubmit(onSubmit)}
             >
+              {/* Role buttons */}
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="flex gap-3 ">
+                        <Button
+                          type="button"
+                          className="w-1/2 border-2 border-custom-accent"
+                          variant={
+                            field.value === "STUDENT"
+                              ? "custom"
+                              : "outline"
+                          }
+                          onClick={() => field.onChange("STUDENT")}
+                        >
+                          Student
+                        </Button>
+
+                        <Button
+                          type="button"
+                          className="w-1/2"
+                          variant={
+                            field.value === "TUTOR" ? "custom" : "outline"
+                          }
+                          onClick={() => field.onChange("TUTOR")}
+                        >
+                          Tutor
+                        </Button>
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+        {/* Name */}
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* Email */}
               <FormField
                 control={form.control}
                 name="email"
@@ -69,17 +125,14 @@ const SignUp = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        className="w-full"
-                        placeholder="Email"
-                        type="email"
-                        {...field}
-                      />
+                      <Input type="email" placeholder="Email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
+              {/* Password */}
               <FormField
                 control={form.control}
                 name="password"
@@ -88,9 +141,8 @@ const SignUp = () => {
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
-                        className="w-full"
-                        placeholder="Password"
                         type="password"
+                        placeholder="Password"
                         {...field}
                       />
                     </FormControl>
@@ -98,7 +150,8 @@ const SignUp = () => {
                   </FormItem>
                 )}
               />
-              <Button className="mt-4 w-full" type="submit">
+
+              <Button variant={"custom"} className="mt-2 w-full" type="submit">
                 Continue with Email
               </Button>
             </form>
@@ -106,7 +159,10 @@ const SignUp = () => {
 
           <p className="mt-5 text-center text-sm">
             Already have an account?
-            <Link className="ml-1 text-muted-foreground underline" href="/login">
+            <Link
+              href="/login"
+              className="ml-1 underline text-muted-foreground"
+            >
               Log in
             </Link>
           </p>
@@ -118,37 +174,28 @@ const SignUp = () => {
 
 const GoogleLogo = () => (
   <svg
-    className="inline-block size-lg shrink-0 align-sub text-inherit"
-    fill="none"
-    height="1.2em"
-    id="icon-google"
-    viewBox="0 0 16 16"
     width="1.2em"
+    height="1.2em"
+    viewBox="0 0 16 16"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clipPath="url(#clip0)">
-      <path
-        d="M15.6823 8.18368C15.6823 7.63986 15.6382 7.0931 15.5442 6.55811H7.99829V9.63876H12.3194C12.1401 10.6323 11.564 11.5113 10.7203 12.0698V14.0687H13.2983C14.8122 12.6753 15.6823 10.6176 15.6823 8.18368Z"
-        fill="#4285F4"
-      />
-      <path
-        d="M7.99812 16C10.1558 16 11.9753 15.2915 13.3011 14.0687L10.7231 12.0698C10.0058 12.5578 9.07988 12.8341 8.00106 12.8341C5.91398 12.8341 4.14436 11.426 3.50942 9.53296H0.849121V11.5936C2.2072 14.295 4.97332 16 7.99812 16Z"
-        fill="#34A853"
-      />
-      <path
-        d="M3.50665 9.53295C3.17154 8.53938 3.17154 7.4635 3.50665 6.46993V4.4093H0.849292C-0.285376 6.66982 -0.285376 9.33306 0.849292 11.5936L3.50665 9.53295Z"
-        fill="#FBBC04"
-      />
-      <path
-        d="M7.99812 3.16589C9.13867 3.14825 10.241 3.57743 11.067 4.36523L13.3511 2.0812C11.9048 0.723121 9.98526 -0.0235266 7.99812 -1.02057e-05C4.97332 -1.02057e-05 2.2072 1.70493 0.849121 4.40932L3.50648 6.46995C4.13848 4.57394 5.91104 3.16589 7.99812 3.16589Z"
-        fill="#EA4335"
-      />
-    </g>
-    <defs>
-      <clipPath id="clip0">
-        <rect fill="white" height="16" width="15.6825" />
-      </clipPath>
-    </defs>
+    <path
+      d="M15.6823 8.18368C15.6823 7.63986 15.6382 7.0931 15.5442 6.55811H7.99829V9.63876H12.3194C12.1401 10.6323 11.564 11.5113 10.7203 12.0698V14.0687H13.2983C14.8122 12.6753 15.6823 10.6176 15.6823 8.18368Z"
+      fill="#4285F4"
+    />
+    <path
+      d="M7.99812 16C10.1558 16 11.9753 15.2915 13.3011 14.0687L10.7231 12.0698C10.0058 12.5578 9.07988 12.8341 8.00106 12.8341C5.91398 12.8341 4.14436 11.426 3.50942 9.53296H0.849121V11.5936C2.2072 14.295 4.97332 16 7.99812 16Z"
+      fill="#34A853"
+    />
+    <path
+      d="M3.50665 9.53295C3.17154 8.53938 3.17154 7.4635 3.50665 6.46993V4.4093H0.849292C-0.285376 6.66982 -0.285376 9.33306 0.849292 11.5936L3.50665 9.53295Z"
+      fill="#FBBC04"
+    />
+    <path
+      d="M7.99812 3.16589C9.13867 3.14825 10.241 3.57743 11.067 4.36523L13.3511 2.0812C11.9048 0.723121 9.98526 -0.0235266 7.99812 -1.02057e-05C4.97332 -1.02057e-05 2.2072 1.70493 0.849121 4.40932L3.50648 6.46995C4.13848 4.57394 5.91104 3.16589 7.99812 3.16589Z"
+      fill="#EA4335"
+    />
   </svg>
 );
 

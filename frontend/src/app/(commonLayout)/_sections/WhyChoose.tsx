@@ -53,13 +53,13 @@ export default function WhyChoose() {
               >
                 {/* Icon Container */}
                 <div className="mb-6 inline-block">
-                  <div className="w-16 h-16 bg-gradient-to-br from-orange-600 to-red-400 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <div className="w-16 h-16 bg-custom-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <Icon className="w-8 h-8 text-white" strokeWidth={2} />
                   </div>
                 </div>
 
                 {/* Content */}
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
+                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-custom-secondary transition-colors">
                   {feature.title}
                 </h3>
                 <p className="text-gray-600 leading-relaxed mb-3">
