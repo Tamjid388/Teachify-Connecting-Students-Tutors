@@ -1252,6 +1252,7 @@ export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof 
 
 export const TutorScalarFieldEnum = {
   tutor_id: 'tutor_id',
+  image: 'image',
   bio: 'bio',
   avilability_slot: 'avilability_slot',
   rating: 'rating',

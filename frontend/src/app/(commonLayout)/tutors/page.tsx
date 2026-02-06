@@ -1,10 +1,16 @@
+import TutorList from '@/components/modules/tutors/TutorList';
 import { tutorService } from '@/services/tutor-service';
 
 
 export default async function Tutors() {
   const tutors = await tutorService.getAllTutors();
-  console.log(tutors);
+  const allTutors=tutors?.result
+  console.log(allTutors);
   return (
-    <div>page</div>
+    <div>
+         <div className="p-6">
+      <TutorList tutors={allTutors} />
+    </div>
+    </div>
   )
 }

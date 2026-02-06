@@ -40,6 +40,7 @@ export type TutorSumAggregateOutputType = {
 
 export type TutorMinAggregateOutputType = {
   tutor_id: string | null
+  image: string | null
   bio: string | null
   avilability_slot: $Enums.Availability | null
   rating: number | null
@@ -52,6 +53,7 @@ export type TutorMinAggregateOutputType = {
 
 export type TutorMaxAggregateOutputType = {
   tutor_id: string | null
+  image: string | null
   bio: string | null
   avilability_slot: $Enums.Availability | null
   rating: number | null
@@ -64,6 +66,7 @@ export type TutorMaxAggregateOutputType = {
 
 export type TutorCountAggregateOutputType = {
   tutor_id: number
+  image: number
   bio: number
   avilability_slot: number
   rating: number
@@ -90,6 +93,7 @@ export type TutorSumAggregateInputType = {
 
 export type TutorMinAggregateInputType = {
   tutor_id?: true
+  image?: true
   bio?: true
   avilability_slot?: true
   rating?: true
@@ -102,6 +106,7 @@ export type TutorMinAggregateInputType = {
 
 export type TutorMaxAggregateInputType = {
   tutor_id?: true
+  image?: true
   bio?: true
   avilability_slot?: true
   rating?: true
@@ -114,6 +119,7 @@ export type TutorMaxAggregateInputType = {
 
 export type TutorCountAggregateInputType = {
   tutor_id?: true
+  image?: true
   bio?: true
   avilability_slot?: true
   rating?: true
@@ -213,6 +219,7 @@ export type TutorGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type TutorGroupByOutputType = {
   tutor_id: string
+  image: string | null
   bio: string | null
   avilability_slot: $Enums.Availability
   rating: number
@@ -248,6 +255,7 @@ export type TutorWhereInput = {
   OR?: Prisma.TutorWhereInput[]
   NOT?: Prisma.TutorWhereInput | Prisma.TutorWhereInput[]
   tutor_id?: Prisma.StringFilter<"Tutor"> | string
+  image?: Prisma.StringNullableFilter<"Tutor"> | string | null
   bio?: Prisma.StringNullableFilter<"Tutor"> | string | null
   avilability_slot?: Prisma.EnumAvailabilityFilter<"Tutor"> | $Enums.Availability
   rating?: Prisma.IntFilter<"Tutor"> | number
@@ -265,6 +273,7 @@ export type TutorWhereInput = {
 
 export type TutorOrderByWithRelationInput = {
   tutor_id?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   avilability_slot?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -286,6 +295,7 @@ export type TutorWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.TutorWhereInput | Prisma.TutorWhereInput[]
   OR?: Prisma.TutorWhereInput[]
   NOT?: Prisma.TutorWhereInput | Prisma.TutorWhereInput[]
+  image?: Prisma.StringNullableFilter<"Tutor"> | string | null
   bio?: Prisma.StringNullableFilter<"Tutor"> | string | null
   avilability_slot?: Prisma.EnumAvailabilityFilter<"Tutor"> | $Enums.Availability
   rating?: Prisma.IntFilter<"Tutor"> | number
@@ -302,6 +312,7 @@ export type TutorWhereUniqueInput = Prisma.AtLeast<{
 
 export type TutorOrderByWithAggregationInput = {
   tutor_id?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   avilability_slot?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -322,6 +333,7 @@ export type TutorScalarWhereWithAggregatesInput = {
   OR?: Prisma.TutorScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TutorScalarWhereWithAggregatesInput | Prisma.TutorScalarWhereWithAggregatesInput[]
   tutor_id?: Prisma.StringWithAggregatesFilter<"Tutor"> | string
+  image?: Prisma.StringNullableWithAggregatesFilter<"Tutor"> | string | null
   bio?: Prisma.StringNullableWithAggregatesFilter<"Tutor"> | string | null
   avilability_slot?: Prisma.EnumAvailabilityWithAggregatesFilter<"Tutor"> | $Enums.Availability
   rating?: Prisma.IntWithAggregatesFilter<"Tutor"> | number
@@ -334,6 +346,7 @@ export type TutorScalarWhereWithAggregatesInput = {
 
 export type TutorCreateInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -350,6 +363,7 @@ export type TutorCreateInput = {
 
 export type TutorUncheckedCreateInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -366,6 +380,7 @@ export type TutorUncheckedCreateInput = {
 
 export type TutorUpdateInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -382,6 +397,7 @@ export type TutorUpdateInput = {
 
 export type TutorUncheckedUpdateInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -398,6 +414,7 @@ export type TutorUncheckedUpdateInput = {
 
 export type TutorCreateManyInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -410,6 +427,7 @@ export type TutorCreateManyInput = {
 
 export type TutorUpdateManyMutationInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -421,6 +439,7 @@ export type TutorUpdateManyMutationInput = {
 
 export type TutorUncheckedUpdateManyInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -438,6 +457,7 @@ export type TutorScalarRelationFilter = {
 
 export type TutorCountOrderByAggregateInput = {
   tutor_id?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avilability_slot?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -456,6 +476,7 @@ export type TutorAvgOrderByAggregateInput = {
 
 export type TutorMaxOrderByAggregateInput = {
   tutor_id?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avilability_slot?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -468,6 +489,7 @@ export type TutorMaxOrderByAggregateInput = {
 
 export type TutorMinOrderByAggregateInput = {
   tutor_id?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avilability_slot?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -583,6 +605,7 @@ export type TutorUncheckedUpdateOneWithoutUserNestedInput = {
 
 export type TutorCreateWithoutBookingsInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -598,6 +621,7 @@ export type TutorCreateWithoutBookingsInput = {
 
 export type TutorUncheckedCreateWithoutBookingsInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -629,6 +653,7 @@ export type TutorUpdateToOneWithWhereWithoutBookingsInput = {
 
 export type TutorUpdateWithoutBookingsInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -644,6 +669,7 @@ export type TutorUpdateWithoutBookingsInput = {
 
 export type TutorUncheckedUpdateWithoutBookingsInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -659,6 +685,7 @@ export type TutorUncheckedUpdateWithoutBookingsInput = {
 
 export type TutorCreateWithoutAvailabilityInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -674,6 +701,7 @@ export type TutorCreateWithoutAvailabilityInput = {
 
 export type TutorUncheckedCreateWithoutAvailabilityInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -705,6 +733,7 @@ export type TutorUpdateToOneWithWhereWithoutAvailabilityInput = {
 
 export type TutorUpdateWithoutAvailabilityInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -720,6 +749,7 @@ export type TutorUpdateWithoutAvailabilityInput = {
 
 export type TutorUncheckedUpdateWithoutAvailabilityInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -735,6 +765,7 @@ export type TutorUncheckedUpdateWithoutAvailabilityInput = {
 
 export type TutorCreateWithoutReviewsInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -750,6 +781,7 @@ export type TutorCreateWithoutReviewsInput = {
 
 export type TutorUncheckedCreateWithoutReviewsInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -781,6 +813,7 @@ export type TutorUpdateToOneWithWhereWithoutReviewsInput = {
 
 export type TutorUpdateWithoutReviewsInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -796,6 +829,7 @@ export type TutorUpdateWithoutReviewsInput = {
 
 export type TutorUncheckedUpdateWithoutReviewsInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -811,6 +845,7 @@ export type TutorUncheckedUpdateWithoutReviewsInput = {
 
 export type TutorCreateWithoutCategoriesInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -826,6 +861,7 @@ export type TutorCreateWithoutCategoriesInput = {
 
 export type TutorUncheckedCreateWithoutCategoriesInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -857,6 +893,7 @@ export type TutorUpdateToOneWithWhereWithoutCategoriesInput = {
 
 export type TutorUpdateWithoutCategoriesInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -872,6 +909,7 @@ export type TutorUpdateWithoutCategoriesInput = {
 
 export type TutorUncheckedUpdateWithoutCategoriesInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -887,6 +925,7 @@ export type TutorUncheckedUpdateWithoutCategoriesInput = {
 
 export type TutorCreateWithoutUserInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -902,6 +941,7 @@ export type TutorCreateWithoutUserInput = {
 
 export type TutorUncheckedCreateWithoutUserInput = {
   tutor_id?: string
+  image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
   rating?: number
@@ -933,6 +973,7 @@ export type TutorUpdateToOneWithWhereWithoutUserInput = {
 
 export type TutorUpdateWithoutUserInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -948,6 +989,7 @@ export type TutorUpdateWithoutUserInput = {
 
 export type TutorUncheckedUpdateWithoutUserInput = {
   tutor_id?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1021,6 +1063,7 @@ export type TutorCountOutputTypeCountAvailabilityArgs<ExtArgs extends runtime.Ty
 
 export type TutorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   tutor_id?: boolean
+  image?: boolean
   bio?: boolean
   avilability_slot?: boolean
   rating?: boolean
@@ -1039,6 +1082,7 @@ export type TutorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 
 export type TutorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   tutor_id?: boolean
+  image?: boolean
   bio?: boolean
   avilability_slot?: boolean
   rating?: boolean
@@ -1052,6 +1096,7 @@ export type TutorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 
 export type TutorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   tutor_id?: boolean
+  image?: boolean
   bio?: boolean
   avilability_slot?: boolean
   rating?: boolean
@@ -1065,6 +1110,7 @@ export type TutorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 
 export type TutorSelectScalar = {
   tutor_id?: boolean
+  image?: boolean
   bio?: boolean
   avilability_slot?: boolean
   rating?: boolean
@@ -1075,7 +1121,7 @@ export type TutorSelectScalar = {
   userId?: boolean
 }
 
-export type TutorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"tutor_id" | "bio" | "avilability_slot" | "rating" | "total_reviews" | "is_verified" | "experience" | "education" | "userId", ExtArgs["result"]["tutor"]>
+export type TutorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"tutor_id" | "image" | "bio" | "avilability_slot" | "rating" | "total_reviews" | "is_verified" | "experience" | "education" | "userId", ExtArgs["result"]["tutor"]>
 export type TutorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bookings?: boolean | Prisma.Tutor$bookingsArgs<ExtArgs>
@@ -1102,6 +1148,7 @@ export type $TutorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     tutor_id: string
+    image: string | null
     bio: string | null
     avilability_slot: $Enums.Availability
     rating: number
@@ -1539,6 +1586,7 @@ export interface Prisma__TutorClient<T, Null = never, ExtArgs extends runtime.Ty
  */
 export interface TutorFieldRefs {
   readonly tutor_id: Prisma.FieldRef<"Tutor", 'String'>
+  readonly image: Prisma.FieldRef<"Tutor", 'String'>
   readonly bio: Prisma.FieldRef<"Tutor", 'String'>
   readonly avilability_slot: Prisma.FieldRef<"Tutor", 'Availability'>
   readonly rating: Prisma.FieldRef<"Tutor", 'Int'>
