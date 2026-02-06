@@ -9,14 +9,14 @@ import { bookingsRouter } from "./modules/bookings/booking.routes";
 import { reviewRouter } from "./modules/reviews/review.routes";
 const app:Application=express();
 
-app.use(express.json())
+
 app.use(cors({
     origin:process.env.App_URL || "http://localhost:3000",
     credentials:true 
 }))
 
 app.all("/api/auth/*splat", toNodeHandler(auth));
-
+app.use(express.json())
 app.use("/api/tutors",tutorRouter)
 app.use("/api/bookings",bookingsRouter)
 app.use("/api/admin",adminRouter)

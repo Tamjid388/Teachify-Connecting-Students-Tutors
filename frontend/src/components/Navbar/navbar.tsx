@@ -26,7 +26,10 @@ const Navbar =async () => {
         <div className="flex items-center gap-3">
           {
 user ? <>
-    <Button variant={'custom'}>
+    <Button variant={'outline'}>
+            {user?.name}
+          </Button>
+    <Button className="border-2 border-custom-accent" variant={'outline'}>
             Signout
           </Button>
 </>:
