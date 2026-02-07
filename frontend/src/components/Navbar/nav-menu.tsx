@@ -10,7 +10,10 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
-export const NavMenu = (props: ComponentProps<typeof NavigationMenu>) => (
+export const NavMenu = ({
+  dashboardRoute,
+  ...props
+}: { dashboardRoute: string } & ComponentProps<typeof NavigationMenu>) => (
   <NavigationMenu {...props}>
     <NavigationMenuList className="data-[orientation=vertical]:-ms-2 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start data-[orientation=vertical]:justify-start">
       <NavigationMenuItem>
@@ -30,7 +33,7 @@ export const NavMenu = (props: ComponentProps<typeof NavigationMenu>) => (
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href="/dashboard">Dashboard</Link>
+          <Link href={dashboardRoute}>Dashboard</Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
     </NavigationMenuList>

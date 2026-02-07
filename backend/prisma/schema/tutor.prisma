@@ -1,6 +1,6 @@
 model Tutor {
   tutor_id         String       @id @default(uuid())
-  image  String?
+  image  String? 
   bio              String?
   avilability_slot Availability @default(FULLDAY)
   rating           Int          @default(0)
