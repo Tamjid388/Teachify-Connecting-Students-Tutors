@@ -1,8 +1,14 @@
 import { env } from "@/env";
-
+export type TutorProfilePayload = {
+  image: string
+  bio: string
+  rating: number
+  experience: number
+  education: string
+}
 export const tutorService = {
-  createProfile: async (data:string) => {
-    const res = await fetch(`${env.BACKEND_URL}tutors`, {
+  createProfile: async (data:TutorProfilePayload) => {
+    const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}tutors`, {
       method: "POST",
       cache: "no-store",
       credentials: "include",
@@ -11,6 +17,10 @@ export const tutorService = {
       },
       body: JSON.stringify(data),
     });
+    console.log(res);
+if (!res.ok) {
+  throw new Error("Failed to create tutor profile");
+}
 
     return res.json();
   },

@@ -51,7 +51,7 @@ export default function DashboardLayout({
             </Breadcrumb>
           </div>
         </header>
-     <main>
+     <main className=" p-4">
   {userInfo.role === "ADMIN" && admin}
   {userInfo.role === "STUDENT" && student}
   {userInfo.role === "TUTOR" && tutor}
