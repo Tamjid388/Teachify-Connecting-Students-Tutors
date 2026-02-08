@@ -12,3 +12,10 @@ interface TTutor {
   rate: number;
   experience: number;
 }
+
+
+export type AvailabilityPayload = {
+  day: string;
+  startTime: string;
+  endTime: string;
+};

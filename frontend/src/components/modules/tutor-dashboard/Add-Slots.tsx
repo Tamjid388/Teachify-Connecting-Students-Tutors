@@ -11,6 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Calendar, Clock } from "lucide-react";
+import { addAvailabilitySlot } from "@/actions/tutor.actions";
+import { toast } from "sonner";
 
 const DAYS = ["SAT", "SUN", "MON", "TUE", "WED", "THU", "FRI"];
 
@@ -24,22 +26,26 @@ export default function AddSlots() {
       endTime: "",
     },
     onSubmit: async ({ value }) => {
-      const startDateTime = new Date(`${value.startDate}T${value.startTime}`);
-      const endDateTime = new Date(`${value.endDate}T${value.endTime}`);
+      try {
+        const startDateTime = new Date(`${value.startDate}T${value.startTime}`);
+        const endDateTime = new Date(`${value.endDate}T${value.endTime}`);
 
-      const payload = {
-        day: value.day,
-        startTime: startDateTime.toISOString(),
-        endTime: endDateTime.toISOString(),
-      };
+        const payload = {
+          day: value.day,
+          startTime: startDateTime.toISOString(),
+          endTime: endDateTime.toISOString(),
+        };
 
-      console.log(payload);
+        const res = await addAvailabilitySlot(payload);
 
-      // await fetch(`/api/tutors/${tutorId}/availability`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(payload),
-      // });
+        console.log("Slot added:", res);
+
+        form.reset();
+        toast.success("Availability slot added successfully!");
+      } catch (error) {
+        console.error(error);
+        alert("Failed to add slot. Try again.");
+      }
     },
   });
 
