@@ -6,8 +6,12 @@ import { ModeToggle } from "./ModeToggle";
 import Link from "next/link";
 import { userService } from "@/services/user-service";
 import { USER_ROLES, UserRole } from "@/Types/TRoles";
+import { signOut } from "@/lib/auth-client";
+import Logout from "../auth/logout";
+
 
 const Navbar = async () => {
+
   const { data, error } = await userService.getSession();
   const user = data?.user;
   function getDashboardRoute(role: UserRole | undefined) {
@@ -22,7 +26,7 @@ const Navbar = async () => {
         return "/login";
     }
   }
-  console.log(user.role);
+
   const dashboardRoute = getDashboardRoute(user.role);
   return (
     <nav className="h-16 border-b bg-background">
@@ -45,12 +49,7 @@ const Navbar = async () => {
           {user ? (
             <>
               <Button variant={"outline"}>{user?.name}</Button>
-              <Button
-                className="border-2 border-custom-accent"
-                variant={"outline"}
-              >
-                Signout
-              </Button>
+            <Logout/>
             </>
           ) : (
             <>

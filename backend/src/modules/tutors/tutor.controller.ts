@@ -129,8 +129,26 @@ try {
   res.status(400).json({ success: false, message: err.message });
 }
 }
+
+
+export const getAvailabilitySlots = async (req: Request, res: Response) => {
+  try {
+    const tutorId = req.query.tutorId as string 
+    const slots = await tutorServices.getSlots(tutorId);
+
+    return res.status(200).json({
+      success: true,
+      data: slots,
+    });
+  } catch (err: any) {
+    return res.status(500).json({
+      success: false,
+      message: err.message || "Failed to fetch slots",
+    });
+  }
+};
 export const tutorController = {
   createTutorProfile,
   getAllTutors,
-  updateTutor,updateAvailability,addAvailabilitySlots
+  updateTutor,updateAvailability,addAvailabilitySlots, getAvailabilitySlots
 };

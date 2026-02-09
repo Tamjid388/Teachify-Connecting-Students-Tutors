@@ -24,6 +24,7 @@ router.put(
 
 //add slots
 router.post("/slots",authMiddleware("TUTOR","ADMIN"),tutorController.addAvailabilitySlots)
+router.get("/slots",authMiddleware("TUTOR","ADMIN","STUDENT"),tutorController.getAvailabilitySlots)
 
 export const tutorRouter = router;
 

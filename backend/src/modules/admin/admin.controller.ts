@@ -4,6 +4,7 @@ import { adminServices } from "./admin.service";
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
+     console.log("🔥 ADMIN USERS CONTROLLER HIT");
     const admin = req.user;
 
    

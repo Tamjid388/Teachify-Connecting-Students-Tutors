@@ -4,12 +4,16 @@ export const adminRoutes= [
      
       items: [
         {
-          title: "Installation",
+          title: "Analytics",
           url: "#",
         },
         {
-          title: "Project Structure",
-          url: "#",
+          title: "Manage Users",
+          url: "/admin-dashboard/manage-users ",
+        },
+        {
+          title: "Manage Subjects",
+          url: "/admin-dashboard/manage-subjects",
         },
       ],
     },

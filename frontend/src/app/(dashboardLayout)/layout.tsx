@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,30 +6,34 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { UserRole } from "@/Types/TRoles"
+} from "@/components/ui/sidebar";
+import { userService } from "@/services/user-service";
+import { UserRole } from "@/Types/TRoles";
 
-export default function DashboardLayout({
- 
+export default async function DashboardLayout({
   admin,
   student,
-  tutor
+  tutor,
 }: {
-  admin: React.ReactNode
-  student: React.ReactNode
-  tutor: React.ReactNode
+  admin: React.ReactNode;
+  student: React.ReactNode;
+  tutor: React.ReactNode;
 }) {
-  const userInfo:{role:UserRole}={
-    role:"TUTOR"
-  }
+  const { data, error } = await userService.getSession();
+  const user = data?.user;
+
+  const userInfo: { role: UserRole } = {
+    role: user?.role,
+  };
+
   return (
-        <SidebarProvider>
+    <SidebarProvider>
       <AppSidebar user={userInfo} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b">
@@ -51,12 +55,12 @@ export default function DashboardLayout({
             </Breadcrumb>
           </div>
         </header>
-     <main className=" p-4">
-  {userInfo.role === "ADMIN" && admin}
-  {userInfo.role === "STUDENT" && student}
-  {userInfo.role === "TUTOR" && tutor}
-     </main>
+        <main className=" p-4">
+          {userInfo.role === "ADMIN" && admin}
+          {userInfo.role === "STUDENT" && student}
+          {userInfo.role === "TUTOR" && tutor}
+        </main>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

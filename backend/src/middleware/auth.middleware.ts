@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { auth } from "../lib/auth";
-import { Role } from "../../generated/prisma/enums";
-import { success } from "better-auth";
-import { EnumRoleFieldRefInput } from "../../generated/prisma/internal/prismaNamespace";
+
+
+import { Role } from "../../prisma/generated/prisma/enums";
 
 declare global {
   namespace Express {
@@ -35,6 +35,8 @@ const authMiddleware = (...roles: Role[]) => {
         name: session.user.name,
         role: session.user.role as string,
       };
+
+      console.log(req.user.role);
       if (roles.length && !roles.includes(req.user.role as Role)) {
         return res.status(403).json({
           success: false,

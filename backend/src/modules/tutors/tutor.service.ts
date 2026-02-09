@@ -90,10 +90,21 @@ const createSlots = async (slots: TSlots[], userId: string) => {
   });
    return createdSlots;
 };
+
+const getSlots=async(id:string)=>{
+const slots=await prisma.availabilitySlot.findMany({
+  where:{
+    tutorId:id
+  }
+})
+
+return slots
+}
+
 export const tutorServices = {
   createTutor,
   getAllTutors,
   updateTutor,
   updateAvailability,
-  createSlots,
+  createSlots,getSlots
 };

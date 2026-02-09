@@ -59,6 +59,7 @@ model AvailabilitySlot {
   bookingId String? @unique
 
   @@unique([tutorId, day, startTime, endTime])
+  @@index([tutorId])
   @@map("availability_slots")
 }
 
