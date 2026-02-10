@@ -72,7 +72,9 @@ export default function AddProfileForm() {
   return (
     <Card className="">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-custom-primary mb-1">Create Tutor Profile</CardTitle>
+        <CardTitle className="text-2xl font-bold text-custom-primary mb-1">
+          Create Tutor Profile
+        </CardTitle>
         <CardDescription>
           Add basic information about the tutor.
         </CardDescription>
@@ -200,12 +202,21 @@ export default function AddProfileForm() {
 
       <CardFooter>
         <Field orientation="horizontal">
-          <Button className="text-custom-primary" type="button" variant="outline" onClick={() => form.reset()}>
+          <Button
+            className="text-custom-primary"
+            type="button"
+            variant="outline"
+            onClick={() => form.reset()}
+          >
             Reset
           </Button>
-          <Button type="submit" className="bg-custom-primary
+          <Button
+            type="submit"
+            className="bg-custom-primary
           hover:bg-custom-accent
-          " form="add-profile-form">
+          "
+            form="add-profile-form"
+          >
             Create Profile
           </Button>
         </Field>

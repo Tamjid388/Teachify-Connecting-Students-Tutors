@@ -16,7 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { signIn } from "@/lib/auth-client";
-
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -27,42 +28,46 @@ const Login = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
-      password:"",
+      password: "",
     },
     resolver: zodResolver(formSchema),
   });
+  const router = useRouter();
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    const toastId = toast.loading("Signing in...");
 
-  const onSubmit = async(data: z.infer<typeof formSchema>) => {
-    console.log(data);
-      const cleanData = {
-    ...data,
-    email: data.email.trim(),
-    password: data.password.trim(),
-  };
+    const cleanData = {
+      ...data,
+      email: data.email.trim(),
+      password: data.password.trim(),
+    };
 
-  console.log(cleanData);
-      try {
-          console.log(data);
-      const {data:result,error}=await signIn.email(data)
-      console.log(result);
-    
-      } catch (error) {
-        console.error(error)
+    console.log(cleanData);
+    try {
+      console.log(data);
+      const { data: result, error } = await signIn.email(data);
+      if (error) {
+        toast.error(error.message || "Login failed", { id: toastId });
+        return;
       }
+      toast.success("Login successful!", { id: toastId });
+      console.log(result);
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong", { id: toastId });
+    }
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="relative w-full max-w-sm overflow-hidden rounded-xl border bg-gradient-to-b from-muted/50 to-card px-8 py-8 shadow-lg/5 dark:from-transparent dark:shadow-xl">
-    
-
         <div className="relative isolate flex flex-col items-center">
-         
           <p className="mt-4 font-semibold text-xl tracking-tight">
             Log in to Teachify
           </p>
 
-          <Button variant={"custom"} className="mt-8 w-full gap-3">
+          <Button className="mt-8 w-full gap-3">
             <GoogleLogo />
             Continue with Google
           </Button>
@@ -71,7 +76,7 @@ const Login = () => {
             <Separator />
             <span className="px-2 text-sm">OR</span>
             <Separator />
-          </div> 
+          </div>
 
           <Form {...form}>
             <form
@@ -114,10 +119,12 @@ const Login = () => {
                   </FormItem>
                 )}
               />
-              <Button className="w-full bg-custom-primary hover:bg-custom-secondary" type="submit">
+              <Button
+                className="w-full bg-custom-primary hover:bg-custom-secondary"
+                type="submit"
+              >
                 Continue with Email
               </Button>
-           
             </form>
           </Form>
 
@@ -130,8 +137,11 @@ const Login = () => {
             </Link>
             <p className="text-center text-sm">
               Don&apos;t have an account?
-              <Link className="ml-1 text-muted-foreground underline" href="/register
-              ">
+              <Link
+                className="ml-1 text-muted-foreground underline"
+                href="/register
+              "
+              >
                 Create account
               </Link>
             </p>

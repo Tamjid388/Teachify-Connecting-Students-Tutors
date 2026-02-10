@@ -1,4 +1,7 @@
-import { Availability, DayOfWeek } from "../../../prisma/generated/prisma/enums";
+import {
+  Availability,
+  DayOfWeek,
+} from "../../../prisma/generated/prisma/enums";
 import { TutorUpdateInput } from "../../../prisma/generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 import { AuthUser } from "../../types/user";
@@ -75,8 +78,8 @@ const createSlots = async (slots: TSlots[], userId: string) => {
         },
       });
 
-      if(existing) continue
-            const newSlot = await tx.availabilitySlot.create({
+      if (existing) continue;
+      const newSlot = await tx.availabilitySlot.create({
         data: {
           tutorId,
           day,
@@ -86,25 +89,44 @@ const createSlots = async (slots: TSlots[], userId: string) => {
       });
 
       createdSlots.push(newSlot);
-    } 
+    }
   });
-   return createdSlots;
+  return createdSlots;
 };
 
-const getSlots=async(id:string)=>{
-const slots=await prisma.availabilitySlot.findMany({
-  where:{
-    tutorId:id
-  }
-})
+const getSlots = async (id: string) => {
+  const slots = await prisma.availabilitySlot.findMany({
+    where: {
+      tutorId: id,
+    },
+  });
 
-return slots
-}
+  return slots;
+};
+
+const getTutorById = async (tutorId: string) => {
+  const tutor = await prisma.tutor.findUnique({
+    where: {
+      tutor_id: tutorId,
+    },
+    include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+    },
+  });
+
+  return tutor;
+};
 
 export const tutorServices = {
   createTutor,
   getAllTutors,
   updateTutor,
   updateAvailability,
-  createSlots,getSlots
+  createSlots,
+  getSlots,
+  getTutorById,
 };

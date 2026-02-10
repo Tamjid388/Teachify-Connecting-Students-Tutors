@@ -10,9 +10,9 @@ export default function Hero() {
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
       {/* Animated gradient background */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 -left-4 h-72 w-72 animate-pulse rounded-full bg-my-custom-color/20 blur-3xl" />
-        <div className="absolute top-0 -right-4 h-72 w-72 animate-pulse rounded-full bg-custom-secondary/20 blur-3xl [animation-delay:2s]" />
-        <div className="absolute -bottom-8 left-20 h-72 w-72 animate-pulse rounded-full bg-custom-accent/20 blur-3xl [animation-delay:4s]" />
+        <div className="absolute top-0 -left-4 h-72 w-72 animate-pulse rounded-full bg-my-custom-color/30 blur-3xl" />
+        <div className="absolute top-0 -right-4 h-72 w-72 animate-pulse rounded-full bg-custom-secondary/30 blur-3xl [animation-delay:2s]" />
+        <div className="absolute -bottom-8 left-20 h-72 w-72 animate-pulse rounded-full bg-custom-accent/30 blur-3xl [animation-delay:4s]" />
       </div>
 
       <div className="mx-auto grid w-full max-w-(--breakpoint-xl) gap-12 px-6 lg:grid-cols-2">
@@ -25,8 +25,8 @@ export default function Hero() {
             variant="secondary"
           >
             <Link href="#" className="flex items-center gap-1">
-              <Sparkles className="h-3.5 w-3.5 text-my-custom-color" />
-              <span className="bg-gradient-to-r from-my-custom-color to-custom-secondary bg-clip-text text-transparent font-medium">
+              <Sparkles className="h-3.5 w-3.5 text-custom-primary dark:text-white" />
+              <span className="bg-linear-to-r from-custom-primary to-custom-secondary bg-clip-text text-transparent font-medium dark:text-white">
                 New! Explore our latest courses
               </span>
               <ArrowUpRight className="ml-1 h-4 w-4 text-my-custom-color transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -36,7 +36,7 @@ export default function Hero() {
           {/* Main Heading with gradient */}
           <h1 className="mt-6 max-w-[17ch] animate-in fade-in slide-in-from-bottom-4 duration-700 font-bold text-4xl leading-[1.2] tracking-[-0.035em] md:text-6xl lg:text-7xl">
             Find the{" "}
-            <span className="bg-gradient-to-r from-my-custom-color via-custom-secondary to-custom-accent bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-custom-primary via-custom-secondary to-custom-accent bg-clip-text text-transparent">
               Right Tutor
             </span>
             . Learn Smarter.
@@ -71,7 +71,7 @@ export default function Hero() {
           {/* CTA Buttons */}
           <div className="mt-12 flex flex-wrap items-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-700 [animation-delay:600ms]">
             <Button
-              className="group rounded-full bg-gradient-to-r from-my-custom-color to-custom-secondary text-base shadow-lg transition-all hover:shadow-xl hover:scale-105"
+              className="group rounded-full bg-gradient-to-r from-custom-primary to-custom-secondary text-base shadow-lg transition-all hover:shadow-xl hover:scale-105 dark:text-white"
               size="lg"
             >
               Get Started
@@ -142,7 +142,7 @@ export default function Hero() {
             {/* Floating card */}
             <div className="absolute bottom-6 left-6 right-6 z-20 rounded-2xl border border-white/20 bg-background/80 p-4 shadow-xl backdrop-blur-md">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-my-custom-color to-custom-secondary">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-custom-primary to-custom-accent">
                   <Star className="h-6 w-6 fill-white text-white" />
                 </div>
                 <div>

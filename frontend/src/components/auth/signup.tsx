@@ -55,7 +55,7 @@ const SignUp =  () => {
         <div className="flex flex-col items-center">
           <p className="mb-6 text-xl font-semibold">Sign up for Teachify</p>
 
-          <Button variant={"custom"} className="mb-6 w-full gap-3">
+          <Button className="mb-6 w-full gap-3">
             <GoogleLogo />
             Continue with Google
           </Button>

@@ -1,6 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AddProfileForm from "./AddProfileForm";
 import AddSlots from "./Add-Slots";
+import AddSubjectForm from "../admin-dashboard/AddSubjectForm";
+import AddSubjects from "./AddSubjects";
 export default function TutorTabs() {
   return (
     <Tabs defaultValue="profile" className="w-full">
@@ -13,10 +15,10 @@ export default function TutorTabs() {
         <AddProfileForm />
       </TabsContent>
       <TabsContent value="availability">
-        <AddSlots/>
+        <AddSlots />
       </TabsContent>
       <TabsContent value="subjects">
-
+        <AddSubjects />
       </TabsContent>
     </Tabs>
   );

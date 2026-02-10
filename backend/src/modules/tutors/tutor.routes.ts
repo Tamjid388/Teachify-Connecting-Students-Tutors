@@ -9,6 +9,9 @@ router.post(
   authMiddleware("TUTOR", "ADMIN"),
   tutorController.createTutorProfile,
 );
+//tutor info by tutorId
+router.get("/:tutorId",tutorController.getTutorById)
+
 router.put(
   "/update",
   authMiddleware("TUTOR", "ADMIN"),

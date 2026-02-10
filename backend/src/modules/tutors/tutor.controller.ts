@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { tutorServices } from "./tutor.service";
+import { success } from "better-auth";
 
 const createTutorProfile = async (req: Request, res: Response) => {
   try {
@@ -147,8 +148,39 @@ export const getAvailabilitySlots = async (req: Request, res: Response) => {
     });
   }
 };
+const getTutorById = async (req: Request, res: Response) => {
+  try {
+    const { tutorId } = req.params;
+if(!tutorId || Array.isArray(tutorId)){
+  return res.status(404).json({
+    success:false,
+    message:"Valid tutorId is required"
+  })
+}
+    const tutor = await tutorServices.getTutorById(tutorId);
+
+    if (!tutor ) {
+      return res.status(404).json({
+        success: false,
+        message: "Tutor not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: tutor,
+    });
+  } catch (error) {
+    console.error("GET TUTOR ERROR 👉", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to get tutor info",
+    });
+  }
+};
+
 export const tutorController = {
   createTutorProfile,
   getAllTutors,
-  updateTutor,updateAvailability,addAvailabilitySlots, getAvailabilitySlots
+  updateTutor,updateAvailability,addAvailabilitySlots, getAvailabilitySlots,getTutorById 
 };
