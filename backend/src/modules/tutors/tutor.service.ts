@@ -28,15 +28,39 @@ const createTutor = async (body: PayloadType, user: AuthUser) => {
 };
 
 const getAllTutors = async () => {
-  return await prisma.tutor.findMany({
-    include:{
-      user:{
-        select:{
-          name:true
-        }
-      }
-    }
+ 
+  const tutors = await prisma.tutor.findMany({
+    include: {
+      user: {
+        select: { name: true },
+      },
+      categories: {
+        include: { category: true },
+      },
+    },
   });
+
+ 
+  const tutorsWithStats = await Promise.all(
+    tutors.map(async (tutor) => {
+      const stats = await prisma.review.aggregate({
+        where: { tutorId: tutor.tutor_id },
+        _count: { rating: true },
+        _avg: { rating: true },
+      });
+
+
+      return {
+        ...tutor,
+        name: tutor.user.name,
+        categories: tutor.categories.map((c) => c.category),
+        reviewCount: stats._count.rating,
+        averageRating: stats._avg.rating || 0,
+      };
+    })
+  );
+
+  return tutorsWithStats;
 };
 
 const updateTutor = async (body: TutorUpdateInput, user: AuthUser) => {
@@ -133,6 +157,11 @@ const getTutorById = async (tutorId: string) => {
           category: true,
         },
       },
+      _count:{
+        select:{
+          reviews:true
+        }
+      }
     },
   });
 

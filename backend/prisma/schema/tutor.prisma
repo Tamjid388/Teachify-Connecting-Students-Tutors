@@ -3,8 +3,7 @@ model Tutor {
   image  String? 
   bio              String?
   avilability_slot Availability @default(FULLDAY)
-  rating           Int          @default(0)
-  total_reviews    Int          @default(0)
+
   is_verified      Boolean      @default(false)
   experience       Int          @default(0)
   education        String
