@@ -89,6 +89,7 @@ export const BookingScalarFieldEnum = {
   paymentStatus: 'paymentStatus',
   studentId: 'studentId',
   tutor_id: 'tutor_id',
+  isReviewed: 'isReviewed',
   slotId: 'slotId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -105,8 +106,7 @@ export const AvailabilitySlotScalarFieldEnum = {
   endTime: 'endTime',
   isBooked: 'isBooked',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  bookingId: 'bookingId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type AvailabilitySlotScalarFieldEnum = (typeof AvailabilitySlotScalarFieldEnum)[keyof typeof AvailabilitySlotScalarFieldEnum]
@@ -131,7 +131,7 @@ export const ReviewScalarFieldEnum = {
   updatedAt: 'updatedAt',
   userId: 'userId',
   tutorId: 'tutorId',
-  bookingId: 'bookingId'
+  booking_id: 'booking_id'
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]

@@ -11,8 +11,8 @@ model Review {
     userId    String
     tutor     Tutor   @relation(fields: [tutorId], references: [tutor_id])
     tutorId   String
-    booking   Booking @relation(fields: [bookingId], references: [booking_id])
-    bookingId String  @unique
+    booking   Booking @relation(fields: [booking_id], references: [booking_id])
+    booking_id String  @unique
 
     @@unique([userId, tutorId])
     @@index([tutorId])

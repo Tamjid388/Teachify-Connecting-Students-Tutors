@@ -4,8 +4,8 @@ export const studentRoutes= [
      
       items: [
         {
-          title: "Installation",
-          url: "#",
+          title: "My Bookings",
+          url: "/student-dashboard/my-bookings",
         },
         {
           title: "Project Structure",

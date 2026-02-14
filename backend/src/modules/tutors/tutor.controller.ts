@@ -114,6 +114,8 @@ const updateAvailability = async (req: Request, res: Response) =>{
 export const addAvailabilitySlots = async (req: Request, res: Response) =>{
 try {
   const userId=req.user?.id
+
+  console.log(req.body);
   const slots=req.body.slots
   if (!userId) return res.status(401).json({ message: "User ID required" });
 
@@ -131,7 +133,7 @@ try {
 }
 }
 
-
+//get slots
 export const getAvailabilitySlots = async (req: Request, res: Response) => {
   try {
     const tutorId = req.query.tutorId as string 

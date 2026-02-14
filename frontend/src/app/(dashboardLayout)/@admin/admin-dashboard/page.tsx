@@ -2,6 +2,8 @@ import React from 'react'
 
 export default function page() {
   return (
-    <div>admin Dashboaerd</div>
+    <div>  <h1 className="text-4xl font-bold
+      text-custom-primary
+      ">Welcome To Admin Dashboard</h1></div>
   )
 }

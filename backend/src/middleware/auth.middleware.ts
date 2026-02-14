@@ -19,6 +19,9 @@ declare global {
 const authMiddleware = (...roles: Role[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
+      
+
+
       const session = await auth.api.getSession({
         headers: req.headers as any,
       });
@@ -35,8 +38,7 @@ const authMiddleware = (...roles: Role[]) => {
         name: session.user.name,
         role: session.user.role as string,
       };
-
-      console.log(req.user.role);
+console.log("User Role:", req.user.role);
       if (roles.length && !roles.includes(req.user.role as Role)) {
         return res.status(403).json({
           success: false,

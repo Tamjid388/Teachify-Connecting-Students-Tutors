@@ -28,7 +28,15 @@ const createTutor = async (body: PayloadType, user: AuthUser) => {
 };
 
 const getAllTutors = async () => {
-  return await prisma.tutor.findMany();
+  return await prisma.tutor.findMany({
+    include:{
+      user:{
+        select:{
+          name:true
+        }
+      }
+    }
+  });
 };
 
 const updateTutor = async (body: TutorUpdateInput, user: AuthUser) => {
@@ -53,9 +61,11 @@ const updateAvailability = async (slot: Availability, user: AuthUser) => {
 };
 type TSlots = {
   day: DayOfWeek;
-  startTime: Date;
-  endTime: Date;
+  startTime: string;
+  endTime: string;
 };
+
+
 const createSlots = async (slots: TSlots[], userId: string) => {
   const tutor = await prisma.tutor.findUnique({
     where: { userId },
@@ -73,8 +83,8 @@ const createSlots = async (slots: TSlots[], userId: string) => {
         where: {
           tutorId,
           day,
-          startTime: new Date(startTime),
-          endTime: new Date(endTime),
+          startTime,
+          endTime,
         },
       });
 
@@ -83,8 +93,8 @@ const createSlots = async (slots: TSlots[], userId: string) => {
         data: {
           tutorId,
           day,
-          startTime: new Date(startTime),
-          endTime: new Date(endTime),
+          startTime,
+          endTime,
         },
       });
 
@@ -98,9 +108,17 @@ const getSlots = async (id: string) => {
   const slots = await prisma.availabilitySlot.findMany({
     where: {
       tutorId: id,
+    },include:{
+      bookings:true
     },
+    orderBy:{
+      day:"asc"
+    }
   });
 
+  if(slots.length===0){
+    throw new Error("Tutor Doesnt Have Any Available Slots")
+  }
   return slots;
 };
 

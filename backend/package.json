@@ -23,6 +23,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx tsx watch ./src/server.ts",
+    "setup": "prisma migrate dev --name init && prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -2,8 +2,13 @@ import Image from "next/image";
 import { Star, CheckCircle2, Clock, GraduationCap, Briefcase } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { TTutor } from "@/Types/Ttutor";
+
 
 export default function TutorCard({ tutor }: { tutor: TTutor }) {
+ 
   return (
     <Card className="group overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-2 hover:border-custom-primary/20">
       <CardContent className="">
@@ -11,7 +16,7 @@ export default function TutorCard({ tutor }: { tutor: TTutor }) {
         <div className="rounded-2xl  relative w-full h-48 overflow-hidden bg-gradient-to-br from-custom-primary/5 to-custom-secondary/5">
           <Image
             src={tutor.image} 
-            alt={`${tutor.name || "Tutor"} profile picture`}
+            alt={`${"Tutor"} profile picture`}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
           />
@@ -80,9 +85,12 @@ export default function TutorCard({ tutor }: { tutor: TTutor }) {
           </div>
 
           {/* Action button */}
-          <button className="w-full bg-gradient-to-r from-custom-primary to-custom-secondary text-white py-2.5 rounded-lg font-medium text-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]">
+      <Link href={`tutors/${tutor.tutor_id}`}>
+          <Button className="w-full bg-gradient-to-r from-custom-primary to-custom-secondary text-white py-2.5 rounded-lg font-medium text-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]">
             Book Now
-          </button>
+          </Button>
+      </Link>
+      
         </div>
       </CardContent>
     </Card>

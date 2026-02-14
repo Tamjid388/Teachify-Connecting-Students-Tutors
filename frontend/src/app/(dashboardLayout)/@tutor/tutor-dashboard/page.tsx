@@ -2,6 +2,10 @@ import React from 'react'
 
 export default function page() {
   return (
-    <div>tutor Dashboaerd</div>
+    <div>
+      <h1 className="text-4xl font-bold
+      text-custom-primary
+      ">Welcome To Student Dashboard</h1>
+      </div>
   )
 }

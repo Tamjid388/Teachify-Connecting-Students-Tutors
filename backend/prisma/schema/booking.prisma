@@ -21,24 +21,25 @@ model Booking {
   booking_id    String        @id @default(uuid())
   bookingStatus BookingStatus @default(PENDING)
 
-  startTime DateTime
-  endTime   DateTime
+  startTime     DateTime
+  endTime       DateTime
   duration      Int           @default(60)
   tutionMode    TuitionMode   @default(ONLINE)
   paymentStatus PaymentStatus @default(UNPAID)
   studentId     String
   tutor_id      String
-  slotId        String?
+  isReviewed    Boolean       @default(false)
+  slotId        String
   // relations
   student       User          @relation(fields: [studentId], references: [id])
 
   tutor Tutor @relation(fields: [tutor_id], references: [tutor_id])
 
-  review            Review?
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
+  review    Review?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  availabilitySlots AvailabilitySlot?
+  slot AvailabilitySlot @relation(fields: [slotId], references: [id])
 
   @@map("bookings")
 }
@@ -47,16 +48,15 @@ model AvailabilitySlot {
   id        String    @id @default(uuid())
   tutorId   String
   day       DayOfWeek
-  startTime DateTime
-  endTime   DateTime
+  startTime String
+  endTime   String
   isBooked  Boolean   @default(false)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
+  tutor Tutor @relation(fields: [tutorId], references: [tutor_id])
 
-  tutor     Tutor    @relation(fields: [tutorId], references: [tutor_id])
-  booking   Booking? @relation(fields: [bookingId], references: [booking_id])
-  bookingId String? @unique
+  bookings Booking[]
 
   @@unique([tutorId, day, startTime, endTime])
   @@index([tutorId])

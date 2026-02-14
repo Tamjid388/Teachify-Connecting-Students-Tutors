@@ -1,5 +1,5 @@
 import { env } from "@/env";
-import { error } from "console";
+
 import { cookies } from "next/headers";
 
 export const adminService = {

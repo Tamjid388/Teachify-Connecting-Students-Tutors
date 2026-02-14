@@ -33,6 +33,21 @@ const Login = () => {
     resolver: zodResolver(formSchema),
   });
   const router = useRouter();
+const fillTutorCredentials = () => {
+  form.setValue("email", "nusrat@gmail.com");
+  form.setValue("password", "password");
+};
+
+const fillStudentCredentials = () => {
+  form.setValue("email", "tamjidahmed02@gmail.com");
+  form.setValue("password", "password");
+};
+
+const fillAdminCredentials = () => {
+  form.setValue("email", "ahmed@gmail.com");
+  form.setValue("password", "password");
+};
+
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const toastId = toast.loading("Signing in...");
 
@@ -42,7 +57,7 @@ const Login = () => {
       password: data.password.trim(),
     };
 
-    console.log(cleanData);
+   
     try {
       console.log(data);
       const { data: result, error } = await signIn.email(data);
@@ -67,10 +82,38 @@ const Login = () => {
             Log in to Teachify
           </p>
 
-          <Button className="mt-8 w-full gap-3">
+          <Button variant={"custom"} className="mt-8 w-full gap-3">
             <GoogleLogo />
             Continue with Google
           </Button>
+<div className="mt-4 space-y-2 w-full">
+  <Button
+    type="button"
+    variant="outline"
+    className="w-full"
+    onClick={fillTutorCredentials}
+  >
+    Use Tutor Demo
+  </Button>
+  <Button
+  type="button"
+  variant="outline"
+  className="w-full"
+  onClick={fillAdminCredentials}
+>
+  Use Admin Demo
+</Button>
+  <Button
+    type="button"
+    variant="outline"
+    className="w-full"
+    onClick={fillStudentCredentials}
+  >
+    Use Student Demo
+  </Button>
+
+
+</div>
 
           <div className="my-7 flex w-full items-center justify-center overflow-hidden">
             <Separator />

@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/input-group";
 import { tutorService } from "@/services/tutor-service";
 import { toast } from "sonner";
+import { createTutorProfileAction } from "@/actions/tutor.actions";
 
 const formSchema = z.object({
   image: z.string().url("Please provide a valid image URL."),
@@ -58,7 +59,7 @@ export default function AddProfileForm() {
     onSubmit: async ({ value }) => {
       console.log(value);
       try {
-        await tutorService.createProfile(value);
+        await createTutorProfileAction(value)
 
         toast.success("Tutor profile created successfully");
         form.reset();

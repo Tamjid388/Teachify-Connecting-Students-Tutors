@@ -1,8 +1,8 @@
-interface TTutor {
+export interface TTutor {
   tutor_id: string;
   is_verified:boolean,
   image:string,
-  name: string;
+  
   rating:number;
   total_reviews:number;
   bio:string;
@@ -11,11 +11,16 @@ interface TTutor {
   avilability_slot: string;
   rate: number;
   experience: number;
+    user: {
+    name: string;
+  };
 }
 
 
 export type AvailabilityPayload = {
-  day: string;
+slots:{
+    day: string;
   startTime: string;
   endTime: string;
+}[]
 };

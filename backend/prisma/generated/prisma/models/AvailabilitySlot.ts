@@ -28,24 +28,22 @@ export type AvailabilitySlotMinAggregateOutputType = {
   id: string | null
   tutorId: string | null
   day: $Enums.DayOfWeek | null
-  startTime: Date | null
-  endTime: Date | null
+  startTime: string | null
+  endTime: string | null
   isBooked: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
-  bookingId: string | null
 }
 
 export type AvailabilitySlotMaxAggregateOutputType = {
   id: string | null
   tutorId: string | null
   day: $Enums.DayOfWeek | null
-  startTime: Date | null
-  endTime: Date | null
+  startTime: string | null
+  endTime: string | null
   isBooked: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
-  bookingId: string | null
 }
 
 export type AvailabilitySlotCountAggregateOutputType = {
@@ -57,7 +55,6 @@ export type AvailabilitySlotCountAggregateOutputType = {
   isBooked: number
   createdAt: number
   updatedAt: number
-  bookingId: number
   _all: number
 }
 
@@ -71,7 +68,6 @@ export type AvailabilitySlotMinAggregateInputType = {
   isBooked?: true
   createdAt?: true
   updatedAt?: true
-  bookingId?: true
 }
 
 export type AvailabilitySlotMaxAggregateInputType = {
@@ -83,7 +79,6 @@ export type AvailabilitySlotMaxAggregateInputType = {
   isBooked?: true
   createdAt?: true
   updatedAt?: true
-  bookingId?: true
 }
 
 export type AvailabilitySlotCountAggregateInputType = {
@@ -95,7 +90,6 @@ export type AvailabilitySlotCountAggregateInputType = {
   isBooked?: true
   createdAt?: true
   updatedAt?: true
-  bookingId?: true
   _all?: true
 }
 
@@ -175,12 +169,11 @@ export type AvailabilitySlotGroupByOutputType = {
   id: string
   tutorId: string
   day: $Enums.DayOfWeek
-  startTime: Date
-  endTime: Date
+  startTime: string
+  endTime: string
   isBooked: boolean
   createdAt: Date
   updatedAt: Date
-  bookingId: string | null
   _count: AvailabilitySlotCountAggregateOutputType | null
   _min: AvailabilitySlotMinAggregateOutputType | null
   _max: AvailabilitySlotMaxAggregateOutputType | null
@@ -208,14 +201,13 @@ export type AvailabilitySlotWhereInput = {
   id?: Prisma.StringFilter<"AvailabilitySlot"> | string
   tutorId?: Prisma.StringFilter<"AvailabilitySlot"> | string
   day?: Prisma.EnumDayOfWeekFilter<"AvailabilitySlot"> | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
-  endTime?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
+  startTime?: Prisma.StringFilter<"AvailabilitySlot"> | string
+  endTime?: Prisma.StringFilter<"AvailabilitySlot"> | string
   isBooked?: Prisma.BoolFilter<"AvailabilitySlot"> | boolean
   createdAt?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
-  bookingId?: Prisma.StringNullableFilter<"AvailabilitySlot"> | string | null
   tutor?: Prisma.XOR<Prisma.TutorScalarRelationFilter, Prisma.TutorWhereInput>
-  booking?: Prisma.XOR<Prisma.BookingNullableScalarRelationFilter, Prisma.BookingWhereInput> | null
+  bookings?: Prisma.BookingListRelationFilter
 }
 
 export type AvailabilitySlotOrderByWithRelationInput = {
@@ -227,28 +219,26 @@ export type AvailabilitySlotOrderByWithRelationInput = {
   isBooked?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  bookingId?: Prisma.SortOrderInput | Prisma.SortOrder
   tutor?: Prisma.TutorOrderByWithRelationInput
-  booking?: Prisma.BookingOrderByWithRelationInput
+  bookings?: Prisma.BookingOrderByRelationAggregateInput
 }
 
 export type AvailabilitySlotWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  bookingId?: string
   tutorId_day_startTime_endTime?: Prisma.AvailabilitySlotTutorIdDayStartTimeEndTimeCompoundUniqueInput
   AND?: Prisma.AvailabilitySlotWhereInput | Prisma.AvailabilitySlotWhereInput[]
   OR?: Prisma.AvailabilitySlotWhereInput[]
   NOT?: Prisma.AvailabilitySlotWhereInput | Prisma.AvailabilitySlotWhereInput[]
   tutorId?: Prisma.StringFilter<"AvailabilitySlot"> | string
   day?: Prisma.EnumDayOfWeekFilter<"AvailabilitySlot"> | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
-  endTime?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
+  startTime?: Prisma.StringFilter<"AvailabilitySlot"> | string
+  endTime?: Prisma.StringFilter<"AvailabilitySlot"> | string
   isBooked?: Prisma.BoolFilter<"AvailabilitySlot"> | boolean
   createdAt?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
   tutor?: Prisma.XOR<Prisma.TutorScalarRelationFilter, Prisma.TutorWhereInput>
-  booking?: Prisma.XOR<Prisma.BookingNullableScalarRelationFilter, Prisma.BookingWhereInput> | null
-}, "id" | "bookingId" | "tutorId_day_startTime_endTime">
+  bookings?: Prisma.BookingListRelationFilter
+}, "id" | "tutorId_day_startTime_endTime">
 
 export type AvailabilitySlotOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -259,7 +249,6 @@ export type AvailabilitySlotOrderByWithAggregationInput = {
   isBooked?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  bookingId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AvailabilitySlotCountOrderByAggregateInput
   _max?: Prisma.AvailabilitySlotMaxOrderByAggregateInput
   _min?: Prisma.AvailabilitySlotMinOrderByAggregateInput
@@ -272,79 +261,77 @@ export type AvailabilitySlotScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"AvailabilitySlot"> | string
   tutorId?: Prisma.StringWithAggregatesFilter<"AvailabilitySlot"> | string
   day?: Prisma.EnumDayOfWeekWithAggregatesFilter<"AvailabilitySlot"> | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeWithAggregatesFilter<"AvailabilitySlot"> | Date | string
-  endTime?: Prisma.DateTimeWithAggregatesFilter<"AvailabilitySlot"> | Date | string
+  startTime?: Prisma.StringWithAggregatesFilter<"AvailabilitySlot"> | string
+  endTime?: Prisma.StringWithAggregatesFilter<"AvailabilitySlot"> | string
   isBooked?: Prisma.BoolWithAggregatesFilter<"AvailabilitySlot"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AvailabilitySlot"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AvailabilitySlot"> | Date | string
-  bookingId?: Prisma.StringNullableWithAggregatesFilter<"AvailabilitySlot"> | string | null
 }
 
 export type AvailabilitySlotCreateInput = {
   id?: string
   day: $Enums.DayOfWeek
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
   isBooked?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tutor: Prisma.TutorCreateNestedOneWithoutAvailabilityInput
-  booking?: Prisma.BookingCreateNestedOneWithoutAvailabilitySlotsInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutSlotInput
 }
 
 export type AvailabilitySlotUncheckedCreateInput = {
   id?: string
   tutorId: string
   day: $Enums.DayOfWeek
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
   isBooked?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  bookingId?: string | null
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutSlotInput
 }
 
 export type AvailabilitySlotUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   isBooked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tutor?: Prisma.TutorUpdateOneRequiredWithoutAvailabilityNestedInput
-  booking?: Prisma.BookingUpdateOneWithoutAvailabilitySlotsNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutSlotNestedInput
 }
 
 export type AvailabilitySlotUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tutorId?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   isBooked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutSlotNestedInput
 }
 
 export type AvailabilitySlotCreateManyInput = {
   id?: string
   tutorId: string
   day: $Enums.DayOfWeek
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
   isBooked?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  bookingId?: string | null
 }
 
 export type AvailabilitySlotUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   isBooked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -354,24 +341,23 @@ export type AvailabilitySlotUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tutorId?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   isBooked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type AvailabilitySlotNullableScalarRelationFilter = {
-  is?: Prisma.AvailabilitySlotWhereInput | null
-  isNot?: Prisma.AvailabilitySlotWhereInput | null
+export type AvailabilitySlotScalarRelationFilter = {
+  is?: Prisma.AvailabilitySlotWhereInput
+  isNot?: Prisma.AvailabilitySlotWhereInput
 }
 
 export type AvailabilitySlotTutorIdDayStartTimeEndTimeCompoundUniqueInput = {
   tutorId: string
   day: $Enums.DayOfWeek
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
 }
 
 export type AvailabilitySlotCountOrderByAggregateInput = {
@@ -383,7 +369,6 @@ export type AvailabilitySlotCountOrderByAggregateInput = {
   isBooked?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  bookingId?: Prisma.SortOrder
 }
 
 export type AvailabilitySlotMaxOrderByAggregateInput = {
@@ -395,7 +380,6 @@ export type AvailabilitySlotMaxOrderByAggregateInput = {
   isBooked?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  bookingId?: Prisma.SortOrder
 }
 
 export type AvailabilitySlotMinOrderByAggregateInput = {
@@ -407,7 +391,6 @@ export type AvailabilitySlotMinOrderByAggregateInput = {
   isBooked?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  bookingId?: Prisma.SortOrder
 }
 
 export type AvailabilitySlotListRelationFilter = {
@@ -420,44 +403,22 @@ export type AvailabilitySlotOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type AvailabilitySlotCreateNestedOneWithoutBookingInput = {
-  create?: Prisma.XOR<Prisma.AvailabilitySlotCreateWithoutBookingInput, Prisma.AvailabilitySlotUncheckedCreateWithoutBookingInput>
-  connectOrCreate?: Prisma.AvailabilitySlotCreateOrConnectWithoutBookingInput
+export type AvailabilitySlotCreateNestedOneWithoutBookingsInput = {
+  create?: Prisma.XOR<Prisma.AvailabilitySlotCreateWithoutBookingsInput, Prisma.AvailabilitySlotUncheckedCreateWithoutBookingsInput>
+  connectOrCreate?: Prisma.AvailabilitySlotCreateOrConnectWithoutBookingsInput
   connect?: Prisma.AvailabilitySlotWhereUniqueInput
 }
 
-export type AvailabilitySlotUncheckedCreateNestedOneWithoutBookingInput = {
-  create?: Prisma.XOR<Prisma.AvailabilitySlotCreateWithoutBookingInput, Prisma.AvailabilitySlotUncheckedCreateWithoutBookingInput>
-  connectOrCreate?: Prisma.AvailabilitySlotCreateOrConnectWithoutBookingInput
+export type AvailabilitySlotUpdateOneRequiredWithoutBookingsNestedInput = {
+  create?: Prisma.XOR<Prisma.AvailabilitySlotCreateWithoutBookingsInput, Prisma.AvailabilitySlotUncheckedCreateWithoutBookingsInput>
+  connectOrCreate?: Prisma.AvailabilitySlotCreateOrConnectWithoutBookingsInput
+  upsert?: Prisma.AvailabilitySlotUpsertWithoutBookingsInput
   connect?: Prisma.AvailabilitySlotWhereUniqueInput
-}
-
-export type AvailabilitySlotUpdateOneWithoutBookingNestedInput = {
-  create?: Prisma.XOR<Prisma.AvailabilitySlotCreateWithoutBookingInput, Prisma.AvailabilitySlotUncheckedCreateWithoutBookingInput>
-  connectOrCreate?: Prisma.AvailabilitySlotCreateOrConnectWithoutBookingInput
-  upsert?: Prisma.AvailabilitySlotUpsertWithoutBookingInput
-  disconnect?: Prisma.AvailabilitySlotWhereInput | boolean
-  delete?: Prisma.AvailabilitySlotWhereInput | boolean
-  connect?: Prisma.AvailabilitySlotWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.AvailabilitySlotUpdateToOneWithWhereWithoutBookingInput, Prisma.AvailabilitySlotUpdateWithoutBookingInput>, Prisma.AvailabilitySlotUncheckedUpdateWithoutBookingInput>
-}
-
-export type AvailabilitySlotUncheckedUpdateOneWithoutBookingNestedInput = {
-  create?: Prisma.XOR<Prisma.AvailabilitySlotCreateWithoutBookingInput, Prisma.AvailabilitySlotUncheckedCreateWithoutBookingInput>
-  connectOrCreate?: Prisma.AvailabilitySlotCreateOrConnectWithoutBookingInput
-  upsert?: Prisma.AvailabilitySlotUpsertWithoutBookingInput
-  disconnect?: Prisma.AvailabilitySlotWhereInput | boolean
-  delete?: Prisma.AvailabilitySlotWhereInput | boolean
-  connect?: Prisma.AvailabilitySlotWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.AvailabilitySlotUpdateToOneWithWhereWithoutBookingInput, Prisma.AvailabilitySlotUpdateWithoutBookingInput>, Prisma.AvailabilitySlotUncheckedUpdateWithoutBookingInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AvailabilitySlotUpdateToOneWithWhereWithoutBookingsInput, Prisma.AvailabilitySlotUpdateWithoutBookingsInput>, Prisma.AvailabilitySlotUncheckedUpdateWithoutBookingsInput>
 }
 
 export type EnumDayOfWeekFieldUpdateOperationsInput = {
   set?: $Enums.DayOfWeek
-}
-
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
 }
 
 export type AvailabilitySlotCreateNestedManyWithoutTutorInput = {
@@ -502,61 +463,61 @@ export type AvailabilitySlotUncheckedUpdateManyWithoutTutorNestedInput = {
   deleteMany?: Prisma.AvailabilitySlotScalarWhereInput | Prisma.AvailabilitySlotScalarWhereInput[]
 }
 
-export type AvailabilitySlotCreateWithoutBookingInput = {
+export type AvailabilitySlotCreateWithoutBookingsInput = {
   id?: string
   day: $Enums.DayOfWeek
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
   isBooked?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tutor: Prisma.TutorCreateNestedOneWithoutAvailabilityInput
 }
 
-export type AvailabilitySlotUncheckedCreateWithoutBookingInput = {
+export type AvailabilitySlotUncheckedCreateWithoutBookingsInput = {
   id?: string
   tutorId: string
   day: $Enums.DayOfWeek
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
   isBooked?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type AvailabilitySlotCreateOrConnectWithoutBookingInput = {
+export type AvailabilitySlotCreateOrConnectWithoutBookingsInput = {
   where: Prisma.AvailabilitySlotWhereUniqueInput
-  create: Prisma.XOR<Prisma.AvailabilitySlotCreateWithoutBookingInput, Prisma.AvailabilitySlotUncheckedCreateWithoutBookingInput>
+  create: Prisma.XOR<Prisma.AvailabilitySlotCreateWithoutBookingsInput, Prisma.AvailabilitySlotUncheckedCreateWithoutBookingsInput>
 }
 
-export type AvailabilitySlotUpsertWithoutBookingInput = {
-  update: Prisma.XOR<Prisma.AvailabilitySlotUpdateWithoutBookingInput, Prisma.AvailabilitySlotUncheckedUpdateWithoutBookingInput>
-  create: Prisma.XOR<Prisma.AvailabilitySlotCreateWithoutBookingInput, Prisma.AvailabilitySlotUncheckedCreateWithoutBookingInput>
+export type AvailabilitySlotUpsertWithoutBookingsInput = {
+  update: Prisma.XOR<Prisma.AvailabilitySlotUpdateWithoutBookingsInput, Prisma.AvailabilitySlotUncheckedUpdateWithoutBookingsInput>
+  create: Prisma.XOR<Prisma.AvailabilitySlotCreateWithoutBookingsInput, Prisma.AvailabilitySlotUncheckedCreateWithoutBookingsInput>
   where?: Prisma.AvailabilitySlotWhereInput
 }
 
-export type AvailabilitySlotUpdateToOneWithWhereWithoutBookingInput = {
+export type AvailabilitySlotUpdateToOneWithWhereWithoutBookingsInput = {
   where?: Prisma.AvailabilitySlotWhereInput
-  data: Prisma.XOR<Prisma.AvailabilitySlotUpdateWithoutBookingInput, Prisma.AvailabilitySlotUncheckedUpdateWithoutBookingInput>
+  data: Prisma.XOR<Prisma.AvailabilitySlotUpdateWithoutBookingsInput, Prisma.AvailabilitySlotUncheckedUpdateWithoutBookingsInput>
 }
 
-export type AvailabilitySlotUpdateWithoutBookingInput = {
+export type AvailabilitySlotUpdateWithoutBookingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   isBooked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tutor?: Prisma.TutorUpdateOneRequiredWithoutAvailabilityNestedInput
 }
 
-export type AvailabilitySlotUncheckedUpdateWithoutBookingInput = {
+export type AvailabilitySlotUncheckedUpdateWithoutBookingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tutorId?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   isBooked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -565,23 +526,23 @@ export type AvailabilitySlotUncheckedUpdateWithoutBookingInput = {
 export type AvailabilitySlotCreateWithoutTutorInput = {
   id?: string
   day: $Enums.DayOfWeek
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
   isBooked?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  booking?: Prisma.BookingCreateNestedOneWithoutAvailabilitySlotsInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutSlotInput
 }
 
 export type AvailabilitySlotUncheckedCreateWithoutTutorInput = {
   id?: string
   day: $Enums.DayOfWeek
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
   isBooked?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  bookingId?: string | null
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutSlotInput
 }
 
 export type AvailabilitySlotCreateOrConnectWithoutTutorInput = {
@@ -617,58 +578,84 @@ export type AvailabilitySlotScalarWhereInput = {
   id?: Prisma.StringFilter<"AvailabilitySlot"> | string
   tutorId?: Prisma.StringFilter<"AvailabilitySlot"> | string
   day?: Prisma.EnumDayOfWeekFilter<"AvailabilitySlot"> | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
-  endTime?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
+  startTime?: Prisma.StringFilter<"AvailabilitySlot"> | string
+  endTime?: Prisma.StringFilter<"AvailabilitySlot"> | string
   isBooked?: Prisma.BoolFilter<"AvailabilitySlot"> | boolean
   createdAt?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AvailabilitySlot"> | Date | string
-  bookingId?: Prisma.StringNullableFilter<"AvailabilitySlot"> | string | null
 }
 
 export type AvailabilitySlotCreateManyTutorInput = {
   id?: string
   day: $Enums.DayOfWeek
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
   isBooked?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  bookingId?: string | null
 }
 
 export type AvailabilitySlotUpdateWithoutTutorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   isBooked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  booking?: Prisma.BookingUpdateOneWithoutAvailabilitySlotsNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutSlotNestedInput
 }
 
 export type AvailabilitySlotUncheckedUpdateWithoutTutorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   isBooked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutSlotNestedInput
 }
 
 export type AvailabilitySlotUncheckedUpdateManyWithoutTutorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.EnumDayOfWeekFieldUpdateOperationsInput | $Enums.DayOfWeek
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   isBooked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
+
+/**
+ * Count Type AvailabilitySlotCountOutputType
+ */
+
+export type AvailabilitySlotCountOutputType = {
+  bookings: number
+}
+
+export type AvailabilitySlotCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  bookings?: boolean | AvailabilitySlotCountOutputTypeCountBookingsArgs
+}
+
+/**
+ * AvailabilitySlotCountOutputType without action
+ */
+export type AvailabilitySlotCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AvailabilitySlotCountOutputType
+   */
+  select?: Prisma.AvailabilitySlotCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * AvailabilitySlotCountOutputType without action
+ */
+export type AvailabilitySlotCountOutputTypeCountBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BookingWhereInput
+}
 
 
 export type AvailabilitySlotSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -680,9 +667,9 @@ export type AvailabilitySlotSelect<ExtArgs extends runtime.Types.Extensions.Inte
   isBooked?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  bookingId?: boolean
   tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.AvailabilitySlot$bookingArgs<ExtArgs>
+  bookings?: boolean | Prisma.AvailabilitySlot$bookingsArgs<ExtArgs>
+  _count?: boolean | Prisma.AvailabilitySlotCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["availabilitySlot"]>
 
 export type AvailabilitySlotSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -694,9 +681,7 @@ export type AvailabilitySlotSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   isBooked?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  bookingId?: boolean
   tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.AvailabilitySlot$bookingArgs<ExtArgs>
 }, ExtArgs["result"]["availabilitySlot"]>
 
 export type AvailabilitySlotSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -708,9 +693,7 @@ export type AvailabilitySlotSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   isBooked?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  bookingId?: boolean
   tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.AvailabilitySlot$bookingArgs<ExtArgs>
 }, ExtArgs["result"]["availabilitySlot"]>
 
 export type AvailabilitySlotSelectScalar = {
@@ -722,39 +705,36 @@ export type AvailabilitySlotSelectScalar = {
   isBooked?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  bookingId?: boolean
 }
 
-export type AvailabilitySlotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tutorId" | "day" | "startTime" | "endTime" | "isBooked" | "createdAt" | "updatedAt" | "bookingId", ExtArgs["result"]["availabilitySlot"]>
+export type AvailabilitySlotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tutorId" | "day" | "startTime" | "endTime" | "isBooked" | "createdAt" | "updatedAt", ExtArgs["result"]["availabilitySlot"]>
 export type AvailabilitySlotInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.AvailabilitySlot$bookingArgs<ExtArgs>
+  bookings?: boolean | Prisma.AvailabilitySlot$bookingsArgs<ExtArgs>
+  _count?: boolean | Prisma.AvailabilitySlotCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AvailabilitySlotIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.AvailabilitySlot$bookingArgs<ExtArgs>
 }
 export type AvailabilitySlotIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.AvailabilitySlot$bookingArgs<ExtArgs>
 }
 
 export type $AvailabilitySlotPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AvailabilitySlot"
   objects: {
     tutor: Prisma.$TutorPayload<ExtArgs>
-    booking: Prisma.$BookingPayload<ExtArgs> | null
+    bookings: Prisma.$BookingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tutorId: string
     day: $Enums.DayOfWeek
-    startTime: Date
-    endTime: Date
+    startTime: string
+    endTime: string
     isBooked: boolean
     createdAt: Date
     updatedAt: Date
-    bookingId: string | null
   }, ExtArgs["result"]["availabilitySlot"]>
   composites: {}
 }
@@ -1150,7 +1130,7 @@ readonly fields: AvailabilitySlotFieldRefs;
 export interface Prisma__AvailabilitySlotClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tutor<T extends Prisma.TutorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TutorDefaultArgs<ExtArgs>>): Prisma.Prisma__TutorClient<runtime.Types.Result.GetResult<Prisma.$TutorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  booking<T extends Prisma.AvailabilitySlot$bookingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AvailabilitySlot$bookingArgs<ExtArgs>>): Prisma.Prisma__BookingClient<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  bookings<T extends Prisma.AvailabilitySlot$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AvailabilitySlot$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1183,12 +1163,11 @@ export interface AvailabilitySlotFieldRefs {
   readonly id: Prisma.FieldRef<"AvailabilitySlot", 'String'>
   readonly tutorId: Prisma.FieldRef<"AvailabilitySlot", 'String'>
   readonly day: Prisma.FieldRef<"AvailabilitySlot", 'DayOfWeek'>
-  readonly startTime: Prisma.FieldRef<"AvailabilitySlot", 'DateTime'>
-  readonly endTime: Prisma.FieldRef<"AvailabilitySlot", 'DateTime'>
+  readonly startTime: Prisma.FieldRef<"AvailabilitySlot", 'String'>
+  readonly endTime: Prisma.FieldRef<"AvailabilitySlot", 'String'>
   readonly isBooked: Prisma.FieldRef<"AvailabilitySlot", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"AvailabilitySlot", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"AvailabilitySlot", 'DateTime'>
-  readonly bookingId: Prisma.FieldRef<"AvailabilitySlot", 'String'>
 }
     
 
@@ -1585,9 +1564,9 @@ export type AvailabilitySlotDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
 }
 
 /**
- * AvailabilitySlot.booking
+ * AvailabilitySlot.bookings
  */
-export type AvailabilitySlot$bookingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type AvailabilitySlot$bookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Booking
    */
@@ -1601,6 +1580,11 @@ export type AvailabilitySlot$bookingArgs<ExtArgs extends runtime.Types.Extension
    */
   include?: Prisma.BookingInclude<ExtArgs> | null
   where?: Prisma.BookingWhereInput
+  orderBy?: Prisma.BookingOrderByWithRelationInput | Prisma.BookingOrderByWithRelationInput[]
+  cursor?: Prisma.BookingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BookingScalarFieldEnum | Prisma.BookingScalarFieldEnum[]
 }
 
 /**
