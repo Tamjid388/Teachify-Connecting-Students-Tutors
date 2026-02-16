@@ -74,3 +74,18 @@ export const useBookingMutation = () => {
     },
   });
 };
+
+export const useUpdateBookingStatus = () => {
+    const queryclient = useQueryClient();
+    return useMutation({
+      mutationFn: bookingService.updateBookingStatus,
+      onSuccess:()=>{
+          queryclient.invalidateQueries({queryKey:["booking"]})
+          toast.success("Booking status updated successfully!")
+      },
+      onError: (error) => {
+        toast.error(error.message || "Something went wrong");
+      },
+    });
+  };
+

@@ -27,14 +27,10 @@ export type AggregateTutor = {
 }
 
 export type TutorAvgAggregateOutputType = {
-  rating: number | null
-  total_reviews: number | null
   experience: number | null
 }
 
 export type TutorSumAggregateOutputType = {
-  rating: number | null
-  total_reviews: number | null
   experience: number | null
 }
 
@@ -43,8 +39,7 @@ export type TutorMinAggregateOutputType = {
   image: string | null
   bio: string | null
   avilability_slot: $Enums.Availability | null
-  rating: number | null
-  total_reviews: number | null
+  phone_number: string | null
   is_verified: boolean | null
   experience: number | null
   education: string | null
@@ -56,8 +51,7 @@ export type TutorMaxAggregateOutputType = {
   image: string | null
   bio: string | null
   avilability_slot: $Enums.Availability | null
-  rating: number | null
-  total_reviews: number | null
+  phone_number: string | null
   is_verified: boolean | null
   experience: number | null
   education: string | null
@@ -69,8 +63,7 @@ export type TutorCountAggregateOutputType = {
   image: number
   bio: number
   avilability_slot: number
-  rating: number
-  total_reviews: number
+  phone_number: number
   is_verified: number
   experience: number
   education: number
@@ -80,14 +73,10 @@ export type TutorCountAggregateOutputType = {
 
 
 export type TutorAvgAggregateInputType = {
-  rating?: true
-  total_reviews?: true
   experience?: true
 }
 
 export type TutorSumAggregateInputType = {
-  rating?: true
-  total_reviews?: true
   experience?: true
 }
 
@@ -96,8 +85,7 @@ export type TutorMinAggregateInputType = {
   image?: true
   bio?: true
   avilability_slot?: true
-  rating?: true
-  total_reviews?: true
+  phone_number?: true
   is_verified?: true
   experience?: true
   education?: true
@@ -109,8 +97,7 @@ export type TutorMaxAggregateInputType = {
   image?: true
   bio?: true
   avilability_slot?: true
-  rating?: true
-  total_reviews?: true
+  phone_number?: true
   is_verified?: true
   experience?: true
   education?: true
@@ -122,8 +109,7 @@ export type TutorCountAggregateInputType = {
   image?: true
   bio?: true
   avilability_slot?: true
-  rating?: true
-  total_reviews?: true
+  phone_number?: true
   is_verified?: true
   experience?: true
   education?: true
@@ -222,8 +208,7 @@ export type TutorGroupByOutputType = {
   image: string | null
   bio: string | null
   avilability_slot: $Enums.Availability
-  rating: number
-  total_reviews: number
+  phone_number: string | null
   is_verified: boolean
   experience: number
   education: string
@@ -258,8 +243,7 @@ export type TutorWhereInput = {
   image?: Prisma.StringNullableFilter<"Tutor"> | string | null
   bio?: Prisma.StringNullableFilter<"Tutor"> | string | null
   avilability_slot?: Prisma.EnumAvailabilityFilter<"Tutor"> | $Enums.Availability
-  rating?: Prisma.IntFilter<"Tutor"> | number
-  total_reviews?: Prisma.IntFilter<"Tutor"> | number
+  phone_number?: Prisma.StringNullableFilter<"Tutor"> | string | null
   is_verified?: Prisma.BoolFilter<"Tutor"> | boolean
   experience?: Prisma.IntFilter<"Tutor"> | number
   education?: Prisma.StringFilter<"Tutor"> | string
@@ -276,8 +260,7 @@ export type TutorOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   avilability_slot?: Prisma.SortOrder
-  rating?: Prisma.SortOrder
-  total_reviews?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrderInput | Prisma.SortOrder
   is_verified?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   education?: Prisma.SortOrder
@@ -298,8 +281,7 @@ export type TutorWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"Tutor"> | string | null
   bio?: Prisma.StringNullableFilter<"Tutor"> | string | null
   avilability_slot?: Prisma.EnumAvailabilityFilter<"Tutor"> | $Enums.Availability
-  rating?: Prisma.IntFilter<"Tutor"> | number
-  total_reviews?: Prisma.IntFilter<"Tutor"> | number
+  phone_number?: Prisma.StringNullableFilter<"Tutor"> | string | null
   is_verified?: Prisma.BoolFilter<"Tutor"> | boolean
   experience?: Prisma.IntFilter<"Tutor"> | number
   education?: Prisma.StringFilter<"Tutor"> | string
@@ -315,8 +297,7 @@ export type TutorOrderByWithAggregationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   avilability_slot?: Prisma.SortOrder
-  rating?: Prisma.SortOrder
-  total_reviews?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrderInput | Prisma.SortOrder
   is_verified?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   education?: Prisma.SortOrder
@@ -336,8 +317,7 @@ export type TutorScalarWhereWithAggregatesInput = {
   image?: Prisma.StringNullableWithAggregatesFilter<"Tutor"> | string | null
   bio?: Prisma.StringNullableWithAggregatesFilter<"Tutor"> | string | null
   avilability_slot?: Prisma.EnumAvailabilityWithAggregatesFilter<"Tutor"> | $Enums.Availability
-  rating?: Prisma.IntWithAggregatesFilter<"Tutor"> | number
-  total_reviews?: Prisma.IntWithAggregatesFilter<"Tutor"> | number
+  phone_number?: Prisma.StringNullableWithAggregatesFilter<"Tutor"> | string | null
   is_verified?: Prisma.BoolWithAggregatesFilter<"Tutor"> | boolean
   experience?: Prisma.IntWithAggregatesFilter<"Tutor"> | number
   education?: Prisma.StringWithAggregatesFilter<"Tutor"> | string
@@ -349,8 +329,7 @@ export type TutorCreateInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -366,8 +345,7 @@ export type TutorUncheckedCreateInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -383,8 +361,7 @@ export type TutorUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -400,8 +377,7 @@ export type TutorUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -417,8 +393,7 @@ export type TutorCreateManyInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -430,8 +405,7 @@ export type TutorUpdateManyMutationInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -442,8 +416,7 @@ export type TutorUncheckedUpdateManyInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -460,8 +433,7 @@ export type TutorCountOrderByAggregateInput = {
   image?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avilability_slot?: Prisma.SortOrder
-  rating?: Prisma.SortOrder
-  total_reviews?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   is_verified?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   education?: Prisma.SortOrder
@@ -469,8 +441,6 @@ export type TutorCountOrderByAggregateInput = {
 }
 
 export type TutorAvgOrderByAggregateInput = {
-  rating?: Prisma.SortOrder
-  total_reviews?: Prisma.SortOrder
   experience?: Prisma.SortOrder
 }
 
@@ -479,8 +449,7 @@ export type TutorMaxOrderByAggregateInput = {
   image?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avilability_slot?: Prisma.SortOrder
-  rating?: Prisma.SortOrder
-  total_reviews?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   is_verified?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   education?: Prisma.SortOrder
@@ -492,8 +461,7 @@ export type TutorMinOrderByAggregateInput = {
   image?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avilability_slot?: Prisma.SortOrder
-  rating?: Prisma.SortOrder
-  total_reviews?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   is_verified?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   education?: Prisma.SortOrder
@@ -501,8 +469,6 @@ export type TutorMinOrderByAggregateInput = {
 }
 
 export type TutorSumOrderByAggregateInput = {
-  rating?: Prisma.SortOrder
-  total_reviews?: Prisma.SortOrder
   experience?: Prisma.SortOrder
 }
 
@@ -608,8 +574,7 @@ export type TutorCreateWithoutBookingsInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -624,8 +589,7 @@ export type TutorUncheckedCreateWithoutBookingsInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -656,8 +620,7 @@ export type TutorUpdateWithoutBookingsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -672,8 +635,7 @@ export type TutorUncheckedUpdateWithoutBookingsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -688,8 +650,7 @@ export type TutorCreateWithoutAvailabilityInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -704,8 +665,7 @@ export type TutorUncheckedCreateWithoutAvailabilityInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -736,8 +696,7 @@ export type TutorUpdateWithoutAvailabilityInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -752,8 +711,7 @@ export type TutorUncheckedUpdateWithoutAvailabilityInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -768,8 +726,7 @@ export type TutorCreateWithoutReviewsInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -784,8 +741,7 @@ export type TutorUncheckedCreateWithoutReviewsInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -816,8 +772,7 @@ export type TutorUpdateWithoutReviewsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -832,8 +787,7 @@ export type TutorUncheckedUpdateWithoutReviewsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -848,8 +802,7 @@ export type TutorCreateWithoutCategoriesInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -864,8 +817,7 @@ export type TutorUncheckedCreateWithoutCategoriesInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -896,8 +848,7 @@ export type TutorUpdateWithoutCategoriesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -912,8 +863,7 @@ export type TutorUncheckedUpdateWithoutCategoriesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -928,8 +878,7 @@ export type TutorCreateWithoutUserInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -944,8 +893,7 @@ export type TutorUncheckedCreateWithoutUserInput = {
   image?: string | null
   bio?: string | null
   avilability_slot?: $Enums.Availability
-  rating?: number
-  total_reviews?: number
+  phone_number?: string | null
   is_verified?: boolean
   experience?: number
   education: string
@@ -976,8 +924,7 @@ export type TutorUpdateWithoutUserInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -992,8 +939,7 @@ export type TutorUncheckedUpdateWithoutUserInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avilability_slot?: Prisma.EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1066,8 +1012,7 @@ export type TutorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   image?: boolean
   bio?: boolean
   avilability_slot?: boolean
-  rating?: boolean
-  total_reviews?: boolean
+  phone_number?: boolean
   is_verified?: boolean
   experience?: boolean
   education?: boolean
@@ -1085,8 +1030,7 @@ export type TutorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   image?: boolean
   bio?: boolean
   avilability_slot?: boolean
-  rating?: boolean
-  total_reviews?: boolean
+  phone_number?: boolean
   is_verified?: boolean
   experience?: boolean
   education?: boolean
@@ -1099,8 +1043,7 @@ export type TutorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   image?: boolean
   bio?: boolean
   avilability_slot?: boolean
-  rating?: boolean
-  total_reviews?: boolean
+  phone_number?: boolean
   is_verified?: boolean
   experience?: boolean
   education?: boolean
@@ -1113,15 +1056,14 @@ export type TutorSelectScalar = {
   image?: boolean
   bio?: boolean
   avilability_slot?: boolean
-  rating?: boolean
-  total_reviews?: boolean
+  phone_number?: boolean
   is_verified?: boolean
   experience?: boolean
   education?: boolean
   userId?: boolean
 }
 
-export type TutorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"tutor_id" | "image" | "bio" | "avilability_slot" | "rating" | "total_reviews" | "is_verified" | "experience" | "education" | "userId", ExtArgs["result"]["tutor"]>
+export type TutorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"tutor_id" | "image" | "bio" | "avilability_slot" | "phone_number" | "is_verified" | "experience" | "education" | "userId", ExtArgs["result"]["tutor"]>
 export type TutorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bookings?: boolean | Prisma.Tutor$bookingsArgs<ExtArgs>
@@ -1151,8 +1093,7 @@ export type $TutorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     image: string | null
     bio: string | null
     avilability_slot: $Enums.Availability
-    rating: number
-    total_reviews: number
+    phone_number: string | null
     is_verified: boolean
     experience: number
     education: string
@@ -1589,8 +1530,7 @@ export interface TutorFieldRefs {
   readonly image: Prisma.FieldRef<"Tutor", 'String'>
   readonly bio: Prisma.FieldRef<"Tutor", 'String'>
   readonly avilability_slot: Prisma.FieldRef<"Tutor", 'Availability'>
-  readonly rating: Prisma.FieldRef<"Tutor", 'Int'>
-  readonly total_reviews: Prisma.FieldRef<"Tutor", 'Int'>
+  readonly phone_number: Prisma.FieldRef<"Tutor", 'String'>
   readonly is_verified: Prisma.FieldRef<"Tutor", 'Boolean'>
   readonly experience: Prisma.FieldRef<"Tutor", 'Int'>
   readonly education: Prisma.FieldRef<"Tutor", 'String'>

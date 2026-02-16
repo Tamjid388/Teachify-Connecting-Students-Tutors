@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Star, CheckCircle2, Clock, GraduationCap, Briefcase } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { TTutor } from "@/Types/Ttutor";
@@ -36,13 +36,16 @@ export default function TutorCard({ tutor }: { tutor: TTutor }) {
             <Star className="w-4 h-4 fill-custom-accent text-custom-accent" />
             <span className="font-semibold text-sm">{tutor.rating}</span>
             <span className="text-xs text-gray-500">
-              ({tutor.total_reviews})
+              ({ tutor?.averageRating && "0"})
             </span>
           </div>
         </div>
 
         {/* Content */}
         <div className="p-5 space-y-4">
+          <CardTitle className="text-custom-primary">
+            {tutor?.user?.name}
+          </CardTitle>
           {/* Bio */}
           <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
             {tutor.bio}

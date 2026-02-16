@@ -6,11 +6,7 @@ export const studentRoutes= [
         {
           title: "My Bookings",
           url: "/student-dashboard/my-bookings",
-        },
-        {
-          title: "Project Structure",
-          url: "#",
-        },
+        }
       ],
     },
 

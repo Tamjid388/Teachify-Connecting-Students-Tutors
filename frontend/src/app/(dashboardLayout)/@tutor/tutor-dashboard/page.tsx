@@ -1,3 +1,4 @@
+import Booking from '@/components/modules/tutor-dashboard/tutor-bookings/Booking'
 import React from 'react'
 
 export default function page() {
@@ -5,7 +6,10 @@ export default function page() {
     <div>
       <h1 className="text-4xl font-bold
       text-custom-primary
-      ">Welcome To Student Dashboard</h1>
+      ">Welcome To Tutor Dashboard</h1>
+      <main>
+        <Booking/>
+      </main>
       </div>
   )
 }

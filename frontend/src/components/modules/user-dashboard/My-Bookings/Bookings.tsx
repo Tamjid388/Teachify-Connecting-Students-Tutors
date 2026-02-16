@@ -12,11 +12,12 @@ import WriteReview from "./WriteReview"
 import { useReviewMutation } from "@/hooks/userReview"
 import { Button } from "@/components/ui/button"
 
+
 export default function Bookings() {
     const { data, isLoading, error } = useGetAllBookings();
 const {mutate}=useReviewMutation()
     const bookings = data?.bookings || [];
-    // console.log(bookings)
+    console.log(bookings)
 
     // Handle review submission
     const handleReviewSubmit = (booking_id: string, reviewData: { rating: number; comment: string },tutor_id:string) => {
@@ -62,7 +63,7 @@ mutate(payload)
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Booking ID</TableHead>
+                            <TableHead>Tutor Info</TableHead>
                             <TableHead >Status</TableHead>
                             <TableHead>Payment Status</TableHead>
                             <TableHead>Mode</TableHead>
@@ -72,8 +73,10 @@ mutate(payload)
                     </TableHeader>
                     <TableBody>
                         {bookings.map((item: any) => {
+                            console.log(item.tutor.user.name)
                             const {
                                 booking_id,
+                                tutor,
                                 bookingStatus,
                                 paymentStatus,
                                 startTime,
@@ -83,7 +86,10 @@ mutate(payload)
 
                             return (
                                 <TableRow key={booking_id}>
-                                    <TableCell className="font-medium">{booking_id}</TableCell>
+                                    <TableCell className="font-medium">
+                                        <h1 className="font-semibold">{tutor?.user?.name}</h1>
+                                        <p className="text-sm text-muted-foreground">{tutor?.user?.email}</p>
+                                    </TableCell>
                                     <TableCell className="">
                                         <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${bookingStatus === 'COMPLETED'
                                             ? 'bg-green-100 text-green-800'

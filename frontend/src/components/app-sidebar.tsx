@@ -65,13 +65,13 @@ export function AppSidebar({
             {routes.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild>
-                  <h1 className="font-medium">{item.title}</h1>
+                  <h1 className="font-bold text-xl   mb-2">{item.title}</h1>
                 </SidebarMenuButton>
                 {item.items?.length ? (
                   <SidebarMenuSub>
                     {item.items.map((item) => (
                       <SidebarMenuSubItem key={item.title}>
-                        <SidebarMenuSubButton asChild>
+                        <SidebarMenuSubButton asChild className=" font-semibold">
                           <Link href={item.url}>{item.title}</Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>

@@ -1,9 +1,10 @@
-import { Role } from "../../../prisma/generated/prisma/enums";
+//booking.prisma
+import { BookingStatus, Role } from "../../../prisma/generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 // const { scheduledAt, duration, tutionMode, paymentStatus, tutor_id } = data;
 const createBooking = async (data: any, userId: string) => {
   console.log("Booking Data", data);
-  
+
   const { slotId, startTime, endTime } = data;
 
   if (!slotId) {
@@ -18,18 +19,18 @@ const createBooking = async (data: any, userId: string) => {
       throw new Error("Slot not found");
     }
 
-  const existingBooking = await tx.booking.findFirst({
+    const existingBooking = await tx.booking.findFirst({
       where: {
         slotId: slotId,
         startTime: startTime,
         bookingStatus: {
-          not: "CANCELLED", 
+          not: "CANCELLED",
         },
       },
     });
 
     if (existingBooking) {
-     
+
       throw new Error("This slot is already booked for this specific date and time");
     }
 
@@ -55,30 +56,54 @@ const createBooking = async (data: any, userId: string) => {
 };
 
 const getAllBookings = async (userId: string, role: Role) => {
-  console.log("User ID", userId);
-  console.log("Role", role);
+
   if (role === Role.STUDENT) {
     return await prisma.booking.findMany({
       where: { studentId: userId },
+      include: {
+        tutor: {
+       select:{
+        user:{
+          select:{
+            name:true,
+            email:true,
+            
+         
+          }
+        }
+       }
+        }
+      }
     });
   }
-
+  // If use ris tutor
   if (role === Role.TUTOR) {
     const tutor = await prisma.tutor.findUnique({
       where: { userId },
+
     });
 
     if (!tutor) return [];
 
     return await prisma.booking.findMany({
       where: { tutor_id: tutor.tutor_id },
+      include: {
+        student: {
+          select: {
+            name: true,
+            email: true,
+
+
+          }
+        }
+      }
     });
   }
 
-  
+
 };
 
-const getBookingById = async (id: string,role:Role) => {
+const getBookingById = async (id: string, role: Role) => {
 
   if (role === Role.STUDENT) {
     return await prisma.booking.findMany({
@@ -90,7 +115,7 @@ const getBookingById = async (id: string,role:Role) => {
       },
     });
   }
-    if (role === Role.TUTOR) {
+  if (role === Role.TUTOR) {
     return await prisma.booking.findMany({
       where: {
         tutor_id: id,
@@ -102,8 +127,16 @@ const getBookingById = async (id: string,role:Role) => {
   }
 };
 
+
+const updateBookingStatus=async(id:string,bookingStatus:BookingStatus)=>{
+  return await prisma.booking.update({
+    where:{booking_id:id},
+    data:{bookingStatus}
+  })
+}
+
 export const bookingServices = {
   createBooking,
   getAllBookings,
-  getBookingById,
+  getBookingById,updateBookingStatus
 };

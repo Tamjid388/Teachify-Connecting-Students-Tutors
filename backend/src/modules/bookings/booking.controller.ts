@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { bookingServices } from "./booking.service";
 import { array, string, success } from "better-auth";
-import { Role } from "../../../prisma/generated/prisma/enums";
+import { BookingStatus, Role } from "../../../prisma/generated/prisma/enums";
 
 const createBooking = async (req: Request, res: Response) => {
   try {
@@ -50,11 +50,11 @@ const getBookingById = async (req: Request, res: Response) => {
       id as string,
       role as Role,
     );
-    if(!booking){
+    if (!booking) {
       return res.status(404).json({
-        success:false,
-        data:null,
-        message:"No Bookings found for this user"
+        success: false,
+        data: null,
+        message: "No Bookings found for this user"
       })
     }
 
@@ -64,8 +64,35 @@ const getBookingById = async (req: Request, res: Response) => {
   }
 };
 
+
+const updateBookingStatus = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const role = req.user?.role;
+    const { bookingStatus } = req.body;
+    console.log("Booking Status", bookingStatus,id);
+    if (!id) {
+      return res.status(401).json({ message: "User Id Required" });
+    }
+    if (!role) {
+      return res.status(401).json({ message: "User role required" });
+    }
+    const booking = await bookingServices.updateBookingStatus(
+      id as string,
+
+      bookingStatus as BookingStatus,
+    );
+
+
+    return res.status(200).json({ success: true, data: booking });
+  } catch (err: any) {
+    res.status(500).json({ success:false,
+      message:"Status Update Failed",
+      error: err.message });
+  }
+};
 export const bookingController = {
   createBooking,
   getBookings,
-  getBookingById,
+  getBookingById, updateBookingStatus
 };

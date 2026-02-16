@@ -127,8 +127,8 @@ export default function TutorDetails({ data }: TutorDetailsProps) {
                           />
                         ))}
                       </div>
-                      <span className="text-gray-700 font-semibold">{data.rating.toFixed(1)}</span>
-                      <span className="text-gray-500">({data.total_reviews} reviews)</span>
+                      <span className="text-gray-700 font-semibold">{data?.rating?.toFixed(1)}</span>
+                      <span className="text-gray-500">({data?.total_reviews} reviews)</span>
                     </div>
                   </div>
 

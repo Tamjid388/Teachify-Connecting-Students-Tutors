@@ -1,3 +1,4 @@
+import { TTutor } from "@/Types/Ttutor";
 import TutorCard from "./TutorCard";
 
 export default function TutorList({ tutors }: { tutors: TTutor[] }) {
