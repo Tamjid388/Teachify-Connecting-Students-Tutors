@@ -36,6 +36,20 @@ const createReview = async (userId: string, body: any) => {
                 isReviewed: true
             }
         })
+
+        const stats = await tx.review.aggregate({
+            where: { tutorId },
+            _avg: { rating: true },
+            _count: { rating: true }
+        });
+
+        await tx.tutor.update({
+            where: { tutor_id: tutorId },
+            data: {
+                averageRating: stats._avg.rating || 0,
+                reviewCount: stats._count.rating
+            }
+        });
         return createReview
     })
 

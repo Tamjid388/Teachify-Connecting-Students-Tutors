@@ -28,9 +28,12 @@ const createTutorProfile = async (req: Request, res: Response) => {
 };
 const getAllTutors = async (req: Request, res: Response) => {
   try {
-    const body = req.body;
-
-    const result = await tutorServices.getAllTutors();
+  
+const {rating}=req.query
+const {search}=req.query
+const searchString = typeof search === "string" ? search : undefined;
+const ratingString= typeof rating=== "number" ? rating : undefined;
+    const result = await tutorServices.getAllTutors({search:searchString,rating:ratingString});
     res.status(200).json({
       success: true,
       message: "tutors retrieved successfully",
@@ -45,6 +48,11 @@ const getAllTutors = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+
+
+
 const updateTutor = async (req: Request, res: Response) => {
   try {
     const body = req.body;

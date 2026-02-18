@@ -135,8 +135,24 @@ const updateBookingStatus=async(id:string,bookingStatus:BookingStatus)=>{
   })
 }
 
+const syncBookingStatus=async(id:string,bookingStatus:BookingStatus)=>{
+  return await prisma.booking.updateMany({
+    where:{
+      OR: [
+        { studentId: id },
+        { tutor_id: id }],
+        endTime:{
+          lt:new Date()
+        },
+        bookingStatus:BookingStatus.ACCEPTED
+    },
+    data:{bookingStatus:BookingStatus.COMPLETED}
+  })
+}
+
+
 export const bookingServices = {
   createBooking,
   getAllBookings,
-  getBookingById,updateBookingStatus
+  getBookingById,updateBookingStatus,syncBookingStatus
 };

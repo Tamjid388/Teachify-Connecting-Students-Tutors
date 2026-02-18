@@ -23,24 +23,23 @@ model Booking {
 
   startTime     DateTime
   endTime       DateTime
-  duration      Int           @default(60)
-  tutionMode    TuitionMode   @default(ONLINE)
-  paymentStatus PaymentStatus @default(UNPAID)
+  duration      Int              @default(60)
+  tutionMode    TuitionMode      @default(ONLINE)
+  paymentStatus PaymentStatus    @default(UNPAID)
   studentId     String
   tutor_id      String
-  isReviewed    Boolean       @default(false)
+  isReviewed    Boolean          @default(false)
   slotId        String
+  review        Review?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
   // relations
-  student       User          @relation(fields: [studentId], references: [id])
+  tutor         Tutor            @relation(fields: [tutor_id], references: [tutor_id])
+  student       User             @relation(fields: [studentId], references: [id])
+  slot          AvailabilitySlot @relation(fields: [slotId], references: [id])
 
-  tutor Tutor @relation(fields: [tutor_id], references: [tutor_id])
-
-  review    Review?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  slot AvailabilitySlot @relation(fields: [slotId], references: [id])
-
+  @@index([studentId])
+  @@index([tutor_id])
   @@map("bookings")
 }
 

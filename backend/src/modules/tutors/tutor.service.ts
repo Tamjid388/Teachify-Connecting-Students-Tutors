@@ -2,9 +2,13 @@ import {
   Availability,
   DayOfWeek,
 } from "../../../prisma/generated/prisma/enums";
-import { TutorUpdateInput } from "../../../prisma/generated/prisma/models";
+import { TutorUpdateInput, TutorWhereInput } from "../../../prisma/generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 import { AuthUser } from "../../types/user";
+/**
+ * Service layer for handling Tutor related database operations using Prisma.
+ * Model: Tutor
+ */
 
 type PayloadType = {
   bio: string;
@@ -27,9 +31,56 @@ const createTutor = async (body: PayloadType, user: AuthUser) => {
   return result;
 };
 
-const getAllTutors = async () => {
- 
+
+
+const getAllTutors = async ({ search, rating }:
+  {
+    search: string | undefined,
+    rating: number | undefined
+  }) => {
+
+  const whereConditions: TutorWhereInput[] = []
+
+  if (search) {
+    whereConditions.push({
+      OR: [
+        {
+          user: {
+            name: {
+              contains: search, // search with tutor name
+              mode: "insensitive"
+            }
+          }
+        },
+        {
+          categories: {
+            some: {
+              category: {
+                subject: {
+                  contains: search, // search with subject name
+                  mode: "insensitive"
+                }
+              }
+            }
+          }
+        }
+      ]
+    })
+  }
+
+  if (rating) {
+    whereConditions.push({
+      averageRating: { gte: rating }
+    })
+
+  }
+
+
   const tutors = await prisma.tutor.findMany({
+    where: {
+      AND: whereConditions
+    }
+    ,
     include: {
       user: {
         select: { name: true },
@@ -40,27 +91,10 @@ const getAllTutors = async () => {
     },
   });
 
- 
-  const tutorsWithStats = await Promise.all(
-    tutors.map(async (tutor) => {
-      const stats = await prisma.review.aggregate({
-        where: { tutorId: tutor.tutor_id },
-        _count: { rating: true },
-        _avg: { rating: true },
-      });
 
 
-      return {
-        ...tutor,
-        name: tutor.user.name,
-        categories: tutor.categories.map((c) => c.category),
-        reviewCount: stats._count.rating,
-        averageRating: stats._avg.rating || 0,
-      };
-    })
-  );
 
-  return tutorsWithStats;
+  return tutors;
 };
 
 const updateTutor = async (body: TutorUpdateInput, user: AuthUser) => {
@@ -132,15 +166,15 @@ const getSlots = async (id: string) => {
   const slots = await prisma.availabilitySlot.findMany({
     where: {
       tutorId: id,
-    },include:{
-      bookings:true
+    }, include: {
+      bookings: true
     },
-    orderBy:{
-      day:"asc"
+    orderBy: {
+      day: "asc"
     }
   });
 
-  if(slots.length===0){
+  if (slots.length === 0) {
     throw new Error("Tutor Doesnt Have Any Available Slots")
   }
   return slots;
@@ -157,9 +191,9 @@ const getTutorById = async (tutorId: string) => {
           category: true,
         },
       },
-      _count:{
-        select:{
-          reviews:true
+      _count: {
+        select: {
+          reviews: true
         }
       }
     },

@@ -280,9 +280,9 @@ export type BookingWhereInput = {
   slotId?: Prisma.StringFilter<"Booking"> | string
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
-  student?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  tutor?: Prisma.XOR<Prisma.TutorScalarRelationFilter, Prisma.TutorWhereInput>
   review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
+  tutor?: Prisma.XOR<Prisma.TutorScalarRelationFilter, Prisma.TutorWhereInput>
+  student?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   slot?: Prisma.XOR<Prisma.AvailabilitySlotScalarRelationFilter, Prisma.AvailabilitySlotWhereInput>
 }
 
@@ -300,9 +300,9 @@ export type BookingOrderByWithRelationInput = {
   slotId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  student?: Prisma.UserOrderByWithRelationInput
-  tutor?: Prisma.TutorOrderByWithRelationInput
   review?: Prisma.ReviewOrderByWithRelationInput
+  tutor?: Prisma.TutorOrderByWithRelationInput
+  student?: Prisma.UserOrderByWithRelationInput
   slot?: Prisma.AvailabilitySlotOrderByWithRelationInput
 }
 
@@ -323,9 +323,9 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   slotId?: Prisma.StringFilter<"Booking"> | string
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
-  student?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  tutor?: Prisma.XOR<Prisma.TutorScalarRelationFilter, Prisma.TutorWhereInput>
   review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
+  tutor?: Prisma.XOR<Prisma.TutorScalarRelationFilter, Prisma.TutorWhereInput>
+  student?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   slot?: Prisma.XOR<Prisma.AvailabilitySlotScalarRelationFilter, Prisma.AvailabilitySlotWhereInput>
 }, "booking_id">
 
@@ -380,9 +380,9 @@ export type BookingCreateInput = {
   isReviewed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  student: Prisma.UserCreateNestedOneWithoutBookingsInput
-  tutor: Prisma.TutorCreateNestedOneWithoutBookingsInput
   review?: Prisma.ReviewCreateNestedOneWithoutBookingInput
+  tutor: Prisma.TutorCreateNestedOneWithoutBookingsInput
+  student: Prisma.UserCreateNestedOneWithoutBookingsInput
   slot: Prisma.AvailabilitySlotCreateNestedOneWithoutBookingsInput
 }
 
@@ -414,9 +414,9 @@ export type BookingUpdateInput = {
   isReviewed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  student?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
-  tutor?: Prisma.TutorUpdateOneRequiredWithoutBookingsNestedInput
   review?: Prisma.ReviewUpdateOneWithoutBookingNestedInput
+  tutor?: Prisma.TutorUpdateOneRequiredWithoutBookingsNestedInput
+  student?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   slot?: Prisma.AvailabilitySlotUpdateOneRequiredWithoutBookingsNestedInput
 }
 
@@ -736,9 +736,9 @@ export type BookingCreateWithoutSlotInput = {
   isReviewed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  student: Prisma.UserCreateNestedOneWithoutBookingsInput
-  tutor: Prisma.TutorCreateNestedOneWithoutBookingsInput
   review?: Prisma.ReviewCreateNestedOneWithoutBookingInput
+  tutor: Prisma.TutorCreateNestedOneWithoutBookingsInput
+  student: Prisma.UserCreateNestedOneWithoutBookingsInput
 }
 
 export type BookingUncheckedCreateWithoutSlotInput = {
@@ -813,8 +813,8 @@ export type BookingCreateWithoutReviewInput = {
   isReviewed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  student: Prisma.UserCreateNestedOneWithoutBookingsInput
   tutor: Prisma.TutorCreateNestedOneWithoutBookingsInput
+  student: Prisma.UserCreateNestedOneWithoutBookingsInput
   slot: Prisma.AvailabilitySlotCreateNestedOneWithoutBookingsInput
 }
 
@@ -861,8 +861,8 @@ export type BookingUpdateWithoutReviewInput = {
   isReviewed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  student?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   tutor?: Prisma.TutorUpdateOneRequiredWithoutBookingsNestedInput
+  student?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   slot?: Prisma.AvailabilitySlotUpdateOneRequiredWithoutBookingsNestedInput
 }
 
@@ -893,8 +893,8 @@ export type BookingCreateWithoutTutorInput = {
   isReviewed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  student: Prisma.UserCreateNestedOneWithoutBookingsInput
   review?: Prisma.ReviewCreateNestedOneWithoutBookingInput
+  student: Prisma.UserCreateNestedOneWithoutBookingsInput
   slot: Prisma.AvailabilitySlotCreateNestedOneWithoutBookingsInput
 }
 
@@ -951,8 +951,8 @@ export type BookingCreateWithoutStudentInput = {
   isReviewed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  tutor: Prisma.TutorCreateNestedOneWithoutBookingsInput
   review?: Prisma.ReviewCreateNestedOneWithoutBookingInput
+  tutor: Prisma.TutorCreateNestedOneWithoutBookingsInput
   slot: Prisma.AvailabilitySlotCreateNestedOneWithoutBookingsInput
 }
 
@@ -1024,9 +1024,9 @@ export type BookingUpdateWithoutSlotInput = {
   isReviewed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  student?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
-  tutor?: Prisma.TutorUpdateOneRequiredWithoutBookingsNestedInput
   review?: Prisma.ReviewUpdateOneWithoutBookingNestedInput
+  tutor?: Prisma.TutorUpdateOneRequiredWithoutBookingsNestedInput
+  student?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutSlotInput = {
@@ -1086,8 +1086,8 @@ export type BookingUpdateWithoutTutorInput = {
   isReviewed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  student?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   review?: Prisma.ReviewUpdateOneWithoutBookingNestedInput
+  student?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   slot?: Prisma.AvailabilitySlotUpdateOneRequiredWithoutBookingsNestedInput
 }
 
@@ -1148,8 +1148,8 @@ export type BookingUpdateWithoutStudentInput = {
   isReviewed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tutor?: Prisma.TutorUpdateOneRequiredWithoutBookingsNestedInput
   review?: Prisma.ReviewUpdateOneWithoutBookingNestedInput
+  tutor?: Prisma.TutorUpdateOneRequiredWithoutBookingsNestedInput
   slot?: Prisma.AvailabilitySlotUpdateOneRequiredWithoutBookingsNestedInput
 }
 
@@ -1200,9 +1200,9 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   slotId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
   review?: boolean | Prisma.Booking$reviewArgs<ExtArgs>
+  tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   slot?: boolean | Prisma.AvailabilitySlotDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
@@ -1220,8 +1220,8 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   slotId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   slot?: boolean | Prisma.AvailabilitySlotDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
@@ -1239,8 +1239,8 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   slotId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   slot?: boolean | Prisma.AvailabilitySlotDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
@@ -1262,28 +1262,28 @@ export type BookingSelectScalar = {
 
 export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"booking_id" | "bookingStatus" | "startTime" | "endTime" | "duration" | "tutionMode" | "paymentStatus" | "studentId" | "tutor_id" | "isReviewed" | "slotId" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
   review?: boolean | Prisma.Booking$reviewArgs<ExtArgs>
+  tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   slot?: boolean | Prisma.AvailabilitySlotDefaultArgs<ExtArgs>
 }
 export type BookingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   slot?: boolean | Prisma.AvailabilitySlotDefaultArgs<ExtArgs>
 }
 export type BookingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.TutorDefaultArgs<ExtArgs>
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   slot?: boolean | Prisma.AvailabilitySlotDefaultArgs<ExtArgs>
 }
 
 export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Booking"
   objects: {
-    student: Prisma.$UserPayload<ExtArgs>
-    tutor: Prisma.$TutorPayload<ExtArgs>
     review: Prisma.$ReviewPayload<ExtArgs> | null
+    tutor: Prisma.$TutorPayload<ExtArgs>
+    student: Prisma.$UserPayload<ExtArgs>
     slot: Prisma.$AvailabilitySlotPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1694,9 +1694,9 @@ readonly fields: BookingFieldRefs;
  */
 export interface Prisma__BookingClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  student<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  tutor<T extends Prisma.TutorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TutorDefaultArgs<ExtArgs>>): Prisma.Prisma__TutorClient<runtime.Types.Result.GetResult<Prisma.$TutorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   review<T extends Prisma.Booking$reviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$reviewArgs<ExtArgs>>): Prisma.Prisma__ReviewClient<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tutor<T extends Prisma.TutorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TutorDefaultArgs<ExtArgs>>): Prisma.Prisma__TutorClient<runtime.Types.Result.GetResult<Prisma.$TutorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  student<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   slot<T extends Prisma.AvailabilitySlotDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AvailabilitySlotDefaultArgs<ExtArgs>>): Prisma.Prisma__AvailabilitySlotClient<runtime.Types.Result.GetResult<Prisma.$AvailabilitySlotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

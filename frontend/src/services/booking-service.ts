@@ -26,7 +26,7 @@ export const bookingService = {
             throw new Error(error.message || "Something went wrong");
         }
     },
-    updateBookingStatus:async(payload:{id:string,bookingStatus:string})=>{
+    updateBookingStatus: async (payload: { id: string, bookingStatus: string }) => {
         try {
             const response = await fetch(`${BASE_URL}bookings/${payload.id}`, {
                 method: "PUT",
@@ -36,7 +36,7 @@ export const bookingService = {
                 credentials: "include",
                 body: JSON.stringify({ bookingStatus: payload.bookingStatus }),
             });
-console.log(response)
+            console.log(response)
             if (!response.ok) {
                 const errorBody = await response.json().catch(() => ({}));
                 throw new Error(errorBody.message || "Failed to update booking status");

@@ -28,10 +28,14 @@ export type AggregateTutor = {
 
 export type TutorAvgAggregateOutputType = {
   experience: number | null
+  averageRating: number | null
+  reviewCount: number | null
 }
 
 export type TutorSumAggregateOutputType = {
   experience: number | null
+  averageRating: number | null
+  reviewCount: number | null
 }
 
 export type TutorMinAggregateOutputType = {
@@ -44,6 +48,8 @@ export type TutorMinAggregateOutputType = {
   experience: number | null
   education: string | null
   userId: string | null
+  averageRating: number | null
+  reviewCount: number | null
 }
 
 export type TutorMaxAggregateOutputType = {
@@ -56,6 +62,8 @@ export type TutorMaxAggregateOutputType = {
   experience: number | null
   education: string | null
   userId: string | null
+  averageRating: number | null
+  reviewCount: number | null
 }
 
 export type TutorCountAggregateOutputType = {
@@ -68,16 +76,22 @@ export type TutorCountAggregateOutputType = {
   experience: number
   education: number
   userId: number
+  averageRating: number
+  reviewCount: number
   _all: number
 }
 
 
 export type TutorAvgAggregateInputType = {
   experience?: true
+  averageRating?: true
+  reviewCount?: true
 }
 
 export type TutorSumAggregateInputType = {
   experience?: true
+  averageRating?: true
+  reviewCount?: true
 }
 
 export type TutorMinAggregateInputType = {
@@ -90,6 +104,8 @@ export type TutorMinAggregateInputType = {
   experience?: true
   education?: true
   userId?: true
+  averageRating?: true
+  reviewCount?: true
 }
 
 export type TutorMaxAggregateInputType = {
@@ -102,6 +118,8 @@ export type TutorMaxAggregateInputType = {
   experience?: true
   education?: true
   userId?: true
+  averageRating?: true
+  reviewCount?: true
 }
 
 export type TutorCountAggregateInputType = {
@@ -114,6 +132,8 @@ export type TutorCountAggregateInputType = {
   experience?: true
   education?: true
   userId?: true
+  averageRating?: true
+  reviewCount?: true
   _all?: true
 }
 
@@ -213,6 +233,8 @@ export type TutorGroupByOutputType = {
   experience: number
   education: string
   userId: string
+  averageRating: number
+  reviewCount: number
   _count: TutorCountAggregateOutputType | null
   _avg: TutorAvgAggregateOutputType | null
   _sum: TutorSumAggregateOutputType | null
@@ -248,6 +270,8 @@ export type TutorWhereInput = {
   experience?: Prisma.IntFilter<"Tutor"> | number
   education?: Prisma.StringFilter<"Tutor"> | string
   userId?: Prisma.StringFilter<"Tutor"> | string
+  averageRating?: Prisma.FloatFilter<"Tutor"> | number
+  reviewCount?: Prisma.IntFilter<"Tutor"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bookings?: Prisma.BookingListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
@@ -265,6 +289,8 @@ export type TutorOrderByWithRelationInput = {
   experience?: Prisma.SortOrder
   education?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
@@ -285,6 +311,8 @@ export type TutorWhereUniqueInput = Prisma.AtLeast<{
   is_verified?: Prisma.BoolFilter<"Tutor"> | boolean
   experience?: Prisma.IntFilter<"Tutor"> | number
   education?: Prisma.StringFilter<"Tutor"> | string
+  averageRating?: Prisma.FloatFilter<"Tutor"> | number
+  reviewCount?: Prisma.IntFilter<"Tutor"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bookings?: Prisma.BookingListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
@@ -302,6 +330,8 @@ export type TutorOrderByWithAggregationInput = {
   experience?: Prisma.SortOrder
   education?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
   _count?: Prisma.TutorCountOrderByAggregateInput
   _avg?: Prisma.TutorAvgOrderByAggregateInput
   _max?: Prisma.TutorMaxOrderByAggregateInput
@@ -322,6 +352,8 @@ export type TutorScalarWhereWithAggregatesInput = {
   experience?: Prisma.IntWithAggregatesFilter<"Tutor"> | number
   education?: Prisma.StringWithAggregatesFilter<"Tutor"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Tutor"> | string
+  averageRating?: Prisma.FloatWithAggregatesFilter<"Tutor"> | number
+  reviewCount?: Prisma.IntWithAggregatesFilter<"Tutor"> | number
 }
 
 export type TutorCreateInput = {
@@ -333,6 +365,8 @@ export type TutorCreateInput = {
   is_verified?: boolean
   experience?: number
   education: string
+  averageRating?: number
+  reviewCount?: number
   user: Prisma.UserCreateNestedOneWithoutTutorInput
   bookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTutorInput
@@ -350,6 +384,8 @@ export type TutorUncheckedCreateInput = {
   experience?: number
   education: string
   userId: string
+  averageRating?: number
+  reviewCount?: number
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
   categories?: Prisma.TutorCategoryUncheckedCreateNestedManyWithoutTutorInput
@@ -365,6 +401,8 @@ export type TutorUpdateInput = {
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutTutorNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTutorNestedInput
@@ -382,6 +420,8 @@ export type TutorUncheckedUpdateInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
   categories?: Prisma.TutorCategoryUncheckedUpdateManyWithoutTutorNestedInput
@@ -398,6 +438,8 @@ export type TutorCreateManyInput = {
   experience?: number
   education: string
   userId: string
+  averageRating?: number
+  reviewCount?: number
 }
 
 export type TutorUpdateManyMutationInput = {
@@ -409,6 +451,8 @@ export type TutorUpdateManyMutationInput = {
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type TutorUncheckedUpdateManyInput = {
@@ -421,6 +465,8 @@ export type TutorUncheckedUpdateManyInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type TutorScalarRelationFilter = {
@@ -438,10 +484,14 @@ export type TutorCountOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   education?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
 }
 
 export type TutorAvgOrderByAggregateInput = {
   experience?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
 }
 
 export type TutorMaxOrderByAggregateInput = {
@@ -454,6 +504,8 @@ export type TutorMaxOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   education?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
 }
 
 export type TutorMinOrderByAggregateInput = {
@@ -466,10 +518,14 @@ export type TutorMinOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   education?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
 }
 
 export type TutorSumOrderByAggregateInput = {
   experience?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
 }
 
 export type TutorNullableScalarRelationFilter = {
@@ -521,6 +577,14 @@ export type TutorUpdateOneRequiredWithoutReviewsNestedInput = {
 
 export type EnumAvailabilityFieldUpdateOperationsInput = {
   set?: $Enums.Availability
+}
+
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type TutorCreateNestedOneWithoutCategoriesInput = {
@@ -578,6 +642,8 @@ export type TutorCreateWithoutBookingsInput = {
   is_verified?: boolean
   experience?: number
   education: string
+  averageRating?: number
+  reviewCount?: number
   user: Prisma.UserCreateNestedOneWithoutTutorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTutorInput
   categories?: Prisma.TutorCategoryCreateNestedManyWithoutTutorInput
@@ -594,6 +660,8 @@ export type TutorUncheckedCreateWithoutBookingsInput = {
   experience?: number
   education: string
   userId: string
+  averageRating?: number
+  reviewCount?: number
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
   categories?: Prisma.TutorCategoryUncheckedCreateNestedManyWithoutTutorInput
   availability?: Prisma.AvailabilitySlotUncheckedCreateNestedManyWithoutTutorInput
@@ -624,6 +692,8 @@ export type TutorUpdateWithoutBookingsInput = {
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutTutorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTutorNestedInput
   categories?: Prisma.TutorCategoryUpdateManyWithoutTutorNestedInput
@@ -640,6 +710,8 @@ export type TutorUncheckedUpdateWithoutBookingsInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
   categories?: Prisma.TutorCategoryUncheckedUpdateManyWithoutTutorNestedInput
   availability?: Prisma.AvailabilitySlotUncheckedUpdateManyWithoutTutorNestedInput
@@ -654,6 +726,8 @@ export type TutorCreateWithoutAvailabilityInput = {
   is_verified?: boolean
   experience?: number
   education: string
+  averageRating?: number
+  reviewCount?: number
   user: Prisma.UserCreateNestedOneWithoutTutorInput
   bookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTutorInput
@@ -670,6 +744,8 @@ export type TutorUncheckedCreateWithoutAvailabilityInput = {
   experience?: number
   education: string
   userId: string
+  averageRating?: number
+  reviewCount?: number
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
   categories?: Prisma.TutorCategoryUncheckedCreateNestedManyWithoutTutorInput
@@ -700,6 +776,8 @@ export type TutorUpdateWithoutAvailabilityInput = {
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutTutorNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTutorNestedInput
@@ -716,6 +794,8 @@ export type TutorUncheckedUpdateWithoutAvailabilityInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
   categories?: Prisma.TutorCategoryUncheckedUpdateManyWithoutTutorNestedInput
@@ -730,6 +810,8 @@ export type TutorCreateWithoutReviewsInput = {
   is_verified?: boolean
   experience?: number
   education: string
+  averageRating?: number
+  reviewCount?: number
   user: Prisma.UserCreateNestedOneWithoutTutorInput
   bookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
   categories?: Prisma.TutorCategoryCreateNestedManyWithoutTutorInput
@@ -746,6 +828,8 @@ export type TutorUncheckedCreateWithoutReviewsInput = {
   experience?: number
   education: string
   userId: string
+  averageRating?: number
+  reviewCount?: number
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
   categories?: Prisma.TutorCategoryUncheckedCreateNestedManyWithoutTutorInput
   availability?: Prisma.AvailabilitySlotUncheckedCreateNestedManyWithoutTutorInput
@@ -776,6 +860,8 @@ export type TutorUpdateWithoutReviewsInput = {
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutTutorNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
   categories?: Prisma.TutorCategoryUpdateManyWithoutTutorNestedInput
@@ -792,6 +878,8 @@ export type TutorUncheckedUpdateWithoutReviewsInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
   categories?: Prisma.TutorCategoryUncheckedUpdateManyWithoutTutorNestedInput
   availability?: Prisma.AvailabilitySlotUncheckedUpdateManyWithoutTutorNestedInput
@@ -806,6 +894,8 @@ export type TutorCreateWithoutCategoriesInput = {
   is_verified?: boolean
   experience?: number
   education: string
+  averageRating?: number
+  reviewCount?: number
   user: Prisma.UserCreateNestedOneWithoutTutorInput
   bookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTutorInput
@@ -822,6 +912,8 @@ export type TutorUncheckedCreateWithoutCategoriesInput = {
   experience?: number
   education: string
   userId: string
+  averageRating?: number
+  reviewCount?: number
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
   availability?: Prisma.AvailabilitySlotUncheckedCreateNestedManyWithoutTutorInput
@@ -852,6 +944,8 @@ export type TutorUpdateWithoutCategoriesInput = {
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutTutorNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTutorNestedInput
@@ -868,6 +962,8 @@ export type TutorUncheckedUpdateWithoutCategoriesInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
   availability?: Prisma.AvailabilitySlotUncheckedUpdateManyWithoutTutorNestedInput
@@ -882,6 +978,8 @@ export type TutorCreateWithoutUserInput = {
   is_verified?: boolean
   experience?: number
   education: string
+  averageRating?: number
+  reviewCount?: number
   bookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTutorInput
   categories?: Prisma.TutorCategoryCreateNestedManyWithoutTutorInput
@@ -897,6 +995,8 @@ export type TutorUncheckedCreateWithoutUserInput = {
   is_verified?: boolean
   experience?: number
   education: string
+  averageRating?: number
+  reviewCount?: number
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
   categories?: Prisma.TutorCategoryUncheckedCreateNestedManyWithoutTutorInput
@@ -928,6 +1028,8 @@ export type TutorUpdateWithoutUserInput = {
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTutorNestedInput
   categories?: Prisma.TutorCategoryUpdateManyWithoutTutorNestedInput
@@ -943,6 +1045,8 @@ export type TutorUncheckedUpdateWithoutUserInput = {
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   education?: Prisma.StringFieldUpdateOperationsInput | string
+  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
   categories?: Prisma.TutorCategoryUncheckedUpdateManyWithoutTutorNestedInput
@@ -1017,6 +1121,8 @@ export type TutorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   experience?: boolean
   education?: boolean
   userId?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bookings?: boolean | Prisma.Tutor$bookingsArgs<ExtArgs>
   reviews?: boolean | Prisma.Tutor$reviewsArgs<ExtArgs>
@@ -1035,6 +1141,8 @@ export type TutorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   experience?: boolean
   education?: boolean
   userId?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tutor"]>
 
@@ -1048,6 +1156,8 @@ export type TutorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   experience?: boolean
   education?: boolean
   userId?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tutor"]>
 
@@ -1061,9 +1171,11 @@ export type TutorSelectScalar = {
   experience?: boolean
   education?: boolean
   userId?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
 }
 
-export type TutorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"tutor_id" | "image" | "bio" | "avilability_slot" | "phone_number" | "is_verified" | "experience" | "education" | "userId", ExtArgs["result"]["tutor"]>
+export type TutorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"tutor_id" | "image" | "bio" | "avilability_slot" | "phone_number" | "is_verified" | "experience" | "education" | "userId" | "averageRating" | "reviewCount", ExtArgs["result"]["tutor"]>
 export type TutorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bookings?: boolean | Prisma.Tutor$bookingsArgs<ExtArgs>
@@ -1098,6 +1210,8 @@ export type $TutorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     experience: number
     education: string
     userId: string
+    averageRating: number
+    reviewCount: number
   }, ExtArgs["result"]["tutor"]>
   composites: {}
 }
@@ -1535,6 +1649,8 @@ export interface TutorFieldRefs {
   readonly experience: Prisma.FieldRef<"Tutor", 'Int'>
   readonly education: Prisma.FieldRef<"Tutor", 'String'>
   readonly userId: Prisma.FieldRef<"Tutor", 'String'>
+  readonly averageRating: Prisma.FieldRef<"Tutor", 'Float'>
+  readonly reviewCount: Prisma.FieldRef<"Tutor", 'Int'>
 }
     
 

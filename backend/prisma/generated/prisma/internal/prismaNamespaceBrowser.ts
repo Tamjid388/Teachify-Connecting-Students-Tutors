@@ -146,7 +146,9 @@ export const TutorScalarFieldEnum = {
   is_verified: 'is_verified',
   experience: 'experience',
   education: 'education',
-  userId: 'userId'
+  userId: 'userId',
+  averageRating: 'averageRating',
+  reviewCount: 'reviewCount'
 } as const
 
 export type TutorScalarFieldEnum = (typeof TutorScalarFieldEnum)[keyof typeof TutorScalarFieldEnum]
