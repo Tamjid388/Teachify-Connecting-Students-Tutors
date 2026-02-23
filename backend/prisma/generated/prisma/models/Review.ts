@@ -262,7 +262,6 @@ export type ReviewOrderByWithRelationInput = {
 export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   booking_id?: string
-  userId_tutorId?: Prisma.ReviewUserIdTutorIdCompoundUniqueInput
   AND?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
   OR?: Prisma.ReviewWhereInput[]
   NOT?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
@@ -275,7 +274,7 @@ export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tutor?: Prisma.XOR<Prisma.TutorScalarRelationFilter, Prisma.TutorWhereInput>
   booking?: Prisma.XOR<Prisma.BookingScalarRelationFilter, Prisma.BookingWhereInput>
-}, "id" | "booking_id" | "userId_tutorId">
+}, "id" | "booking_id">
 
 export type ReviewOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -384,11 +383,6 @@ export type ReviewUncheckedUpdateManyInput = {
 export type ReviewNullableScalarRelationFilter = {
   is?: Prisma.ReviewWhereInput | null
   isNot?: Prisma.ReviewWhereInput | null
-}
-
-export type ReviewUserIdTutorIdCompoundUniqueInput = {
-  userId: string
-  tutorId: string
 }
 
 export type ReviewCountOrderByAggregateInput = {

@@ -1,26 +1,36 @@
+// for api call
+export interface getAllTutorsParams {
+  searchQuery?: string;
+  rating?: number;
+  experience?: number;
+}
+
+
+
+
 export interface TTutor {
   tutor_id: string;
-  is_verified:boolean,
-  image:string,
-  averageRating:number;
-  rating:number;
-  total_reviews:number;
-  bio:string;
+  is_verified: boolean,
+  image: string,
+  averageRating: number;
+  rating: number;
+  total_reviews: number;
+  bio: string;
   subject: string;
   education: string;
   avilability_slot: string;
   rate: number;
   experience: number;
-    user: {
+  user: {
     name: string;
   };
 }
 
 
 export type AvailabilityPayload = {
-slots:{
+  slots: {
     day: string;
-  startTime: string;
-  endTime: string;
-}[]
+    startTime: string;
+    endTime: string;
+  }[]
 };

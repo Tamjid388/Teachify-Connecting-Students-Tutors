@@ -5,10 +5,7 @@ import {
 import { TutorUpdateInput, TutorWhereInput } from "../../../prisma/generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 import { AuthUser } from "../../types/user";
-/**
- * Service layer for handling Tutor related database operations using Prisma.
- * Model: Tutor
- */
+
 
 type PayloadType = {
   bio: string;
@@ -31,7 +28,22 @@ const createTutor = async (body: PayloadType, user: AuthUser) => {
   return result;
 };
 
+const myProfile=async(user:AuthUser)=>{
 
+  return await prisma.tutor.findUnique({
+    where:{
+      userId:user.id
+    },
+    include:{
+      user:true,
+      categories:{
+        include:{
+          category:true
+        }
+      }
+    }
+  })
+}
 
 const getAllTutors = async ({ search, rating }:
   {
@@ -202,6 +214,61 @@ const getTutorById = async (tutorId: string) => {
   return tutor;
 };
 
+const getTutorStats = async (userId: string) => {
+  const tutor = await prisma.tutor.findUnique({
+    where: { userId },
+    select: {
+      tutor_id: true,
+      averageRating: true,
+      reviewCount: true,
+    },
+  });
+
+  if (!tutor) {
+    throw new Error("Tutor profile not found");
+  }
+
+  const bookings = await prisma.booking.groupBy({
+    by: ["bookingStatus"],
+    where: {
+      tutor_id: tutor.tutor_id,
+    },
+    _count: {
+      booking_id: true,
+    },
+  });
+
+  const stats = {
+    totalBookings: 0,
+    pendingBookings: 0,
+    acceptedBookings: 0,
+    completedBookings: 0,
+    cancelledBookings: 0,
+    totalStudents: 0,
+    averageRating: tutor.averageRating,
+    totalReviews: tutor.reviewCount,
+  };
+
+  bookings.forEach((b) => {
+    const count = b._count.booking_id;
+    stats.totalBookings += count;
+    if (b.bookingStatus === "PENDING") stats.pendingBookings = count;
+    if (b.bookingStatus === "ACCEPTED") stats.acceptedBookings = count;
+    if (b.bookingStatus === "COMPLETED") stats.completedBookings = count;
+    if (b.bookingStatus === "CANCELLED") stats.cancelledBookings = count;
+  });
+
+  const studentsCount = await prisma.booking.findMany({
+    where: { tutor_id: tutor.tutor_id },
+    distinct: ["studentId"],
+    select: { studentId: true },
+  });
+
+  stats.totalStudents = studentsCount.length;
+
+  return stats;
+};
+
 export const tutorServices = {
   createTutor,
   getAllTutors,
@@ -210,4 +277,5 @@ export const tutorServices = {
   createSlots,
   getSlots,
   getTutorById,
+  getTutorStats,myProfile
 };

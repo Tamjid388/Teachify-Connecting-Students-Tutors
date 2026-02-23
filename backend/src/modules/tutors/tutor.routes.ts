@@ -9,8 +9,13 @@ router.post(
   authMiddleware("TUTOR", "ADMIN"),
   tutorController.createTutorProfile,
 );
+
+router.get("/my-profile", authMiddleware("TUTOR"), tutorController.myProfile)
+
+
+router.get("/stats", authMiddleware("TUTOR"), tutorController.getTutorStats);
 //tutor info by tutorId
-router.get("/:tutorId",tutorController.getTutorById)
+router.get("/:tutorId", tutorController.getTutorById)
 
 router.put(
   "/update",
@@ -26,10 +31,10 @@ router.put(
 );
 
 //add slots
-router.post("/slots",authMiddleware("TUTOR","ADMIN","STUDENT"),tutorController.addAvailabilitySlots)
+router.post("/slots", authMiddleware("TUTOR", "ADMIN", "STUDENT"), tutorController.addAvailabilitySlots)
 
 //get slots
-router.get("/slots/:tutorId",authMiddleware("TUTOR","ADMIN","STUDENT"),tutorController.getAvailabilitySlots)
+router.get("/slots/:tutorId", authMiddleware("TUTOR", "ADMIN", "STUDENT"), tutorController.getAvailabilitySlots)
 
 export const tutorRouter = router;
 

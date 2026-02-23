@@ -20,9 +20,10 @@ export const fetchSlotByIdFromClient = async (slotId: string) => {
 
   return response.json();
 };
-export const useGetSlotById = (slotId: string) => {
+export const useGetSlotById = (tutorId: string) => {
   return useQuery({
-    queryKey: ["slot", slotId],
-    queryFn: () => fetchSlotByIdFromClient(slotId),
+    queryKey: ["slot", tutorId],
+    queryFn: () => fetchSlotByIdFromClient(tutorId),
   });
 };
+ 

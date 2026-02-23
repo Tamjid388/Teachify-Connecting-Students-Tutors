@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/input-group";
 import { tutorService } from "@/services/tutor-service";
 import { toast } from "sonner";
-import { createTutorProfileAction } from "@/actions/tutor.actions";
+import { createTutorProfileAction, updateTutorProfileAction } from "@/actions/tutor.actions";
 
 const formSchema = z.object({
   image: z.string().url("Please provide a valid image URL."),
@@ -36,7 +36,7 @@ const formSchema = z.object({
     .string()
     .min(30, "Bio must be at least 30 characters.")
     .max(300, "Bio must be at most 300 characters."),
-  rating: z.number().min(1).max(5),
+
   experience: z.number().min(0).max(30),
   education: z
     .string()
@@ -44,27 +44,38 @@ const formSchema = z.object({
     .max(100),
 });
 
-export default function AddProfileForm() {
+export default function AddProfileForm({ profile }: { profile: any }) {
+  console.log(profile.tutor_id)
   const form = useForm({
     defaultValues: {
-      image: "",
-      bio: "",
-      rating: 5,
-      experience: 0,
-      education: "",
+      image: profile.image || "",
+      bio: profile.bio || "",
+
+      experience: profile.experience || 0,
+      education: profile.education || "",
     },
     validators: {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log(value);
-      try {
-        await createTutorProfileAction(value)
 
-        toast.success("Tutor profile created successfully");
+      try {
+        if (profile.tutor_id) {
+          // update profile
+          console.log("update profile")
+          console.log("profile id", profile.tutor_id)
+          await updateTutorProfileAction(value)
+          toast.success("Tutor profile updated successfully");
+        } else {
+          console.log("create profile")
+          await createTutorProfileAction(value)
+          toast.success("Tutor profile created successfully");
+        }
+
+
         form.reset();
       } catch (error) {
-        toast.error("Failed to create tutor profile");
+        toast.error(`Failed to ${profile ? "update" : "create"} tutor profile`);
         console.error(error);
       }
     },
@@ -74,7 +85,7 @@ export default function AddProfileForm() {
     <Card className="">
       <CardHeader>
         <CardTitle className="text-2xl font-bold text-custom-primary mb-1">
-          Create Tutor Profile
+          {profile ? "Update Tutor Profile" : "Create Tutor Profile"}
         </CardTitle>
         <CardDescription>
           Add basic information about the tutor.
@@ -89,6 +100,7 @@ export default function AddProfileForm() {
             form.handleSubmit();
           }}
         >
+     
           <FieldGroup>
             {/* Image */}
             <form.Field name="image">
@@ -145,21 +157,7 @@ export default function AddProfileForm() {
               }}
             </form.Field>
 
-            {/* Rating */}
-            <form.Field name="rating">
-              {(field) => (
-                <Field>
-                  <FieldLabel>Rating (1–5)</FieldLabel>
-                  <Input
-                    type="number"
-                    min={1}
-                    max={5}
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(Number(e.target.value))}
-                  />
-                </Field>
-              )}
-            </form.Field>
+
 
             {/* Experience */}
             <form.Field name="experience">
@@ -204,7 +202,7 @@ export default function AddProfileForm() {
       <CardFooter>
         <Field orientation="horizontal">
           <Button
-            className="text-custom-primary"
+            className="text-custom-primary dark:text-white"
             type="button"
             variant="outline"
             onClick={() => form.reset()}
@@ -214,11 +212,11 @@ export default function AddProfileForm() {
           <Button
             type="submit"
             className="bg-custom-primary
-          hover:bg-custom-accent
+          hover:bg-custom-accent dark:text-white
           "
             form="add-profile-form"
           >
-            Create Profile
+            {profile ? "Update Profile" : "Create Profile"}
           </Button>
         </Field>
       </CardFooter>

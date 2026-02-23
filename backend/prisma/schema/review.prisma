@@ -14,7 +14,7 @@ model Review {
     booking   Booking @relation(fields: [booking_id], references: [booking_id])
     booking_id String  @unique
 
-    @@unique([userId, tutorId])
+    // @@unique([userId, tutorId])
     @@index([tutorId])
     @@map("reviews")
 }

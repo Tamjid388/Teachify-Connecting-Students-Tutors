@@ -54,6 +54,18 @@ const createReview = async (userId: string, body: any) => {
     })
 
 }
+
+const getReview=async(id:string)=>{
+    return await prisma.review.findMany(
+        {
+            where:{
+                tutorId:id
+            }
+        }
+    )
+}
+
 export const reviewServices = {
-    createReview
+    createReview,
+    getReview
 }

@@ -29,6 +29,27 @@ const createReview= async (req: Request, res: Response) => {
 };
 
 
+const getReview=async(req:Request,res:Response)=>{
+    try {
+      const {id}=req.params
+        const result=await reviewServices.getReview(id as string)
+        res.status(200).json({
+            success:true,
+            message:"Review retrieved successfully",
+            result,
+        })
+    } catch (error:any) {
+        console.error("GET Review ERROR 👉", error);
+        res.status(500).json({
+            success:false,
+            error:error.message,
+            message: "Failed to Retrieve Review",
+        })
+    }
+}
+
+
 export const reviewController={
-    createReview
+    createReview,
+    getReview
 }

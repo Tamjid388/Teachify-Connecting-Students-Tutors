@@ -4,12 +4,16 @@ export const tutorRoutes= [
      
       items: [
         {
-          title: "Add Profile",
+          title: "Overview",
+          url: "/tutor-dashboard",
+        },
+        {
+          title: "Profile",
           url: "/tutor-dashboard/add-profile",
         },
         {
-          title: "Project Structure",
-          url: "/tutor-dashboard/add-profile",
+          title: "Bookings",
+          url: "/tutor-dashboard/bookings",
         },
       ],
     },

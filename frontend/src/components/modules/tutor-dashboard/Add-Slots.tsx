@@ -13,10 +13,11 @@ import {
 import { Calendar, Clock } from "lucide-react";
 import { addAvailabilitySlot } from "@/actions/tutor.actions";
 import { toast } from "sonner";
+import TutorSlots from "./tutor-slots";
 
 const DAYS = ["SAT", "SUN", "MON", "TUE", "WED", "THU", "FRI"];
 
-// ... আগের ইমপোর্টগুলো থাকবে
+
 
 export default function AddSlots() {
   const form = useForm({
@@ -151,6 +152,9 @@ export default function AddSlots() {
             )}
           </form.Subscribe>
         </form>
+      </div>
+      <div >
+      <TutorSlots/>
       </div>
     </div>
   );
