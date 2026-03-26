@@ -12,8 +12,7 @@ export default async function Tutors({ searchParams }:{
     rating: typeof params.rating === "string" ? Number(params.rating) : undefined,
   
   };
-  console.log("Constructed tutorsParams:", tutorsParams);
-console.log("Received search params in page component:", params.search);
+
   const result = await tutorService.getAllTutors(tutorsParams);
 
   const tutors=result?.result || []

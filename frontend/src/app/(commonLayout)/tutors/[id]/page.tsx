@@ -9,8 +9,8 @@ export default async function Page({
   const { id } = await params;
 
   const {data,error}=await tutorService.getTutorById(id)
-  console.log(data.data);
+ 
   return <div className="max-w-7xl mx-auto">
-<TutorDetails data={data.data}/>
+<TutorDetails data={data?.data}/>
   </div>;
 }

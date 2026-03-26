@@ -72,7 +72,7 @@ export default function TutorFilters() {
                     </SelectContent>
                 </Select>
 
-                <Select
+                {/* <Select
                     value={searchParams.get("price") || "all"}
                     onValueChange={(v) => handleFilterChange("price", v)}
                 >
@@ -100,7 +100,7 @@ export default function TutorFilters() {
                         <SelectItem value="3-5">3-5 Years</SelectItem>
                         <SelectItem value="5+">5+ Years</SelectItem>
                     </SelectContent>
-                </Select>
+                </Select> */}
             </div>
         </div>
     );

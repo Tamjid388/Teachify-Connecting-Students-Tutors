@@ -2,10 +2,12 @@ import {
   Availability,
   DayOfWeek,
 } from "../../../prisma/generated/prisma/enums";
-import { TutorUpdateInput, TutorWhereInput } from "../../../prisma/generated/prisma/models";
+import {
+  TutorUpdateInput,
+  TutorWhereInput,
+} from "../../../prisma/generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 import { AuthUser } from "../../types/user";
-
 
 type PayloadType = {
   bio: string;
@@ -28,30 +30,32 @@ const createTutor = async (body: PayloadType, user: AuthUser) => {
   return result;
 };
 
-const myProfile=async(user:AuthUser)=>{
-
+const myProfile = async (user: AuthUser) => {
   return await prisma.tutor.findUnique({
-    where:{
-      userId:user.id
+    where: {
+      userId: user.id,
     },
-    include:{
-      user:true,
-      categories:{
-        include:{
-          category:true
-        }
-      }
-    }
-  })
-}
+    include: {
+      user: true,
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+    },
+  });
+};
 
-const getAllTutors = async ({ search, rating }:
-  {
-    search: string | undefined,
-    rating: number | undefined
-  }) => {
+const getAllTutors = async ({
+  search,
+  rating,
+}: {
+  search: string | undefined;
+  rating: string | undefined;
+}) => {
+  const numericRating = rating ? Number(rating) : undefined;
 
-  const whereConditions: TutorWhereInput[] = []
+  const whereConditions: TutorWhereInput[] = [];
 
   if (search) {
     whereConditions.push({
@@ -60,9 +64,9 @@ const getAllTutors = async ({ search, rating }:
           user: {
             name: {
               contains: search, // search with tutor name
-              mode: "insensitive"
-            }
-          }
+              mode: "insensitive",
+            },
+          },
         },
         {
           categories: {
@@ -70,29 +74,26 @@ const getAllTutors = async ({ search, rating }:
               category: {
                 subject: {
                   contains: search, // search with subject name
-                  mode: "insensitive"
-                }
-              }
-            }
-          }
-        }
-      ]
-    })
+                  mode: "insensitive",
+                },
+              },
+            },
+          },
+        },
+      ],
+    });
   }
 
-  if (rating) {
+  if (rating !== undefined) {
     whereConditions.push({
-      averageRating: { gte: rating }
-    })
-
+      averageRating: { gte: Number(rating) },
+    });
   }
-
 
   const tutors = await prisma.tutor.findMany({
     where: {
-      AND: whereConditions
-    }
-    ,
+      AND: whereConditions,
+    },
     include: {
       user: {
         select: { name: true },
@@ -102,9 +103,6 @@ const getAllTutors = async ({ search, rating }:
       },
     },
   });
-
-
-
 
   return tutors;
 };
@@ -134,7 +132,6 @@ type TSlots = {
   startTime: string;
   endTime: string;
 };
-
 
 const createSlots = async (slots: TSlots[], userId: string) => {
   const tutor = await prisma.tutor.findUnique({
@@ -178,16 +175,17 @@ const getSlots = async (id: string) => {
   const slots = await prisma.availabilitySlot.findMany({
     where: {
       tutorId: id,
-    }, include: {
-      bookings: true
+    },
+    include: {
+      bookings: true,
     },
     orderBy: {
-      day: "asc"
-    }
+      day: "asc",
+    },
   });
 
   if (slots.length === 0) {
-    throw new Error("Tutor Doesnt Have Any Available Slots")
+    throw new Error("Tutor Doesnt Have Any Available Slots");
   }
   return slots;
 };
@@ -205,9 +203,9 @@ const getTutorById = async (tutorId: string) => {
       },
       _count: {
         select: {
-          reviews: true
-        }
-      }
+          reviews: true,
+        },
+      },
     },
   });
 
@@ -277,5 +275,6 @@ export const tutorServices = {
   createSlots,
   getSlots,
   getTutorById,
-  getTutorStats,myProfile
+  getTutorStats,
+  myProfile,
 };

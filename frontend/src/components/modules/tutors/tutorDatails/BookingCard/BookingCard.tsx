@@ -20,7 +20,8 @@ type AvailabilitySlot = {
   updatedAt: string;
 };
 
-export default function BookingCard({ tutorId }: BookingCardProps) {
+export default function BookingCard({ tutorId }:
+   BookingCardProps) {
   const [selectedSlot, setSelectedSlot] = useState<AvailabilitySlot | null>(
     null,
   );

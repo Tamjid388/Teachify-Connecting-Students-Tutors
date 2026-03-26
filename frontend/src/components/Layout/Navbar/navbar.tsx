@@ -1,17 +1,15 @@
 import { Button } from "@/components/ui/button";
 
-import { NavMenu } from "@/components/Navbar/nav-menu";
-import { NavigationSheet } from "@/components/Navbar/navigation-sheet";
+import { NavMenu } from "@/components/Layout/Navbar/nav-menu";
+import { NavigationSheet } from "@/components/Layout/Navbar/navigation-sheet";
 import { ModeToggle } from "./ModeToggle";
 import Link from "next/link";
 import { userService } from "@/services/user-service";
 import { USER_ROLES, UserRole } from "@/Types/TRoles";
 import { signOut } from "@/lib/auth-client";
-import Logout from "../auth/logout";
-
+import Logout from "../../auth/logout";
 
 const Navbar = async () => {
-
   const { data, error } = await userService.getSession();
   const user = data?.user;
   function getDashboardRoute(role: UserRole | undefined) {
@@ -49,7 +47,7 @@ const Navbar = async () => {
           {user ? (
             <>
               <Button variant={"outline"}>{user?.name}</Button>
-            <Logout/>
+              <Logout />
             </>
           ) : (
             <>

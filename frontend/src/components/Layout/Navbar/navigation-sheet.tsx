@@ -7,8 +7,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Logo } from "@/components/Navbar/logo";
-import { NavMenu } from "@/components/Navbar/nav-menu";
+import { Logo } from "@/components/Layout/Navbar/logo";
+import { NavMenu } from "@/components/Layout/Navbar/nav-menu";
 
 export const NavigationSheet = () => {
   return (
@@ -24,7 +24,7 @@ export const NavigationSheet = () => {
       </SheetTrigger>
       <SheetContent className="px-6 py-3">
         <Logo />
-        <NavMenu className="mt-6 [&>div]:h-full" orientation="vertical" />
+        <NavMenu className="mt-6 [&>div]:h-full" orientation="vertical" dashboardRoute={""} />
       </SheetContent>
     </Sheet>
   );
