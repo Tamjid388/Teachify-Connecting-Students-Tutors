@@ -44,7 +44,7 @@ const fillStudentCredentials = () => {
 };
 
 const fillAdminCredentials = () => {
-  form.setValue("email", "ahmed@gmail.com");
+  form.setValue("email", "admin@gmail.com");
   form.setValue("password", "password");
 };
 

@@ -5,12 +5,7 @@ import { adminController } from "./admin.controller";
 const router=Router()
 
 router.get("/users", authMiddleware("ADMIN"), adminController.getAllUsers);
-router.patch(
-  "/users/:id",
-  authMiddleware("ADMIN"),
-  
-  adminController.updateUserStatus
-);
 
-
+router.get("/stats", authMiddleware("ADMIN"), adminController.adminStats);
+router.patch("/banUser",authMiddleware("ADMIN"),adminController.userBanToggle)
 export const adminRouter=router

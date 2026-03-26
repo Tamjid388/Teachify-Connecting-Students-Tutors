@@ -1,7 +1,9 @@
-import React from 'react'
+import Blogs from '@/components/modules/blogs/blogs'
+import { BlogService } from '@/services/blogs-service';
 
-export default function Blogs() {
+export default async function BlogsPage() {
+   
   return (
-    <div>Blogs page</div>
+    <Blogs/>
   )
 }

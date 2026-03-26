@@ -60,6 +60,28 @@ const getReview=async(id:string)=>{
         {
             where:{
                 tutorId:id
+            },
+            include:{
+                user:{
+                    select:{
+                        name:true,
+                        image:true,
+                        email:true,
+                       
+                    }
+                },
+                booking:{
+                    select:{
+                        booking_id:true,
+                        startTime:true,
+                        endTime:true,
+                        createdAt:true
+                        
+                    }
+                }
+            },
+            orderBy:{
+                createdAt:"desc"
             }
         }
     )

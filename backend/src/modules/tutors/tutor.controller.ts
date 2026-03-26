@@ -65,6 +65,7 @@ const getAllTutors = async (req: Request, res: Response) => {
 
     const { rating } = req.query
     const { search } = req.query
+    console.log("RATING 👉", rating, "SEARCH 👉", search);
     const searchString = typeof search === "string" ? search : undefined;
     const ratingString = typeof rating === "number" ? rating : undefined;
     const result = await tutorServices.getAllTutors({ search: searchString, rating: ratingString });

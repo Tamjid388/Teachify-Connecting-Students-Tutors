@@ -1,5 +1,5 @@
 import { reviewService, CreateReviewPayload } from "@/services/review-service";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export const useReviewMutation = () => {
@@ -20,4 +20,11 @@ export const useReviewMutation = () => {
             });
         },
     });
+};
+
+export const useGetReviews = (tutorId: string) => {
+  return useQuery({
+    queryKey: ["review", tutorId],
+    queryFn: () => reviewService.getReviews(tutorId),
+  });
 };

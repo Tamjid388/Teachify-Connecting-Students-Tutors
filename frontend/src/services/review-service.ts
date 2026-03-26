@@ -20,10 +20,31 @@ export const reviewService = {
                 credentials: "include",
                 body: JSON.stringify(data),
             });
-console.log(response)
+
             if (!response.ok) {
                 const errorBody = await response.json().catch(() => ({}));
                 throw new Error(errorBody.message || "Failed to create review");
+            }
+
+            const result = await response.json();
+            return result;
+        } catch (error: any) {
+            throw new Error(error.message || "Something went wrong");
+        }
+    },
+    getReviews: async (tutorId: string) => {
+        try {
+            const response = await fetch(`${BASE_URL}reviews/${tutorId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            });
+
+            if (!response.ok) {
+                const errorBody = await response.json().catch(() => ({}));
+                throw new Error(errorBody.message || "Failed to get reviews");
             }
 
             const result = await response.json();

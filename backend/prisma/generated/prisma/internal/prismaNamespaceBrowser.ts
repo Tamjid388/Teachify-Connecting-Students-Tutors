@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Blog: 'Blog',
   Booking: 'Booking',
   AvailabilitySlot: 'AvailabilitySlot',
   Category: 'Category',
@@ -77,6 +78,25 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const BlogScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  content: 'content',
+  excerpt: 'excerpt',
+  thumbnail: 'thumbnail',
+  authorId: 'authorId',
+  authorRole: 'authorRole',
+  status: 'status',
+  tags: 'tags',
+  readTime: 'readTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
 
 
 export const BookingScalarFieldEnum = {
@@ -171,6 +191,8 @@ export const UserScalarFieldEnum = {
   image: 'image',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  isBanned: 'isBanned',
+  banReason: 'banReason',
   status: 'status'
 } as const
 

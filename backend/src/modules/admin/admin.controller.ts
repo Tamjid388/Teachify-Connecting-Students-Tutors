@@ -33,48 +33,64 @@ const getAllUsers = async (req: Request, res: Response) => {
 };
 
 
-const updateUserStatus = async (req: Request, res: Response) => {
+
+export const userBanToggle = async (req: Request, res: Response) => {
+  try {
+    const { userId, isBanned } = req.body;
+
+  
+    if (!userId || typeof isBanned !== "boolean") {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid input. userId and isBanned status are required.",
+      });
+    }
+
+   
+    const updatedUser = await adminServices.updateBanStatus(userId, isBanned);
+
+    return res.status(200).json({
+      success: true,
+      message: `User has been ${isBanned ? "banned" : "unbanned"} successfully.`,
+      result: updatedUser,
+    });
+
+  } catch (error: any) {
+    console.error("Error in handleUserBanToggle:", error);
+    
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Internal server error while updating status.",
+    });
+  }
+};
+
+
+
+const adminStats=async(req:Request,res:Response)=>{
   try {
     const admin = req.user;
-    const { id }  = req.params ;
-    const { status } = req.body;
-
-    // Admin check
     if (!admin || admin.role !== "ADMIN") {
       return res.status(403).json({
         success: false,
         message: "Forbidden",
       });
     }
-
-    if (!status || !["ACTIVE", "INACTIVE", "BAN"].includes(status)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid status value",
-      });
-    }
-    if (!id ||  Array.isArray(id)) {
-      return res.status(400).json({
-        success: false,
-        message: "User ID is required",
-      });
-    }
-    const updatedUser = await adminServices.updateUserStatus(id, status);
-
+    const stats = await adminServices.adminStats();
     res.status(200).json({
       success: true,
-      message: "User status updated successfully",
-      result: updatedUser,
+      message: "Admin stats retrieved successfully",
+      result: stats,
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({
       success: false,
-      message: "Failed to update user status",
+      message: "Failed to get admin stats",
       error,
     });
   }
-};
+}
 export const adminController = {
-  getAllUsers,updateUserStatus
+  getAllUsers,adminStats,userBanToggle
 };

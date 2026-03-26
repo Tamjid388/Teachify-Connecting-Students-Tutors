@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 export default function TutorFilters() {
     const router = useRouter();
     const searchParams = useSearchParams();
+    
     const [search, setSearch] = useState(searchParams.get("search") || "");
 
     const handleFilterChange = (key: string, value: string) => {
@@ -24,7 +25,8 @@ export default function TutorFilters() {
         } else {
             params.delete(key);
         }
-        router.push(`/tutors?${params.toString()}`);
+        router.push(`/tutors?${params.toString()}`)
+       
     };
 
     // Debounce search input
@@ -40,7 +42,7 @@ export default function TutorFilters() {
         }, 500);
 
         return () => clearTimeout(timer);
-    }, [search, router]);
+    }, [search,router]);
 
     return (
         <div className="flex flex-col md:flex-row gap-4 mb-8 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
