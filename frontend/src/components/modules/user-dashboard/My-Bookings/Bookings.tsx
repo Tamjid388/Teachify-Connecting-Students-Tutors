@@ -73,7 +73,7 @@ mutate(payload)
                     </TableHeader>
                     <TableBody>
                         {bookings.map((item: any) => {
-                            console.log(item.tutor.user.name)
+                          
                             const {
                                 booking_id,
                                 tutor,

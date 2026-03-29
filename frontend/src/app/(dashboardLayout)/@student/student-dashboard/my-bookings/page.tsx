@@ -1,8 +1,6 @@
 import Bookings from "@/components/modules/user-dashboard/My-Bookings/Bookings";
 
 
-
-
 export default function MyBookingsPage() {
   
 
