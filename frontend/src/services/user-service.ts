@@ -1,5 +1,5 @@
 import { env } from "@/env";
-import { error } from "console";
+
 import { cookies } from "next/headers";
 
 export const userService = {
@@ -14,7 +14,6 @@ export const userService = {
         cache: "no-store",
       });
       const session = await res.json();
-
 
       return { data: session, error: null };
     } catch (error) {

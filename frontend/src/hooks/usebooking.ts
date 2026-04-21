@@ -1,10 +1,11 @@
 import { env } from "@/env";
+import { api } from "@/lib/config/axios";
 import { bookingService } from "@/services/booking-service";
 import { BookingInfo } from "@/Types/TBooking";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export const createBooking = async (data:BookingInfo) => {
+export const createBooking = async (data: BookingInfo) => {
   const response = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}bookings`, {
     method: "POST",
     headers: {
@@ -16,7 +17,7 @@ export const createBooking = async (data:BookingInfo) => {
   console.log(response);
   if (!response.ok) {
     const errorBody = await response.json().catch(() => ({}));
-    throw new Error(errorBody.message );
+    throw new Error(errorBody.message);
   }
 
   return response.json();
@@ -24,50 +25,56 @@ export const createBooking = async (data:BookingInfo) => {
 
 export const getBookingById = async (userId: string) => {
   try {
-    const response = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}bookings/bookingById/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${env.NEXT_PUBLIC_BACKEND_URL}bookings/bookingById/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
       },
-      credentials: "include", 
-    });
+    );
 
     if (!response.ok) {
       const errorBody = await response.json().catch(() => ({}));
       throw new Error(errorBody.message || "Failed to fetch bookings");
     }
-
-  } catch (err:unknown) {
+  } catch (err: unknown) {
     let message = "Something went wrong while fetching bookings";
-    if(err instanceof Error){
-        message=err.message
+    if (err instanceof Error) {
+      message = err.message;
     }
     throw new Error(message);
   }
 };
 
+// Get all bookings
 export const useGetAllBookings = () => {
   return useQuery({
     queryKey: ["booking"],
-    queryFn: bookingService.getAllBookings,
-    staleTime: 1000 * 60 * 5, 
+    queryFn: async () => {
+      const response = await api.get("/bookings");
+      return response.data;
+    },
+    staleTime: 1000 * 60 * 5,
   });
 };
 
-export const useGetBookingById=(userId: string)=>{
-    return useQuery({
-        queryKey:["booking",userId],
-        queryFn:()=>getBookingById(userId)
-    })
-}
+export const useGetBookingById = (userId: string) => {
+  return useQuery({
+    queryKey: ["booking", userId],
+    queryFn: () => getBookingById(userId),
+  });
+};
 
 export const useBookingMutation = () => {
   const queryclient = useQueryClient();
   return useMutation({
     mutationFn: createBooking,
-    onSuccess:()=>{
-        queryclient.invalidateQueries({queryKey:["slot"]})
-        toast.success("Booking request sent successfully!")
+    onSuccess: () => {
+      queryclient.invalidateQueries({ queryKey: ["slot"] });
+      toast.success("Booking request sent successfully!");
     },
     onError: (error) => {
       toast.error(error.message || "Something went wrong");
@@ -76,16 +83,15 @@ export const useBookingMutation = () => {
 };
 
 export const useUpdateBookingStatus = () => {
-    const queryclient = useQueryClient();
-    return useMutation({
-      mutationFn: bookingService.updateBookingStatus,
-      onSuccess:()=>{
-          queryclient.invalidateQueries({queryKey:["booking"]})
-          toast.success("Booking status updated successfully!")
-      },
-      onError: (error) => {
-        toast.error(error.message || "Something went wrong");
-      },
-    });
-  };
-
+  const queryclient = useQueryClient();
+  return useMutation({
+    mutationFn: bookingService.updateBookingStatus,
+    onSuccess: () => {
+      queryclient.invalidateQueries({ queryKey: ["booking"] });
+      toast.success("Booking status updated successfully!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Something went wrong");
+    },
+  });
+};

@@ -50,6 +50,16 @@ export const DayOfWeek = {
 export type DayOfWeek = (typeof DayOfWeek)[keyof typeof DayOfWeek]
 
 
+export const PaymentRecordStatus = {
+  PAID: 'PAID',
+  UNPAID: 'UNPAID',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type PaymentRecordStatus = (typeof PaymentRecordStatus)[keyof typeof PaymentRecordStatus]
+
+
 export const Availability = {
   MORNING: 'MORNING',
   EVENING: 'EVENING',

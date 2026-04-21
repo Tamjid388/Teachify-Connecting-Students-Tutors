@@ -1,11 +1,6 @@
 import { Request, Response } from "express";
 import { tutorServices } from "./tutor.service";
 
-
-
-
-
-
 const createTutorProfile = async (req: Request, res: Response) => {
   try {
     const body = req.body;
@@ -31,43 +26,41 @@ const createTutorProfile = async (req: Request, res: Response) => {
   }
 };
 // My Tutor Profile
-const myProfile=async(req:Request,res:Response)=>{
+const myProfile = async (req: Request, res: Response) => {
   try {
-    const user=req.user
-  
-    if(!user){
+    const user = req.user;
+
+    if (!user) {
       return res.status(401).json({
-        success:false,
-        message:"Unauthorized",
-      })
+        success: false,
+        message: "Unauthorized",
+      });
     }
-    const result=await tutorServices.myProfile(user)
+    const result = await tutorServices.myProfile(user);
     res.status(200).json({
-      success:true,
-      message:"Tutor profile retrieved successfully",
+      success: true,
+      message: "Tutor profile retrieved successfully",
       result,
-    })
+    });
   } catch (error) {
     console.error("MY PROFILE ERROR 👉", error);
     res.status(500).json({
-      success:false,
-      message:"Failed to get tutor profile",
-    })
+      success: false,
+      message: "Failed to get tutor profile",
+    });
   }
-}
-
-
-
-
+};
 
 const getAllTutors = async (req: Request, res: Response) => {
   try {
-
-    const { rating } = req.query
-    const { search } = req.query
+    const { rating } = req.query;
+    const { search } = req.query;
     const searchString = typeof search === "string" ? search : undefined;
     const ratingString = typeof rating === "string" ? rating : undefined;
-    const result = await tutorServices.getAllTutors({ search: searchString, rating: ratingString });
+    const result = await tutorServices.getAllTutors({
+      search: searchString,
+      rating: ratingString,
+    });
     res.status(200).json({
       success: true,
       message: "tutors retrieved successfully",
@@ -82,7 +75,6 @@ const getAllTutors = async (req: Request, res: Response) => {
     });
   }
 };
-
 
 const updateTutor = async (req: Request, res: Response) => {
   try {
@@ -122,7 +114,6 @@ const updateAvailability = async (req: Request, res: Response) => {
       });
     }
 
-
     if (!avilability_slot) {
       return res.status(400).json({
         success: false,
@@ -131,7 +122,7 @@ const updateAvailability = async (req: Request, res: Response) => {
     }
     const result = await tutorServices.updateAvailability(
       avilability_slot,
-      user
+      user,
     );
 
     res.status(200).json({
@@ -139,7 +130,6 @@ const updateAvailability = async (req: Request, res: Response) => {
       message: "Availability Updated Successfully",
       result,
     });
-
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -147,15 +137,14 @@ const updateAvailability = async (req: Request, res: Response) => {
       error,
     });
   }
-}
-
+};
 
 export const addAvailabilitySlots = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id
+    const userId = req.user?.id;
 
     console.log(req.body);
-    const slots = req.body.slots
+    const slots = req.body.slots;
     if (!userId) return res.status(401).json({ message: "User ID required" });
 
     if (!slots || !Array.isArray(slots) || slots.length === 0) {
@@ -170,12 +159,12 @@ export const addAvailabilitySlots = async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(400).json({ success: false, message: err.message });
   }
-}
+};
 
 //get slots
 export const getAvailabilitySlots = async (req: Request, res: Response) => {
   try {
-    const tutorId = req.query.tutorId as string
+    const tutorId = req.query.tutorId as string;
     const slots = await tutorServices.getSlots(tutorId);
 
     return res.status(200).json({
@@ -195,8 +184,8 @@ const getTutorById = async (req: Request, res: Response) => {
     if (!tutorId || Array.isArray(tutorId)) {
       return res.status(404).json({
         success: false,
-        message: "Valid tutorId is required"
-      })
+        message: "Valid tutorId is required",
+      });
     }
     const tutor = await tutorServices.getTutorById(tutorId);
 
@@ -219,9 +208,6 @@ const getTutorById = async (req: Request, res: Response) => {
     });
   }
 };
-
-
-
 
 const getTutorStats = async (req: Request, res: Response) => {
   try {
@@ -259,5 +245,5 @@ export const tutorController = {
   getAvailabilitySlots,
   getTutorById,
   getTutorStats,
-  myProfile
+  myProfile,
 };

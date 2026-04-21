@@ -59,7 +59,7 @@ export default function TutorDetails({ data }: TutorDetailsProps) {
   };
 
   const availableSlots =
-    timeSlots[data.avilability_slot as keyof typeof timeSlots] || [];
+    timeSlots[data?.avilability_slot as keyof typeof timeSlots] || [];
 
   const handleBooking = () => {
     if (!selectedDate || !selectedSlot) {
@@ -153,11 +153,10 @@ export default function TutorDetails({ data }: TutorDetailsProps) {
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`w-5 h-5 ${
-                              i < data.rating
+                            className={`w-5 h-5 ${i < data.rating
                                 ? "text-yellow-400 fill-yellow-400"
                                 : "fill-gray-200 text-gray-200"
-                            }`}
+                              }`}
                           />
                         ))}
                       </div>
@@ -328,10 +327,7 @@ export default function TutorDetails({ data }: TutorDetailsProps) {
 
           {/* Right Column - Booking */}
           <div className="lg:col-span-1">
-            <BookingCard
-              tutorId={data?.tutor_id}
-            
-            />
+            <BookingCard tutorId={data?.tutor_id} />
           </div>
         </div>
       </div>

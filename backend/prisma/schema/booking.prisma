@@ -20,12 +20,12 @@ enum PaymentStatus {
 model Booking {
   booking_id    String        @id @default(uuid())
   bookingStatus BookingStatus @default(PENDING)
-
+  paymentStatus PaymentStatus @default(UNPAID)
   startTime     DateTime
   endTime       DateTime
   duration      Int              @default(60)
   tutionMode    TuitionMode      @default(ONLINE)
-  paymentStatus PaymentStatus    @default(UNPAID)
+  payment       Payment?
   studentId     String
   tutor_id      String
   isReviewed    Boolean          @default(false)

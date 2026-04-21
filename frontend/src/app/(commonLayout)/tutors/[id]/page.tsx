@@ -8,9 +8,11 @@ export default async function Page({
 }) {
   const { id } = await params;
 
-  const {data,error}=await tutorService.getTutorById(id)
- 
-  return <div className="max-w-7xl mx-auto">
-<TutorDetails data={data?.data}/>
-  </div>;
+  const { data, error } = await tutorService.getTutorById(id);
+
+  return (
+    <div className="max-w-7xl mx-auto">
+      <TutorDetails data={data?.data} />
+    </div>
+  );
 }

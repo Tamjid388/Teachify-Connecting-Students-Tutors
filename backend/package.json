@@ -4,7 +4,9 @@
     "@types/express": "^5.0.6",
     "@types/node": "^25.1.0",
     "@types/pg": "^8.16.0",
+    "@types/uuid": "^10.0.0",
     "prisma": "^7.3.0",
+    "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
@@ -15,17 +17,22 @@
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "pg": "^8.17.2"
+    "pg": "^8.17.2",
+    "stripe": "^22.0.2",
+    "uuid": "^14.0.0"
   },
   "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx tsx watch ./src/server.ts",
-    "build": "tsc",
-    "setup": "prisma migrate dev --name init && prisma generate",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx tsx watch ./src/index.ts",
+    "build": "prisma generate && tsup src/index.ts --format esm --platform node --target node20 --outDir api --external pg-native",
+    "vercel-build": "npm run build",
+    "start": "node api/index.js",
+    "prisma:migrate": "prisma migrate dev --name init && prisma generate",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",

@@ -19,8 +19,8 @@ declare global {
 const authMiddleware = (...roles: Role[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      
-
+      // log
+console.log("cookie present:", Boolean(req.headers.cookie));
 
       const session = await auth.api.getSession({
         headers: req.headers as any,

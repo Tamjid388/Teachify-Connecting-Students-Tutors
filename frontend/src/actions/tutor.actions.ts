@@ -23,9 +23,13 @@ export const updateTutorProfileAction = async (data: TutorProfilePayload) => {
     const result = await tutorService.updateProfile(data, cookieString)
     revalidateTag("tutor","profile")
     return result
-  } catch (error:any) {
+  } catch (error: unknown) {
     console.log(error)
-    throw new Error( error?.message ||"Action Failed to update profile")
+    const message =
+      error instanceof Error && error.message
+        ? error.message
+        : "Action Failed to update profile"
+    throw new Error(message)
   }
 }
 

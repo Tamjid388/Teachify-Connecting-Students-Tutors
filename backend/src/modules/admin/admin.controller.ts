@@ -1,13 +1,10 @@
 import { Request, Response } from "express";
 import { adminServices } from "./admin.service";
 
-
 const getAllUsers = async (req: Request, res: Response) => {
   try {
-     
     const admin = req.user;
 
-   
     if (!admin || admin.role !== "ADMIN") {
       return res.status(403).json({
         success: false,
@@ -32,13 +29,10 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-
-
 export const userBanToggle = async (req: Request, res: Response) => {
   try {
     const { userId, isBanned } = req.body;
 
-  
     if (!userId || typeof isBanned !== "boolean") {
       return res.status(400).json({
         success: false,
@@ -46,7 +40,6 @@ export const userBanToggle = async (req: Request, res: Response) => {
       });
     }
 
-   
     const updatedUser = await adminServices.updateBanStatus(userId, isBanned);
 
     return res.status(200).json({
@@ -54,10 +47,9 @@ export const userBanToggle = async (req: Request, res: Response) => {
       message: `User has been ${isBanned ? "banned" : "unbanned"} successfully.`,
       result: updatedUser,
     });
-
   } catch (error: any) {
     console.error("Error in handleUserBanToggle:", error);
-    
+
     return res.status(500).json({
       success: false,
       message: error.message || "Internal server error while updating status.",
@@ -65,9 +57,7 @@ export const userBanToggle = async (req: Request, res: Response) => {
   }
 };
 
-
-
-const adminStats=async(req:Request,res:Response)=>{
+const adminStats = async (req: Request, res: Response) => {
   try {
     const admin = req.user;
     if (!admin || admin.role !== "ADMIN") {
@@ -90,7 +80,9 @@ const adminStats=async(req:Request,res:Response)=>{
       error,
     });
   }
-}
+};
 export const adminController = {
-  getAllUsers,adminStats,userBanToggle
+  getAllUsers,
+  adminStats,
+  userBanToggle,
 };

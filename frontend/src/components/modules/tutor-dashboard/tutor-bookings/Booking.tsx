@@ -14,20 +14,27 @@ import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
-import { CloudCog } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
+import { toast } from "sonner";
 
 export default function Booking() {
-    const { data, isLoading, error } = useGetAllBookings();
+    const { data, isLoading, error,isError } = useGetAllBookings();
     const {mutate}=useUpdateBookingStatus()
     const [selectedStatus, setSelectedStatus] = useState("ALL");
     const bookings = data?.bookings || [];
 
     if (isLoading) {
-        return <div className="p-6">Loading bookings...</div>;
+        return (
+            <div className="flex min-h-[min(70vh,calc(100dvh-14rem))] w-full items-center justify-center">
+                <Spinner className="size-10 text-muted-foreground" />
+            </div>
+        );
     }
 
-    if (error) {
-        return <div className="p-6 text-red-500">Error loading bookings</div>;
+    if (isError) {
+        return toast.error("Error loading bookings",{
+            description: error?.message
+        })
     }
 
   

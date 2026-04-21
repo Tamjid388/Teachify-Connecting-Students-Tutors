@@ -55,6 +55,7 @@ export const ModelName = {
   Booking: 'Booking',
   AvailabilitySlot: 'AvailabilitySlot',
   Category: 'Category',
+  Payment: 'Payment',
   Review: 'Review',
   Tutor: 'Tutor',
   TutorCategory: 'TutorCategory',
@@ -102,11 +103,11 @@ export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof Blog
 export const BookingScalarFieldEnum = {
   booking_id: 'booking_id',
   bookingStatus: 'bookingStatus',
+  paymentStatus: 'paymentStatus',
   startTime: 'startTime',
   endTime: 'endTime',
   duration: 'duration',
   tutionMode: 'tutionMode',
-  paymentStatus: 'paymentStatus',
   studentId: 'studentId',
   tutor_id: 'tutor_id',
   isReviewed: 'isReviewed',
@@ -143,6 +144,21 @@ export const CategoryScalarFieldEnum = {
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  stripeEventId: 'stripeEventId',
+  transactionId: 'transactionId',
+  bookingId: 'bookingId',
+  status: 'status',
+  stripeCheckoutSessionId: 'stripeCheckoutSessionId',
+  paymentGatewayData: 'paymentGatewayData',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
 export const ReviewScalarFieldEnum = {
   id: 'id',
   rating: 'rating',
@@ -168,7 +184,8 @@ export const TutorScalarFieldEnum = {
   education: 'education',
   userId: 'userId',
   averageRating: 'averageRating',
-  reviewCount: 'reviewCount'
+  reviewCount: 'reviewCount',
+  hourlyRate: 'hourlyRate'
 } as const
 
 export type TutorScalarFieldEnum = (typeof TutorScalarFieldEnum)[keyof typeof TutorScalarFieldEnum]
@@ -252,6 +269,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -266,4 +291,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

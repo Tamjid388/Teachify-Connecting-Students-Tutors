@@ -1,16 +1,18 @@
-//booking.prisma
+import { v4 as uuidv4 } from "uuid";
 import { BookingStatus, Role } from "../../../prisma/generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
-// const { scheduledAt, duration, tutionMode, paymentStatus, tutor_id } = data;
+import { stripe } from "../../config/stripe";
+
 const createBooking = async (data: any, userId: string) => {
   console.log("Booking Data", data);
 
-  const { slotId, startTime, endTime } = data;
+  const { slotId, startTime, endTime, hourlyRate } = data;
 
   if (!slotId) {
     throw new Error("slotId is required");
   }
-  return await prisma.$transaction(async (tx) => {
+
+  const result = await prisma.$transaction(async (tx) => {
     const slot = await tx.availabilitySlot.findUnique({
       where: { id: slotId },
     });
@@ -30,8 +32,9 @@ const createBooking = async (data: any, userId: string) => {
     });
 
     if (existingBooking) {
-
-      throw new Error("This slot is already booked for this specific date and time");
+      throw new Error(
+        "This slot is already booked for this specific date and time",
+      );
     }
 
     const booking = await tx.booking.create({
@@ -46,41 +49,86 @@ const createBooking = async (data: any, userId: string) => {
 
     await tx.availabilitySlot.update({
       where: { id: slot.id },
+      data: { isBooked: true },
+    });
+
+    const transactionId = uuidv4();
+
+    const paymentData = await tx.payment.create({
       data: {
-        isBooked: true,
+        transactionId: transactionId.toString(),
+        bookingId: booking.booking_id,
       },
     });
 
-    return booking;
+    const tutor = await tx.tutor.findUnique({
+      where: { tutor_id: slot.tutorId },
+      include: { user: { select: { name: true } } },
+    });
+   
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      line_items: [
+        {
+          price_data: {
+            currency: "bdt",
+            product_data: {
+              name: `Tutoring session with ${tutor?.user?.name ?? "Tutor"}`,
+            },
+            unit_amount: (tutor?.hourlyRate ?? 0) * 120,
+          },
+          quantity: 1,
+        },
+      ],
+      metadata: {
+        bookingId: booking.booking_id,
+        paymentId: paymentData.id,
+      },
+      success_url: `${process.env.App_URL}/payment/success`,
+      cancel_url: `${process.env.App_URL}/payment/cancel`,
+    });
+
+    return {
+      booking,
+      paymentData,
+      paymentUrl: session.url,
+    };
   });
+
+  return {
+    booking: result.booking,
+    paymentData: result.paymentData,
+    paymentUrl: result.paymentUrl,
+  };
 };
 
-const getAllBookings = async (userId: string, role: Role) => {
 
+
+
+const getAllBookings = async (userId: string, role: Role) => {
   if (role === Role.STUDENT) {
     return await prisma.booking.findMany({
       where: { studentId: userId },
       include: {
         tutor: {
-       select:{
-        user:{
-          select:{
-            name:true,
-            email:true,
-            
-         
-          }
-        }
-       }
-        }
-      }
+          select: {
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
+      },
     });
   }
   // If use ris tutor
   if (role === Role.TUTOR) {
     const tutor = await prisma.tutor.findUnique({
       where: { userId },
-
     });
 
     if (!tutor) return [];
@@ -92,19 +140,14 @@ const getAllBookings = async (userId: string, role: Role) => {
           select: {
             name: true,
             email: true,
-
-
-          }
-        }
-      }
+          },
+        },
+      },
     });
   }
-
-
 };
 
 const getBookingById = async (id: string, role: Role) => {
-
   if (role === Role.STUDENT) {
     return await prisma.booking.findMany({
       where: {
@@ -127,32 +170,33 @@ const getBookingById = async (id: string, role: Role) => {
   }
 };
 
-
-const updateBookingStatus=async(id:string,bookingStatus:BookingStatus)=>{
+const updateBookingStatus = async (
+  id: string,
+  bookingStatus: BookingStatus,
+) => {
   return await prisma.booking.update({
-    where:{booking_id:id},
-    data:{bookingStatus}
-  })
-}
+    where: { booking_id: id },
+    data: { bookingStatus },
+  });
+};
 
-const syncBookingStatus=async(id:string,bookingStatus:BookingStatus)=>{
+const syncBookingStatus = async (id: string, bookingStatus: BookingStatus) => {
   return await prisma.booking.updateMany({
-    where:{
-      OR: [
-        { studentId: id },
-        { tutor_id: id }],
-        endTime:{
-          lt:new Date()
-        },
-        bookingStatus:BookingStatus.ACCEPTED
+    where: {
+      OR: [{ studentId: id }, { tutor_id: id }],
+      endTime: {
+        lt: new Date(),
+      },
+      bookingStatus: BookingStatus.ACCEPTED,
     },
-    data:{bookingStatus:BookingStatus.COMPLETED}
-  })
-}
-
+    data: { bookingStatus: BookingStatus.COMPLETED },
+  });
+};
 
 export const bookingServices = {
   createBooking,
   getAllBookings,
-  getBookingById,updateBookingStatus,syncBookingStatus
+  getBookingById,
+  updateBookingStatus,
+  syncBookingStatus,
 };

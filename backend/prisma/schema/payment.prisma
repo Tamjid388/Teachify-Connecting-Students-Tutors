@@ -1,0 +1,23 @@
+/// Tracks Stripe checkout and settlement for a booking (one row per booking).
+enum PaymentRecordStatus {
+  PAID
+  UNPAID
+  FAILED
+  REFUNDED
+}
+
+model Payment {
+  id                      String              @id @default(uuid())
+  stripeEventId           String              @unique @default(uuid())
+  transactionId           String              @unique @db.Uuid()
+  bookingId               String              @unique
+  booking                 Booking             @relation(fields: [bookingId], references: [booking_id], onDelete: Cascade)
+  status                  PaymentRecordStatus @default(UNPAID)
+  stripeCheckoutSessionId String?             @unique
+  paymentGatewayData      Json?               
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+  @@index([bookingId])
+  @@index([transactionId])
+  @@map("payments")
+}

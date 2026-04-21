@@ -28,7 +28,7 @@ export default async function DashboardLayout({
 }) {
   const { data, error } = await userService.getSession();
   const user = data?.user;
-
+console.log("dashboard layout user",user)
   const userInfo: { role: UserRole } = {
     role: user?.role,
   };

@@ -1,8 +1,11 @@
-import { BookingStatus, Role, UserStatus } from "../../../prisma/generated/prisma/enums";
+import {
+  BookingStatus,
+  Role,
+  UserStatus,
+} from "../../../prisma/generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 
 const getAllUsers = async () => {
-
   return await prisma.user.findMany();
 };
 export const updateBanStatus = async (userId: string, isBanned: boolean) => {
@@ -18,25 +21,29 @@ export const updateBanStatus = async (userId: string, isBanned: boolean) => {
   });
 };
 
-const adminStats=async()=>{
-  const totalUsers=await prisma.user.count();
-  const totalTutors=await prisma.user.count({where:{role:Role.TUTOR}});
-  const totalStudents=await prisma.user.count({where:{role:Role.STUDENT}});
-  const totalBookings=await prisma.booking.count();
-  const totalReviews=await prisma.review.count();
-  const totalCompletedBookings=await prisma.booking.count({where:{bookingStatus:BookingStatus.COMPLETED}});
+const adminStats = async () => {
+  const totalUsers = await prisma.user.count();
+  const totalTutors = await prisma.user.count({ where: { role: Role.TUTOR } });
+  const totalStudents = await prisma.user.count({
+    where: { role: Role.STUDENT },
+  });
+  const totalBookings = await prisma.booking.count();
+  const totalReviews = await prisma.review.count();
+  const totalCompletedBookings = await prisma.booking.count({
+    where: { bookingStatus: BookingStatus.COMPLETED },
+  });
 
-  
   return {
     totalUsers,
     totalTutors,
     totalStudents,
     totalBookings,
     totalReviews,
-    totalCompletedBookings
-   
-  }
-}
+    totalCompletedBookings,
+  };
+};
 export const adminServices = {
-  getAllUsers,adminStats,updateBanStatus
+  getAllUsers,
+  adminStats,
+  updateBanStatus,
 };
