@@ -13,13 +13,19 @@ import {
 import { Calendar, Clock } from "lucide-react";
 import { addAvailabilitySlot } from "@/actions/tutor.actions";
 import { toast } from "sonner";
-import TutorSlots from "./tutor-slots";
+import TutorSlots, { ISlot } from "./tutor-slots";
+import { useRouter } from "next/navigation";
+
+interface AddSlotsProps {
+  slots: ISlot[];
+}
 
 const DAYS = ["SAT", "SUN", "MON", "TUE", "WED", "THU", "FRI"];
 
 
 
-export default function AddSlots() {
+export default function AddSlots({ slots }: AddSlotsProps) {
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       day: "",
@@ -29,22 +35,19 @@ export default function AddSlots() {
     onSubmit: async ({ value }) => {
       try {
         const payload = {
-          slots: [{
-            day: value.day,
-            startTime: value.startTime,
-            endTime: value.endTime,
-          }],
+          slots: [{ day: value.day, startTime: value.startTime, endTime: value.endTime }],
         };
-        
+
         const res = await addAvailabilitySlot(payload);
-        
+
         if (res.success) {
           toast.success("Availability slot added successfully!");
           form.reset();
+          router.refresh();
         } else {
           toast.error(res.message || "Something went wrong");
         }
-      } catch (error) {
+      } catch {
         toast.error("Failed to add slot. Try again.");
       }
     },
@@ -153,8 +156,8 @@ export default function AddSlots() {
           </form.Subscribe>
         </form>
       </div>
-      <div >
-      <TutorSlots/>
+      <div>
+        <TutorSlots slots={slots} />
       </div>
     </div>
   );

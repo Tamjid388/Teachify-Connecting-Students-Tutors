@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { env } from "@/env";
 
 const BASE_URL = `${env.NEXT_PUBLIC_BACKEND_URL}`;
@@ -28,16 +29,18 @@ export const reviewService = {
 
             const result = await response.json();
             return result;
+      
         } catch (error: any) {
             throw new Error(error.message || "Something went wrong");
         }
     },
-    getReviews: async (tutorId: string) => {
+    getReviews: async (tutorId: string, cookieHeader?: string) => {
         try {
             const response = await fetch(`${BASE_URL}reviews/${tutorId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    ...(cookieHeader ? { Cookie: cookieHeader } : {}),
                 },
                 credentials: "include",
             });

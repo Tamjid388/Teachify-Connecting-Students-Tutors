@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { auth } from "../lib/auth";
 
-
 import { Role } from "../../prisma/generated/prisma/enums";
 
 declare global {
@@ -19,13 +18,14 @@ declare global {
 const authMiddleware = (...roles: Role[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // log
-console.log("cookie present:", Boolean(req.headers.cookie));
+      
 
       const session = await auth.api.getSession({
         headers: req.headers as any,
       });
-
+      // const session =
+      // req.cookies["__Secure-session_token"] || req.cookies["session_token"];
+      // console.log("session:", session);
       if (!session) {
         return res.status(401).json({
           success: false,
@@ -38,7 +38,7 @@ console.log("cookie present:", Boolean(req.headers.cookie));
         name: session.user.name,
         role: session.user.role as string,
       };
-console.log("User Role:", req.user.role);
+      console.log("User Role:", req.user.role);
       if (roles.length && !roles.includes(req.user.role as Role)) {
         return res.status(403).json({
           success: false,

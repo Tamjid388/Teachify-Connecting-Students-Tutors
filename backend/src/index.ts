@@ -17,10 +17,4 @@ async function startLocal() {
   }
 }
 
-/** Vercel (@vercel/node) invokes this export per request; do not call listen() there. */
-export default app;
-
-if (!process.env.VERCEL) {
-  startLocal();
-}
-
+startLocal();

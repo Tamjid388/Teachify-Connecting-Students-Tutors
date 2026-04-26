@@ -9,7 +9,7 @@ import { adminRouter } from "./modules/admin/admin.router";
 import { reviewRouter } from "./modules/reviews/review.routes";
 import { categoryRouter } from "./modules/categories/category.routes";
 import notFoundHandler from "./middleware/not-found";
-import { bodyParser } from "better-auth/client";
+
 import { paymentController } from "./modules/payment/payment.controller";
 
 const app: Application = express();

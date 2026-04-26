@@ -1,12 +1,13 @@
-"use client";
-
-import { Card, CardContent } from "@/components/ui/card";
-import { useAdminStats } from "@/hooks/useAdmin";
 import { BookOpen, CheckCircle, MessageSquare, Users, GraduationCap } from "lucide-react";
 import StatCard from "./StatCard";
 
-
-
+export interface AdminStats {
+  totalBookings: number;
+  totalCompletedBookings: number;
+  totalReviews: number;
+  totalTutors: number;
+  totalUsers: number;
+}
 
 export interface StatCardProps {
   label: string;
@@ -16,12 +17,11 @@ export interface StatCardProps {
   iconColor: string;
 }
 
+interface AnalyticsProps {
+  stats: AdminStats | null;
+}
 
-
-
-export default function Analytics() {
-  const { data: stats } = useAdminStats();
-
+export default function Analytics({ stats }: AnalyticsProps) {
   const {
     totalBookings,
     totalCompletedBookings,
@@ -70,8 +70,6 @@ export default function Analytics() {
 
   return (
     <div className="p-4 md:p-8 space-y-6">
-
-      {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-foreground dark:text-white">Analytics</h1>
         <p className="text-sm text-muted-foreground dark:text-zinc-400 mt-1">
@@ -79,13 +77,11 @@ export default function Analytics() {
         </p>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         {statCards.map((card) => (
           <StatCard key={card.label} {...card} />
         ))}
       </div>
-
     </div>
   );
 }

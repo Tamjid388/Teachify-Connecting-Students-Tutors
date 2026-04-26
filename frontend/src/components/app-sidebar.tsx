@@ -51,8 +51,9 @@ export function AppSidebar({
                   <GalleryVerticalEnd className="size-4" />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="text-xl font-bold text-custom-primary">Teachify</span>
-                 
+                  <span className="text-xl font-bold text-custom-primary">
+                    Teachify
+                  </span>
                 </div>
               </Link>
             </SidebarMenuButton>
@@ -71,7 +72,10 @@ export function AppSidebar({
                   <SidebarMenuSub>
                     {item.items.map((item) => (
                       <SidebarMenuSubItem key={item.title}>
-                        <SidebarMenuSubButton asChild className=" font-semibold">
+                        <SidebarMenuSubButton
+                          asChild
+                          className=" font-semibold"
+                        >
                           <Link href={item.url}>{item.title}</Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>

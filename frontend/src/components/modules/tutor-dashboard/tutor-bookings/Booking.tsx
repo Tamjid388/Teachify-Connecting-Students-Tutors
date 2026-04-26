@@ -1,6 +1,5 @@
 "use client"
 
-import { useGetAllBookings, useUpdateBookingStatus} from "@/hooks/usebooking";
 import {
     Table,
     TableBody,
@@ -14,34 +13,35 @@ import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
-import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
+import { updateBookingStatusAction } from "@/actions/booking.actions";
+import { useRouter } from "next/navigation";
+import { Spinner } from "@/components/ui/spinner";
 
-export default function Booking() {
-    const { data, isLoading, error,isError } = useGetAllBookings();
-    const {mutate}=useUpdateBookingStatus()
+interface Booking {
+    booking_id: string;
+    student: { name: string; email: string };
+    bookingStatus: string;
+    paymentStatus: string;
+    startTime: string;
+    endTime: string;
+    duration: number;
+    tutionMode: string;
+}
+
+interface BookingProps {
+    bookings: Booking[];
+}
+
+export default function Booking({ bookings }: BookingProps) {
+    const router = useRouter();
     const [selectedStatus, setSelectedStatus] = useState("ALL");
-    const bookings = data?.bookings || [];
+    const [updatingId, setUpdatingId] = useState<string | null>(null);
 
-    if (isLoading) {
-        return (
-            <div className="flex min-h-[min(70vh,calc(100dvh-14rem))] w-full items-center justify-center">
-                <Spinner className="size-10 text-muted-foreground" />
-            </div>
-        );
-    }
-
-    if (isError) {
-        return toast.error("Error loading bookings",{
-            description: error?.message
-        })
-    }
-
-  
     const filteredBookings =
         selectedStatus === "ALL"
             ? bookings
-            : bookings.filter((booking: any) => booking.bookingStatus === selectedStatus);
+            : bookings.filter((booking) => booking.bookingStatus === selectedStatus);
 
     const getPaymentStatusColor = (status: string) => {
         switch (status) {
@@ -56,14 +56,17 @@ export default function Booking() {
         }
     };
 
-    const handleStatusChange = (bookingId: string, status: string) => {
-        // TODO: call mutation to update status
-        console.log("Update booking:", bookingId, "to", status);
-        const payload={id:bookingId,
-            bookingStatus:status}
-            console.log(payload)
-            mutate(payload)
-       
+    const handleStatusChange = async (bookingId: string, status: string) => {
+        setUpdatingId(bookingId);
+        try {
+            await updateBookingStatusAction(bookingId, status);
+            toast.success("Booking status updated!");
+            router.refresh();
+        } catch {
+            toast.error("Failed to update booking status.");
+        } finally {
+            setUpdatingId(null);
+        }
     };
 
     return (
@@ -111,7 +114,7 @@ export default function Booking() {
                                 </TableCell>
                             </TableRow>
                         ) : (
-                            filteredBookings.map((booking: any) => (
+                            filteredBookings.map((booking) => (
                                 <TableRow key={booking.booking_id}>
                                     <TableCell className="font-medium flex flex-col">
                                         {booking.student?.name || "N/A"}
@@ -138,12 +141,17 @@ export default function Booking() {
                                         {booking.bookingStatus !== "COMPLETED" ? (
                                             <Select
                                                 value={booking.bookingStatus}
+                                                disabled={updatingId === booking.booking_id}
                                                 onValueChange={(value) =>
                                                     handleStatusChange(booking.booking_id, value)
                                                 }
                                             >
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select Status" />
+                                                    {updatingId === booking.booking_id ? (
+                                                        <Spinner className="size-4" />
+                                                    ) : (
+                                                        <SelectValue placeholder="Select Status" />
+                                                    )}
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="ACCEPTED">Accept</SelectItem>

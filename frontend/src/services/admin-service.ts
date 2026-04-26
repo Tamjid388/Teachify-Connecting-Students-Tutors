@@ -3,6 +3,42 @@ import { env } from "@/env";
 import { cookies } from "next/headers";
 
 export const adminService = {
+  getAdminStats: async (cookieHeader: string) => {
+    const res = await fetch(`${env.BACKEND_URL}admin/stats`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookieHeader,
+      },
+      next: { tags: ["admin-stats"] },
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch admin stats");
+    const data = await res.json();
+    return data.result;
+  },
+
+  banUser: async (
+    payload: { userId: string; isBanned: boolean },
+    cookieHeader: string,
+  ) => {
+    const res = await fetch(`${env.BACKEND_URL}admin/banUser`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookieHeader,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || "Failed to update user status");
+    }
+
+    return res.json();
+  },
+
   getAllUsers: async () => {
     try {
       const cookieStore = await cookies();

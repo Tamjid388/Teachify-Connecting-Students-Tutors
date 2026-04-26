@@ -1,16 +1,13 @@
-"use client";
-
-import { useGetReviews } from "@/hooks/userReview";
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 export type User = {
   name: string;
   image: string | null;
@@ -19,7 +16,7 @@ export type User = {
 
 export type Booking = {
   booking_id: string;
-  startTime: string; 
+  startTime: string;
   endTime: string;
   createdAt: string;
 };
@@ -36,12 +33,12 @@ export type TReview = {
   user: User;
   booking: Booking;
 };
-export default function ReviewsAndRatings({ profile }: { profile: any }) {
-  const { data, isLoading, error } = useGetReviews(profile?.tutor_id);
-  const reviews:TReview[] = data?.result || [];
 
-  if (isLoading) return <div>Loading reviews...</div>;
-  if (error) return <div>Failed to load reviews</div>;
+interface ReviewsAndRatingsProps {
+  reviews: TReview[];
+}
+
+export default function ReviewsAndRatings({ reviews }: ReviewsAndRatingsProps) {
   if (!reviews.length) return <div>No reviews yet</div>;
 
   return (

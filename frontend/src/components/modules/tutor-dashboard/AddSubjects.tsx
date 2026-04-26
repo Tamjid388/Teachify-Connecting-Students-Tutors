@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useAssignSubjects, useSubjects } from "@/hooks/useCategory";
+import { useState, useTransition } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import {
@@ -13,6 +12,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { assignSubjectsAction } from "@/actions/admin.actions";
+import { useRouter } from "next/navigation";
 
 export type Subject = {
   id: string;
@@ -22,10 +23,14 @@ export type Subject = {
   slug?: string;
 };
 
-export default function AddSubjects() {
-  const { data: result, isLoading, isError, error } = useSubjects();
+interface AddSubjectsProps {
+  subjects: Subject[];
+}
+
+export default function AddSubjects({ subjects }: AddSubjectsProps) {
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
-  const { mutate: assign, isPending } = useAssignSubjects();
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const handleToggleSubject = (subjectId: string) => {
     setSelectedSubjects((prev) =>
@@ -40,24 +45,24 @@ export default function AddSubjects() {
       return toast.error("Please select at least one subject");
     }
 
-    assign(selectedSubjects, {
-      onSuccess: () => {
+    startTransition(async () => {
+      try {
+        await assignSubjectsAction(selectedSubjects);
         toast.success("Subjects assigned successfully!");
-      },
-      onError: (err: Error) => {
-        if (err.message.includes("Tutor not found")) {
-          toast.error("You Havent Created Your Tutor Profile", {
-            description: "Before Assigning Subject Please Make Your Profile",
+        setSelectedSubjects([]);
+        router.refresh();
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : "Something went wrong";
+        if (message.includes("Tutor not found")) {
+          toast.error("You haven't created your tutor profile", {
+            description: "Before assigning subjects, please create your profile.",
           });
         } else {
-          toast.error(err.message || "Something went wrong");
+          toast.error(message);
         }
-      },
+      }
     });
   };
-
-  if (isLoading) return <div>Loading subjects...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
 
   return (
     <Card className="w-full max-w-2xl mx-auto">
@@ -66,7 +71,7 @@ export default function AddSubjects() {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {result.data?.map((item: Subject) => (
+          {subjects.map((item) => (
             <div
               key={item.id}
               className="flex items-start space-x-3 p-2 rounded-lg hover:bg-muted/50 transition-colors"

@@ -2,20 +2,23 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { Role } from "../../prisma/generated/prisma/enums";
+import { oAuthProxy } from "better-auth/plugins";
 
 const isProd = process.env.NODE_ENV === "production";
 
 export const auth = betterAuth({
-
-  baseURL: process.env.BETTER_AUTH_URL || "https://teachify-server.vercel.app",
-   
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  // baseURL: process.env.App_URL,//for production
+  baseURL: process.env.App_URL, 
+  // baseURL: process.env.BETTER_AUTH_URL || "https://teachify-server.vercel.app",
   trustedOrigins: [process.env.App_URL!],
-
+  
+  emailAndPassword: {
+    enabled: true,
+  },
   advanced: {
+
     cookies: {
       session_token: {
         name: "session_token", // Force this exact name
@@ -38,8 +41,6 @@ export const auth = betterAuth({
     },
   },
 
-
-
   user: {
     additionalFields: {
       role: {
@@ -49,7 +50,6 @@ export const auth = betterAuth({
       },
     },
   },
-  emailAndPassword: {
-    enabled: true,
-  },
+
+  plugins: [oAuthProxy()],
 });

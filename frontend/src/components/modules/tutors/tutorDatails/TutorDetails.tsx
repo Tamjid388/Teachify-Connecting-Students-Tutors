@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import {
   Star,
   Clock,
   BookOpen,
   CheckCircle2,
-  Calendar,
   MessageCircle,
 } from "lucide-react";
 import BookingCard from "./BookingCard/BookingCard";
@@ -25,55 +23,23 @@ interface TutorData {
   categories: string[];
 }
 
+export type AvailabilitySlot = {
+  id: string;
+  tutorId: string;
+  day: string;
+  startTime: string;
+  endTime: string;
+  isBooked: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
 interface TutorDetailsProps {
   data: TutorData;
+  slots: AvailabilitySlot[];
 }
 
-export default function TutorDetails({ data }: TutorDetailsProps) {
-  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<string>("");
-
-  // Generate next 7 days for booking
-  const getAvailableDates = () => {
-    const dates = [];
-    for (let i = 0; i < 7; i++) {
-      const date = new Date();
-      date.setDate(date.getDate() + i);
-      dates.push(date);
-    }
-    return dates;
-  };
-
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    });
-  };
-
-  const timeSlots = {
-    MORNING: ["8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM"],
-    AFTERNOON: ["12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"],
-    EVENING: ["5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM"],
-  };
-
-  const availableSlots =
-    timeSlots[data?.avilability_slot as keyof typeof timeSlots] || [];
-
-  const handleBooking = () => {
-    if (!selectedDate || !selectedSlot) {
-      alert("Please select a date and time slot");
-      return;
-    }
-    // Handle booking logic here
-    console.log("Booking:", {
-      tutorId: data.tutor_id,
-      date: selectedDate,
-      slot: selectedSlot,
-    });
-    alert(`Booking confirmed for ${selectedDate} at ${selectedSlot}`);
-  };
+export default function TutorDetails({ data, slots }: TutorDetailsProps) {
 
   return (
     <div className="min-h-screen ">
@@ -327,7 +293,7 @@ export default function TutorDetails({ data }: TutorDetailsProps) {
 
           {/* Right Column - Booking */}
           <div className="lg:col-span-1">
-            <BookingCard tutorId={data?.tutor_id} />
+            <BookingCard slots={slots} />
           </div>
         </div>
       </div>

@@ -97,7 +97,7 @@ export const tutorService = {
         revalidate: 120,
       },
     });
- 
+
     return res.json();
   },
 
@@ -151,13 +151,35 @@ export const tutorService = {
     }
   },
 
-  getSlotById: async (slotId: string) => {
-    const res = await fetch(`${env.BACKEND_URL}tutors/slots/${slotId}`, {
+  getSlotById: async (tutorId: string, cookieHeader?: string) => {
+    const res = await fetch(`${env.BACKEND_URL}tutors/slots/${tutorId}`, {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+      },
     });
 
     if (!res.ok) {
       throw new Error("Failed to fetch slot data");
+    }
+
+    return res.json();
+  },
+
+  getSlotsByTutorId: async (tutorId: string) => {
+    const res = await fetch(
+      `${env.NEXT_PUBLIC_BACKEND_URL}tutors/slots/${tutorId}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      },
+    );
+
+    if (!res.ok) {
+      const errorBody = await res.json().catch(() => ({}));
+      throw new Error(errorBody.message || "Could not fetch slot data");
     }
 
     return res.json();

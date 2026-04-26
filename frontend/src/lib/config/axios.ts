@@ -1,7 +1,11 @@
 import { env } from "@/env";
 import axios from "axios";
 
+// export const api = axios.create({
+//   baseURL: env.NEXT_PUBLIC_BACKEND_URL,
+//   withCredentials: true, 
+// });
 export const api = axios.create({
-  baseURL: env.NEXT_PUBLIC_BACKEND_URL,
-  withCredentials: true, 
+  baseURL: "/api/",
+  withCredentials: true,
 });

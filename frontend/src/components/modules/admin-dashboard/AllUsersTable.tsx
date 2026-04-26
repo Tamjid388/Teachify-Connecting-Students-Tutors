@@ -16,8 +16,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useBanUser } from "@/hooks/useAdmin";
+import { banUserAction } from "@/actions/admin.actions";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { toast } from "sonner";
 
 interface User {
   id: string;
@@ -37,14 +39,19 @@ interface AllUsersTableProps {
 }
 
 export default function AllUsersTable({ users }: AllUsersTableProps) {
-  const { mutate: banUser } = useBanUser();
-const router = useRouter()
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
   const handleBan = (userId: string, isBanned: boolean) => {
-    const payload = { userId, isBanned };
-    console.log("Ban user payload:", payload);
-    banUser(payload,{
-      onSuccess:()=>{
-        router.refresh()
+    startTransition(async () => {
+      try {
+        const result = await banUserAction({ userId, isBanned });
+        toast.success(result?.message || "User status updated successfully");
+        router.refresh();
+      } catch (error) {
+        toast.error(
+          error instanceof Error ? error.message : "Failed to update user status",
+        );
       }
     });
   };
@@ -96,6 +103,7 @@ const router = useRouter()
               <TableCell>
                 <Select
                   value={user.isBanned ? "banned" : "active"}
+                  disabled={isPending}
                   onValueChange={(value) => {
                     handleBan(user.id, value === "banned");
                   }}

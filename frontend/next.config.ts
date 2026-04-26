@@ -21,9 +21,13 @@ const nextConfig: NextConfig = {
       {
         source: "/api/auth/:path*",
         destination: `${process.env.NEXT_PUBLIC_BACKEND_URL}auth/:path*`,
+      },  {
+      
+        source: "/api/:path*",
+        destination: process.env.NEXT_PUBLIC_BACKEND_URL + ":path*",
       },
     ];
-  },
+  }, 
 };
 
 export default nextConfig;
