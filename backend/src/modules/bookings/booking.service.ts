@@ -4,7 +4,7 @@ import { prisma } from "../../lib/prisma";
 import { stripe } from "../../config/stripe";
 
 const createBooking = async (data: any, userId: string) => {
-  console.log("Booking Data", data);
+ 
 
   const { slotId, startTime, endTime, hourlyRate } = data;
 
@@ -174,9 +174,32 @@ const updateBookingStatus = async (
   id: string,
   bookingStatus: BookingStatus,
 ) => {
-  return await prisma.booking.update({
-    where: { booking_id: id },
-    data: { bookingStatus },
+  return await prisma.$transaction(async (tx) => {
+  
+    const currentBooking = await tx.booking.findUnique({
+      where: { booking_id: id },
+    });
+   
+    if (
+      currentBooking?.bookingStatus === BookingStatus.REJECTED ||
+      currentBooking?.bookingStatus === BookingStatus.CANCELLED
+    ) {
+      throw new Error("Cannot update a rejected or cancelled booking");
+    }
+    const booking = await tx.booking.update({
+      where: { booking_id: id },
+      data: { bookingStatus },
+    });
+    if (
+      bookingStatus === BookingStatus.REJECTED ||
+      bookingStatus === BookingStatus.CANCELLED
+    ) {
+      await tx.availabilitySlot.update({
+        where: { id: booking.slotId },
+        data: { isBooked: false },
+      });
+    }
+    return booking;
   });
 };
 

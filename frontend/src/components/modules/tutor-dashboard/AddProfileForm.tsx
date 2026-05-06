@@ -36,12 +36,12 @@ const formSchema = z.object({
     .string()
     .min(30, "Bio must be at least 30 characters.")
     .max(300, "Bio must be at most 300 characters."),
-
   experience: z.number().min(0).max(30),
   education: z
     .string()
     .min(5, "Education must be at least 5 characters.")
     .max(100),
+  hourlyRate: z.number().min(1, "Hourly rate must be at least 1."),
 });
 
 export default function AddProfileForm({ profile }: { profile: any }) {
@@ -50,9 +50,9 @@ export default function AddProfileForm({ profile }: { profile: any }) {
     defaultValues: {
       image: profile.image || "",
       bio: profile.bio || "",
-
       experience: profile.experience || 0,
       education: profile.education || "",
+      hourlyRate: profile.hourlyRate || 0,
     },
     validators: {
       onSubmit: formSchema,
@@ -188,6 +188,35 @@ export default function AddProfileForm({ profile }: { profile: any }) {
                       onChange={(e) => field.handleChange(e.target.value)}
                       placeholder="BSc in Computer Science"
                     />
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                );
+              }}
+            </form.Field>
+
+            {/* Hourly Rate */}
+            <form.Field name="hourlyRate">
+              {(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel>Hourly Rate (BDT)</FieldLabel>
+                    <Input
+                      type="number"
+                      min={1}
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(e) =>
+                        field.handleChange(Number(e.target.value))
+                      }
+                      placeholder="e.g. 500"
+                    />
+                    <FieldDescription>
+                      Amount students will be charged per session.
+                    </FieldDescription>
                     {isInvalid && (
                       <FieldError errors={field.state.meta.errors} />
                     )}

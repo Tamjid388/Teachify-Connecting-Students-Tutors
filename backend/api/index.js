@@ -819,9 +819,24 @@ var getBookingById = async (id, role) => {
   }
 };
 var updateBookingStatus = async (id, bookingStatus) => {
-  return await prisma.booking.update({
-    where: { booking_id: id },
-    data: { bookingStatus }
+  return await prisma.$transaction(async (tx) => {
+    const currentBooking = await tx.booking.findUnique({
+      where: { booking_id: id }
+    });
+    if (currentBooking?.bookingStatus === BookingStatus.REJECTED || currentBooking?.bookingStatus === BookingStatus.CANCELLED) {
+      throw new Error("Cannot update a rejected or cancelled booking");
+    }
+    const booking = await tx.booking.update({
+      where: { booking_id: id },
+      data: { bookingStatus }
+    });
+    if (bookingStatus === BookingStatus.REJECTED || bookingStatus === BookingStatus.CANCELLED) {
+      await tx.availabilitySlot.update({
+        where: { id: booking.slotId },
+        data: { isBooked: false }
+      });
+    }
+    return booking;
   });
 };
 var syncBookingStatus = async (id, bookingStatus) => {

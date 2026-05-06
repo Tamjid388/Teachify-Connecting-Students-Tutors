@@ -32,7 +32,8 @@
     "start": "node api/index.js",
     "prisma:migrate": "prisma migrate dev --name init && prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "prisma:seed": "tsx src/lib/seed.ts"
   },
   "keywords": [],
   "author": "",

@@ -1,8 +1,20 @@
 // for api call
 export interface getAllTutorsParams {
+  search?: string;
   searchQuery?: string;
   rating?: number;
   experience?: number;
+  page?: number;
+  limit?: number;
+}
+
+export interface TutorsPaginationMeta {
+  totalItems: number;
+  totalPages: number;
+  currentPage: number;
+  limit: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
 }
 
 

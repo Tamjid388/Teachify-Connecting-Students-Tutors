@@ -6,11 +6,10 @@ import { ModeToggle } from "./ModeToggle";
 import Link from "next/link";
 import { userService } from "@/services/user-service";
 import { USER_ROLES, UserRole } from "@/Types/TRoles";
-import { signOut } from "@/lib/auth-client";
 import Logout from "../../auth/logout";
 
 const Navbar = async () => {
-  const { data, error } = await userService.getSession();
+  const { data } = await userService.getSession();
   const user = data?.user;
   function getDashboardRoute(role: UserRole | undefined) {
     switch (role) {
@@ -25,7 +24,7 @@ const Navbar = async () => {
     }
   }
 
-  const dashboardRoute = getDashboardRoute(user?.role);
+  const dashboardRoute = user ? getDashboardRoute(user.role) : undefined;
   return (
     <nav className="h-16 border-b bg-background">
       <div className="mx-auto flex h-full max-w-(--breakpoint-xl) items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -67,7 +66,7 @@ const Navbar = async () => {
           <ModeToggle />
           {/* Mobile Menu */}
           <div className="md:hidden">
-            <NavigationSheet />
+            <NavigationSheet dashboardRoute={dashboardRoute} />
           </div>
         </div>
       </div>

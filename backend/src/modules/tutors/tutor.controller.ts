@@ -53,18 +53,40 @@ const myProfile = async (req: Request, res: Response) => {
 
 const getAllTutors = async (req: Request, res: Response) => {
   try {
-    const { rating } = req.query;
-    const { search } = req.query;
+    const { rating, search, page = "1", limit = "10" } = req.query;
+
     const searchString = typeof search === "string" ? search : undefined;
     const ratingString = typeof rating === "string" ? rating : undefined;
+    const pageNum = Number(page);
+    const limitNum = Number(limit);
+
+    if (
+      !Number.isInteger(pageNum) ||
+      !Number.isInteger(limitNum) ||
+      pageNum < 1 ||
+      limitNum < 1 ||
+      limitNum > 100
+    ) {
+      throw new Error("Invalid pagination params");
+    }
     const result = await tutorServices.getAllTutors({
       search: searchString,
       rating: ratingString,
+      page: pageNum,
+      limit: limitNum,
     });
     res.status(200).json({
       success: true,
       message: "tutors retrieved successfully",
-      result,
+      result: result.tutors,
+      pagination: {
+        totalItems: result.count,
+        totalPages: result.totalPages,
+        currentPage: result.currentPage,
+        limit: result.limit,
+        hasNextPage: result.currentPage < result.totalPages,
+        hasPreviousPage: result.currentPage > 1,
+      },
     });
   } catch (error) {
     console.error(error);
@@ -143,7 +165,6 @@ export const addAvailabilitySlots = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.id;
 
-    console.log(req.body);
     const slots = req.body.slots;
     if (!userId) return res.status(401).json({ message: "User ID required" });
 

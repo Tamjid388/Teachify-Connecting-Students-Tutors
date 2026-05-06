@@ -8,6 +8,7 @@ export type TutorProfilePayload = {
   rating?: number;
   experience: number;
   education: string;
+  hourlyRate: number;
 };
 
 export const tutorService = {

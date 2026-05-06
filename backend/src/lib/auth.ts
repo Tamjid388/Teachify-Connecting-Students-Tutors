@@ -10,8 +10,8 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  baseURL: process.env.App_URL, 
-  // baseURL: process.env.BETTER_AUTH_URL || "https://teachify-server.vercel.app",
+  // baseURL: process.env.App_URL, 
+  baseURL: process.env.BETTER_AUTH_URL ,
   trustedOrigins: [process.env.App_URL!],
   
   emailAndPassword: {

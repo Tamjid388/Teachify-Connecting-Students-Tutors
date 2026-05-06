@@ -13,7 +13,7 @@ import {
 export const NavMenu = ({
   dashboardRoute,
   ...props
-}: { dashboardRoute: string } & ComponentProps<typeof NavigationMenu>) => (
+}: { dashboardRoute?: string } & ComponentProps<typeof NavigationMenu>) => (
   <NavigationMenu {...props}>
     <NavigationMenuList className="data-[orientation=vertical]:-ms-2 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start data-[orientation=vertical]:justify-start">
       <NavigationMenuItem>
@@ -33,9 +33,16 @@ export const NavMenu = ({
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href={dashboardRoute}>Dashboard</Link>
+          <Link href="/contact">Contact</Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
+      {dashboardRoute ? (
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link href={dashboardRoute}>Dashboard</Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+      ) : null}
     </NavigationMenuList>
   </NavigationMenu>
 );

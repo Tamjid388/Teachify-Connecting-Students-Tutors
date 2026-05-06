@@ -49,11 +49,15 @@ const myProfile = async (user: AuthUser) => {
 const getAllTutors = async ({
   search,
   rating,
+  page,
+  limit,
 }: {
   search: string | undefined;
   rating: string | undefined;
+  page: number;
+  limit: number;
 }) => {
-  const numericRating = rating ? Number(rating) : undefined;
+  const skip = (page - 1) * limit;
 
   const whereConditions: TutorWhereInput[] = [];
 
@@ -90,6 +94,11 @@ const getAllTutors = async ({
     });
   }
 
+  const totalItems = await prisma.tutor.count({
+    where: {
+      AND: whereConditions
+    },
+  });
   const tutors = await prisma.tutor.findMany({
     where: {
       AND: whereConditions,
@@ -102,9 +111,17 @@ const getAllTutors = async ({
         include: { category: true },
       },
     },
+    skip,
+    take: limit,
   });
 
-  return tutors;
+  return {
+    tutors,
+    count:totalItems,
+    totalPages: Math.ceil(totalItems / limit),
+    currentPage: page,
+    limit,
+  };
 };
 
 const updateTutor = async (body: TutorUpdateInput, user: AuthUser) => {

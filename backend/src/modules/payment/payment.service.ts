@@ -50,23 +50,23 @@ const handleStripeWebHookEvent = async (event: Stripe.Event) => {
           },
         });
       });
-      console.log("Payment processed successfully");
+    
       break;
     case "checkout.session.expired": {
       const session = event.data.object;
-      console.log("Checkout session expired", session);
+    
 
       break;
     }
     case "payment_intent.payment_failed":
       {
         const session = event.data.object;
-        console.log("Payment intent payment failed", session);
+      
         break;
       }
       break;
     default: {
-      console.log("Unhandled event type", event.type);
+     
       break;
     }
   }

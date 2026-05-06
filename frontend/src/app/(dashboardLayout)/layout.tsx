@@ -26,7 +26,7 @@ export default async function DashboardLayout({
   student: React.ReactNode;
   tutor: React.ReactNode;
 }) {
-  const { data, error } = await userService.getSession();
+  const { data } = await userService.getSession();
   const user = data?.user;
 console.log("dashboard layout user",user)
   const userInfo: { role: UserRole } = {
@@ -44,14 +44,12 @@ console.log("dashboard layout user",user)
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Build Your Application
+                  <BreadcrumbLink>
+                  {user?.role}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
+          
               </BreadcrumbList>
             </Breadcrumb>
           </div>

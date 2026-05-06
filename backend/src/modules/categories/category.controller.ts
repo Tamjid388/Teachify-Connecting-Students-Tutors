@@ -4,7 +4,7 @@ import { categoryServices } from "./category.service";
 const addSubjects = async (req: Request, res: Response) => {
   try {
     const body = req.body;
-    console.log(body);
+  
     const result = await categoryServices.addSubjects(body);
 
     return res.status(201).json({
@@ -39,7 +39,7 @@ const getAllSubjects = async (req: Request, res: Response) => {
 const assignSubject = async (req: Request, res: Response) => {
   try {
     const body = req.body;
-    console.log(body);
+   
     const tutorId = req.user?.id;
     if (!tutorId) {
       return res.status(404).json({

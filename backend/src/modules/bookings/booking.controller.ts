@@ -70,7 +70,7 @@ const updateBookingStatus = async (req: Request, res: Response) => {
     const { id } = req.params;
     const role = req.user?.role;
     const { bookingStatus } = req.body;
-    console.log("Booking Status", bookingStatus,id);
+ 
     if (!id) {
       return res.status(401).json({ message: "User Id Required" });
     }

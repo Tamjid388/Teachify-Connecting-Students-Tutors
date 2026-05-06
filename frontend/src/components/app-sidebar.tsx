@@ -69,18 +69,28 @@ export function AppSidebar({
                   <h1 className="font-bold text-xl   mb-2">{item.title}</h1>
                 </SidebarMenuButton>
                 {item.items?.length ? (
-                  <SidebarMenuSub>
-                    {item.items.map((item) => (
-                      <SidebarMenuSubItem key={item.title}>
-                        <SidebarMenuSubButton
-                          asChild
-                          className=" font-semibold"
-                        >
-                          <Link href={item.url}>{item.title}</Link>
+                  <>
+                    <SidebarMenuSub>
+                      {item.items.map((item) => (
+                        <SidebarMenuSubItem key={item.title}>
+                          <SidebarMenuSubButton
+                            asChild
+                            className=" font-semibold"
+                          >
+                            <Link href={item.url}>{item.title}</Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+
+                    <SidebarMenuSub>
+                      <SidebarMenuSubItem>
+                        <SidebarMenuSubButton asChild>
+                          <Link href="/">Back to Home</Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
+                    </SidebarMenuSub>
+                  </>
                 ) : null}
               </SidebarMenuItem>
             ))}

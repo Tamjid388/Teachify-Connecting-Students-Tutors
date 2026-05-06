@@ -15,7 +15,7 @@ export default function TutorCard({ tutor }: { tutor: TTutor }) {
         {/* Image  */}
         <div className="rounded-2xl  relative w-full h-48 overflow-hidden bg-gradient-to-br from-custom-primary/5 to-custom-secondary/5">
           <Image
-            src={tutor.image} 
+            src={tutor.image || "/defualt.png"} 
             alt={`${"Tutor"} profile picture`}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -43,11 +43,11 @@ export default function TutorCard({ tutor }: { tutor: TTutor }) {
 
         {/* Content */}
         <div className="p-5 space-y-4">
-          <CardTitle className="text-custom-primary">
+          <CardTitle className="text-custom-primary dark:text-zinc-200">
             {tutor?.user?.name}
           </CardTitle>
           {/* Bio */}
-          <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
+          <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 dark:text-zinc-400">
             {tutor.bio}
           </p>
 
@@ -57,8 +57,8 @@ export default function TutorCard({ tutor }: { tutor: TTutor }) {
             <div className="flex items-start gap-2.5 text-sm group/item">
               <GraduationCap className="w-4 h-4 mt-0.5 text-custom-primary shrink-0" />
               <div className="flex-1 min-w-0">
-                <span className="text-gray-500 text-xs">Education</span>
-                <p className="font-medium text-gray-800 line-clamp-1">
+                <span className="text-gray-500 dark:text-zinc-500 text-xs">Education</span>
+                <p className="font-medium text-gray-800 dark:text-zinc-300 line-clamp-1">
                   {tutor.education}
                 </p>
               </div>
@@ -68,8 +68,8 @@ export default function TutorCard({ tutor }: { tutor: TTutor }) {
             <div className="flex items-start gap-2.5 text-sm">
               <Briefcase className="w-4 h-4 mt-0.5 text-custom-secondary shrink-0" />
               <div className="flex-1">
-                <span className="text-gray-500 text-xs">Experience</span>
-                <p className="font-medium text-gray-800">
+                <span className="text-gray-500 dark:text-zinc-500 text-xs">Experience</span>
+                <p className="font-medium text-gray-800 dark:text-zinc-300">
                   {tutor.experience} {tutor.experience === 1 ? 'year' : 'years'}
                 </p>
               </div>
@@ -79,8 +79,8 @@ export default function TutorCard({ tutor }: { tutor: TTutor }) {
             <div className="flex items-start gap-2.5 text-sm">
               <Clock className="w-4 h-4 mt-0.5 text-custom-accent shrink-0" />
               <div className="flex-1">
-                <span className="text-gray-500 text-xs">Availability</span>
-                <p className="font-medium text-gray-800">
+                <span className="text-gray-500 dark:text-zinc-500 text-xs">Availability</span>
+                <p className="font-medium text-gray-800 dark:text-zinc-300">
                   {tutor.avilability_slot}
                 </p>
               </div>

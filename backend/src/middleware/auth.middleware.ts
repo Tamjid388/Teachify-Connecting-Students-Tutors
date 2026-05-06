@@ -38,7 +38,7 @@ const authMiddleware = (...roles: Role[]) => {
         name: session.user.name,
         role: session.user.role as string,
       };
-      console.log("User Role:", req.user.role);
+
       if (roles.length && !roles.includes(req.user.role as Role)) {
         return res.status(403).json({
           success: false,
